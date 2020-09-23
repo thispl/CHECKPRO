@@ -1,0 +1,103 @@
+{
+ "autoname": "format:{customer_short_code}-{CP}-{###}",
+ "creation": "2020-05-11 17:55:14.089510",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "pricing_model",
+  "column_break_3",
+  "customer_short_code",
+  "package_tat",
+  "section_break_6",
+  "check_name",
+  "checks_list",
+  "gsp",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "pricing_model",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Pricing Model",
+   "options": "\nUnits\nFixed"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.short_code",
+   "fieldname": "customer_short_code",
+   "fieldtype": "Data",
+   "label": "Customer Short Code"
+  },
+  {
+   "fieldname": "package_tat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Package TAT"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Checks"
+  },
+  {
+   "fieldname": "check_name",
+   "fieldtype": "HTML",
+   "label": "Check Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checks_list",
+   "fieldtype": "Table",
+   "label": "Checks List",
+   "options": "Checks List"
+  },
+  {
+   "fieldname": "gsp",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Gross Selling Price"
+  },
+  {
+   "default": "0",
+   "fieldname": "description",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Description"
+  }
+ ],
+ "modified": "2020-09-23 11:22:50.615423",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Check Package",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

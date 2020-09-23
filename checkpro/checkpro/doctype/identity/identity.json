@@ -1,0 +1,499 @@
+{
+ "autoname": "Identity -.###",
+ "creation": "2020-06-06 10:22:19.353464",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "id_proof",
+  "aadhar_card_details_section",
+  "aadhar_number",
+  "dob_1",
+  "address_1",
+  "col1_column",
+  "name_1",
+  "gender",
+  "additional_information_1",
+  "pan_card_details_section",
+  "first_name",
+  "last_name",
+  "dob_6",
+  "col2_column",
+  "additional_information_2",
+  "voter_id_details_section",
+  "voter_id_number",
+  "name__2",
+  "father_name_1",
+  "col3_column",
+  "dob_2",
+  "address_2",
+  "additional_information_3",
+  "ration_card_details_section",
+  "ration_card_number",
+  "ward_number",
+  "street_number",
+  "door_number",
+  "col4_column",
+  "shop_name",
+  "additional_information_4",
+  "driving_licence_details_section",
+  "driving_licence_number",
+  "name_3",
+  "dob_3",
+  "col5_column",
+  "valid_from",
+  "valid_to",
+  "address_3",
+  "additional_information_5",
+  "passport_details_section",
+  "passport_number",
+  "sur_name",
+  "given_name",
+  "place_of_birth",
+  "dob_4",
+  "place_of_issue",
+  "date_of_issue",
+  "date_of_expiry",
+  "nationality",
+  "address_4",
+  "additional_information_6",
+  "section_break_70",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\n\\Completed\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "id_proof",
+   "fieldtype": "Select",
+   "label": "ID Proof",
+   "options": "Aadhar Card\nPan Card\nVoter ID\nRation Card\nPassport\nDriving Licence"
+  },
+  {
+   "fieldname": "aadhar_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "Aadhar Card Details"
+  },
+  {
+   "fieldname": "aadhar_number",
+   "fieldtype": "Int",
+   "label": "Aadhar Number"
+  },
+  {
+   "fieldname": "dob_1",
+   "fieldtype": "Date",
+   "label": "DOB 1"
+  },
+  {
+   "fieldname": "address_1",
+   "fieldtype": "Data",
+   "label": "Address 1"
+  },
+  {
+   "fieldname": "col1_column",
+   "fieldtype": "Column Break",
+   "label": "Col1"
+  },
+  {
+   "fieldname": "name_1",
+   "fieldtype": "Data",
+   "label": "Name 1"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "Female\nMale\nOthers"
+  },
+  {
+   "fieldname": "additional_information_1",
+   "fieldtype": "Data",
+   "label": "Additional Information 1"
+  },
+  {
+   "fieldname": "pan_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "PAN Card Details"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "dob_6",
+   "fieldtype": "Data",
+   "label": "DOB 6"
+  },
+  {
+   "fieldname": "col2_column",
+   "fieldtype": "Column Break",
+   "label": "Col2"
+  },
+  {
+   "fieldname": "additional_information_2",
+   "fieldtype": "Data",
+   "label": "Additional Information 2"
+  },
+  {
+   "fieldname": "voter_id_details_section",
+   "fieldtype": "Section Break",
+   "label": "Voter ID Details"
+  },
+  {
+   "fieldname": "voter_id_number",
+   "fieldtype": "Data",
+   "label": "Voter ID Number"
+  },
+  {
+   "fieldname": "name__2",
+   "fieldtype": "Data",
+   "label": "Name  2"
+  },
+  {
+   "fieldname": "father_name_1",
+   "fieldtype": "Data",
+   "label": "Father Name 1"
+  },
+  {
+   "fieldname": "col3_column",
+   "fieldtype": "Column Break",
+   "label": "Col3"
+  },
+  {
+   "fieldname": "dob_2",
+   "fieldtype": "Date",
+   "label": "DOB 2"
+  },
+  {
+   "fieldname": "address_2",
+   "fieldtype": "Small Text",
+   "label": "Address 2"
+  },
+  {
+   "fieldname": "additional_information_3",
+   "fieldtype": "Data",
+   "label": "Additional Information 3"
+  },
+  {
+   "fieldname": "ration_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "Ration Card Details"
+  },
+  {
+   "fieldname": "ration_card_number",
+   "fieldtype": "Int",
+   "label": "Ration Card Number"
+  },
+  {
+   "fieldname": "ward_number",
+   "fieldtype": "Data",
+   "label": "Ward Number"
+  },
+  {
+   "fieldname": "street_number",
+   "fieldtype": "Int",
+   "label": "Street Number"
+  },
+  {
+   "fieldname": "door_number",
+   "fieldtype": "Data",
+   "label": "Door Number"
+  },
+  {
+   "fieldname": "col4_column",
+   "fieldtype": "Column Break",
+   "label": "Col4"
+  },
+  {
+   "fieldname": "shop_name",
+   "fieldtype": "Data",
+   "label": "Shop Name"
+  },
+  {
+   "fieldname": "additional_information_4",
+   "fieldtype": "Data",
+   "label": "Additional Information 4"
+  },
+  {
+   "fieldname": "driving_licence_details_section",
+   "fieldtype": "Section Break",
+   "label": "Driving Licence Details"
+  },
+  {
+   "fieldname": "driving_licence_number",
+   "fieldtype": "Data",
+   "label": "Driving Licence Number"
+  },
+  {
+   "fieldname": "name_3",
+   "fieldtype": "Data",
+   "label": "Name 3"
+  },
+  {
+   "fieldname": "dob_3",
+   "fieldtype": "Date",
+   "label": "DOB 3"
+  },
+  {
+   "fieldname": "col5_column",
+   "fieldtype": "Column Break",
+   "label": "Col5"
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  },
+  {
+   "fieldname": "address_3",
+   "fieldtype": "Data",
+   "label": "Address 3"
+  },
+  {
+   "fieldname": "additional_information_5",
+   "fieldtype": "Data",
+   "label": "Additional Information 5"
+  },
+  {
+   "fieldname": "passport_details_section",
+   "fieldtype": "Section Break",
+   "label": "Passport Details"
+  },
+  {
+   "fieldname": "passport_number",
+   "fieldtype": "Data",
+   "label": "Passport Number"
+  },
+  {
+   "fieldname": "sur_name",
+   "fieldtype": "Data",
+   "label": "Sur Name"
+  },
+  {
+   "fieldname": "given_name",
+   "fieldtype": "Data",
+   "label": "Given Name"
+  },
+  {
+   "fieldname": "place_of_birth",
+   "fieldtype": "Data",
+   "label": "Place of Birth"
+  },
+  {
+   "fieldname": "dob_4",
+   "fieldtype": "Date",
+   "label": "DOB 4"
+  },
+  {
+   "fieldname": "place_of_issue",
+   "fieldtype": "Data",
+   "label": "Place of Issue"
+  },
+  {
+   "fieldname": "date_of_issue",
+   "fieldtype": "Date",
+   "label": "Date of Issue"
+  },
+  {
+   "fieldname": "date_of_expiry",
+   "fieldtype": "Date",
+   "label": "Date of Expiry"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Select",
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "address_4",
+   "fieldtype": "Data",
+   "label": "Address 4"
+  },
+  {
+   "fieldname": "additional_information_6",
+   "fieldtype": "Data",
+   "label": "Additional Information 6"
+  },
+  {
+   "fieldname": "section_break_70",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:54.282924",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Identity",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

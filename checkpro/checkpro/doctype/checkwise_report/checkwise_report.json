@@ -1,0 +1,54 @@
+{
+ "creation": "2020-06-23 11:36:20.656142",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "checks",
+  "column_break_2",
+  "check_status",
+  "description",
+  "units"
+ ],
+ "fields": [
+  {
+   "fieldname": "checks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Checks"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Status"
+  },
+  {
+   "default": "0",
+   "fieldname": "description",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "units",
+   "fieldtype": "Int",
+   "label": "Units"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:27.692073",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Checkwise Report",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

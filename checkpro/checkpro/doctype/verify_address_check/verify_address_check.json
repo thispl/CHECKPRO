@@ -1,0 +1,277 @@
+{
+ "autoname": "Verify Address Check-.###",
+ "creation": "2020-06-05 14:02:22.455057",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "address_type",
+  "residence_type",
+  "past_address",
+  "present_address",
+  "permanent_address",
+  "period_of_stay_from",
+  "period_of_stay_to",
+  "additional_information",
+  "verification_details_section",
+  "verified_by",
+  "column_break_30",
+  "designation",
+  "date_of_entry",
+  "date_of_initiation",
+  "section_break_33",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "Address Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "address_type",
+   "fieldtype": "Select",
+   "label": "Address Type",
+   "options": "Present\nPermanent"
+  },
+  {
+   "fieldname": "residence_type",
+   "fieldtype": "Select",
+   "label": "Residence Type",
+   "options": "Owned\nRental\nHostel\nPaying Guest\nLease\nRelative's Home"
+  },
+  {
+   "fieldname": "past_address",
+   "fieldtype": "Small Text",
+   "label": "Past Address"
+  },
+  {
+   "fieldname": "present_address",
+   "fieldtype": "Small Text",
+   "label": "Present Address"
+  },
+  {
+   "fieldname": "permanent_address",
+   "fieldtype": "Small Text",
+   "label": "Permanent Address"
+  },
+  {
+   "fieldname": "period_of_stay_from",
+   "fieldtype": "Date",
+   "label": "Period of Stay From"
+  },
+  {
+   "fieldname": "period_of_stay_to",
+   "fieldtype": "Date",
+   "label": "Period of Stay To"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Small Text",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Data",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Relation with proifile"
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Data",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "section_break_33",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:34.578748",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Address Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

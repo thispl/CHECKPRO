@@ -1,0 +1,295 @@
+{
+ "autoname": "Employment Check-.###",
+ "creation": "2020-06-05 12:03:23.921819",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "employee_name",
+  "employee_code",
+  "employer_name",
+  "address",
+  "employment_type",
+  "period_of_employment_from",
+  "period_of_employment_to",
+  "joining_designation",
+  "column_break_24",
+  "leaving_designation",
+  "name_of_reporting_manager",
+  "designation_of_reporting_manager",
+  "reason_for_departure",
+  "character_and_conduct",
+  "gap_in_employment",
+  "eligible_for_rehire",
+  "additional_information",
+  "section_break_34",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "employee_code",
+   "fieldtype": "Data",
+   "label": "Employee Code"
+  },
+  {
+   "fieldname": "employer_name",
+   "fieldtype": "Data",
+   "label": "Employer Name"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "employment_type",
+   "fieldtype": "Select",
+   "label": "Employment Type",
+   "options": "Temporary\nPermanent\nContract"
+  },
+  {
+   "fieldname": "period_of_employment_from",
+   "fieldtype": "Date",
+   "label": "Period of Employment From"
+  },
+  {
+   "fieldname": "period_of_employment_to",
+   "fieldtype": "Date",
+   "label": "Period of Employment To"
+  },
+  {
+   "fieldname": "joining_designation",
+   "fieldtype": "Data",
+   "label": "Joining Designation"
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leaving_designation",
+   "fieldtype": "Data",
+   "label": "Leaving Designation"
+  },
+  {
+   "fieldname": "name_of_reporting_manager",
+   "fieldtype": "Data",
+   "label": "Name of Reporting Manager "
+  },
+  {
+   "fieldname": "designation_of_reporting_manager",
+   "fieldtype": "Data",
+   "label": "Designation of Reporting Manager "
+  },
+  {
+   "fieldname": "reason_for_departure",
+   "fieldtype": "Select",
+   "label": "Reason for Departure",
+   "options": "Better Job Opportunity\nPersonal Reason\nTerminate\nHealth Issue\nNot Provided\nLack Of Knowledge"
+  },
+  {
+   "fieldname": "character_and_conduct",
+   "fieldtype": "Select",
+   "label": "Character And Conduct ",
+   "options": "Good\nAverage\nWorst"
+  },
+  {
+   "fieldname": "gap_in_employment",
+   "fieldtype": "Select",
+   "label": "Gap in Employment",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "eligible_for_rehire",
+   "fieldtype": "Select",
+   "label": "Eligible for Rehire",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Small Text",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "section_break_34",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:38.930666",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Employment Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

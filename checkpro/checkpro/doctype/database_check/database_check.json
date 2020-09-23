@@ -1,0 +1,242 @@
+{
+ "autoname": "Database Check-.###",
+ "creation": "2020-06-11 17:37:53.764634",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "central_bureau_of_investigation_india",
+  "high_court_records_check",
+  "interpol_most_wanted",
+  "column_break_21",
+  "loan_defaulters_list_reserve_bank_of_india",
+  "securities_and_exchange_board_of_india",
+  "supreme_court_records_check",
+  "section_break_25",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "description": "A comprehensive database maintained by Central Bureau of Investigation(CBI), India's premier investigating agency, responsible for a wide variety of criminal and national security matters that consists of a record of the worst criminals and hard core terrorists.",
+   "fieldname": "central_bureau_of_investigation_india",
+   "fieldtype": "Check",
+   "label": "Central Bureau of Investigation India   "
+  },
+  {
+   "default": "0",
+   "fetch_from": "This is a comprehensive collection of state wise case laws in all subjects, which are compiled in this database",
+   "fieldname": "high_court_records_check",
+   "fieldtype": "Check",
+   "label": "High Court Records Check  "
+  },
+  {
+   "default": "0",
+   "description": "Interpol is the world's largest international police organization, with 187 member countries. Created in 1923, it faciltates cross-border pilice co-operation and supports and assists all organizations, authorities and services whose mission is to prevent or combat international crime.",
+   "fieldname": "interpol_most_wanted",
+   "fieldtype": "Check",
+   "label": "Interpol Most Wanted "
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "This database has information provided by India's Federal Bank i.e., the Reserve Bank of India. It contains list of borrowes which include companies and their directors, who have defaulted in their dues to scheduled commercial banks and financial institutions.",
+   "fieldname": "loan_defaulters_list_reserve_bank_of_india",
+   "fieldtype": "Check",
+   "label": "Loan Defaulters List Reserve Bank of India     "
+  },
+  {
+   "default": "0",
+   "description": "The Securities and Exchange Board of India is the regulatory body for governing the capital markets in India.SEBI takes action against non-complaint market intermediaries and corporates whose practices are not in compliances with the code of conduct prescribed by SEBI",
+   "fieldname": "securities_and_exchange_board_of_india",
+   "fieldtype": "Check",
+   "label": "Securities and Exchange Board of India "
+  },
+  {
+   "default": "0",
+   "description": "This is a comprehensive collection of the full text of case laws on all subjects, which  are compiled from 29 different Acts related to Supreme Court case laws dating back to 1950",
+   "fieldname": "supreme_court_records_check",
+   "fieldtype": "Check",
+   "label": "Supreme Court Records Check "
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:47.202411",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Database Check",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

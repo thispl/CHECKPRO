@@ -1,0 +1,268 @@
+{
+ "autoname": "Verify Financial Status Check-.###",
+ "creation": "2020-06-06 12:17:07.894266",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "own_properties",
+  "own_home",
+  "own_vehical",
+  "economic_class",
+  "no_of_earning_members",
+  "monthly_income",
+  "loan_details",
+  "additional_information",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "date_of_entry",
+  "column_break_30",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_33",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\n\\Completed\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "own_properties",
+   "fieldtype": "Select",
+   "label": "Own Properties ",
+   "options": "Yes\nNo\nNA\nRefused to Confirm"
+  },
+  {
+   "fieldname": "own_home",
+   "fieldtype": "Select",
+   "label": "Own Home",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "own_vehical",
+   "fieldtype": "Select",
+   "label": "Own Vehical ",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "economic_class",
+   "fieldtype": "Select",
+   "label": "Economic Class",
+   "options": "Upper Class\nUpper Middle Class\nLower Middle Class\nWorking Class\nPoor\nNA"
+  },
+  {
+   "fieldname": "no_of_earning_members",
+   "fieldtype": "Select",
+   "label": "No. of Earning Members",
+   "options": "Above 3 Persons\nBelow 2 Persons\nNone\nNA"
+  },
+  {
+   "fieldname": "monthly_income",
+   "fieldtype": "Select",
+   "label": "Monthly Income",
+   "options": "Less Than (\u20b9) 5000 - 15,000\nMore Than (\u20b9) 20,000 - 50,000\nAbove (\u20b9) 50,000\nNA"
+  },
+  {
+   "fieldname": "loan_details",
+   "fieldtype": "Small Text",
+   "label": "Loan Details"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Data",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation"
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion"
+  },
+  {
+   "fieldname": "section_break_33",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:53.385643",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Financial Status Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,47 @@
+{
+ "creation": "2020-06-11 15:08:32.351962",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "official_capacity",
+  "column_break_3",
+  "telephonemob_no"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name"
+  },
+  {
+   "fieldname": "official_capacity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Official Capacity"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telephonemob_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Telephone/Mob No"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:51.320046",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Owner Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

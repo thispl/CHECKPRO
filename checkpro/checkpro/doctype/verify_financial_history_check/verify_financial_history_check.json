@@ -1,0 +1,276 @@
+{
+ "autoname": "Verify Financial History Check-.###",
+ "creation": "2020-06-06 12:28:11.032405",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "audited_fs",
+  "un_audited_fs",
+  "budget_and_variation",
+  "financial_package",
+  "detail_of_capital_expenditure",
+  "forecast_projection",
+  "additional_information",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "dfey",
+  "column_break_29",
+  "fg",
+  "df",
+  "section_break_32",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "Financial History Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "audited_fs",
+   "fieldtype": "Data",
+   "label": "Audited FS"
+  },
+  {
+   "fieldname": "un_audited_fs",
+   "fieldtype": "Data",
+   "label": "Un Audited FS"
+  },
+  {
+   "fieldname": "budget_and_variation",
+   "fieldtype": "Data",
+   "label": "Budget and Variation"
+  },
+  {
+   "fieldname": "financial_package",
+   "fieldtype": "Data",
+   "label": "Financial Package"
+  },
+  {
+   "fieldname": "detail_of_capital_expenditure",
+   "fieldtype": "Data",
+   "label": "Detail of Capital Expenditure"
+  },
+  {
+   "fieldname": "forecast_projection",
+   "fieldtype": "Data",
+   "label": "Forecast Projection"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Data",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "dfey",
+   "fieldtype": "Data",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fg",
+   "fieldtype": "Data",
+   "label": "Name of the Official"
+  },
+  {
+   "fieldname": "df",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "section_break_32",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:36.444978",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Financial History Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

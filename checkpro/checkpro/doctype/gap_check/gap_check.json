@@ -1,0 +1,266 @@
+{
+ "autoname": "Gap Check -.###",
+ "creation": "2020-06-06 17:22:10.854261",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "gaps_in_school_level",
+  "gaps_in_college_level",
+  "gaps_before_job",
+  "gaps_between_employment",
+  "gaps_in_occupation_of_residential_address",
+  "column_break_23",
+  "reason_for_gap_1",
+  "reason_for_gap_2",
+  "reason_for_gap_3",
+  "reason_for_gap_4",
+  "reason_for_gap_5",
+  "additional_information",
+  "section_break_30",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "gaps_in_school_level",
+   "fieldtype": "Select",
+   "label": "Gaps in School Level",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "gaps_in_college_level",
+   "fieldtype": "Select",
+   "label": "Gaps in College Level",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "gaps_before_job",
+   "fieldtype": "Select",
+   "label": "Gaps Before Job",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "gaps_between_employment",
+   "fieldtype": "Select",
+   "label": "Gaps between Employment",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "gaps_in_occupation_of_residential_address",
+   "fieldtype": "Select",
+   "label": "Gaps in Occupation of Residential Address",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reason_for_gap_1",
+   "fieldtype": "Data",
+   "label": "Reason for Gap 1"
+  },
+  {
+   "fieldname": "reason_for_gap_2",
+   "fieldtype": "Data",
+   "label": "Reason for Gap 2"
+  },
+  {
+   "fieldname": "reason_for_gap_3",
+   "fieldtype": "Data",
+   "label": "Reason for Gap 3"
+  },
+  {
+   "fieldname": "reason_for_gap_4",
+   "fieldtype": "Data",
+   "label": "Reason for Gap 4"
+  },
+  {
+   "fieldname": "reason_for_gap_5",
+   "fieldtype": "Data",
+   "label": "Reason for Gap 5"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Small Text",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:42.869496",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Gap Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

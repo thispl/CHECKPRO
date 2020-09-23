@@ -1,0 +1,308 @@
+{
+ "autoname": "Verify Matrimonial Check-.###",
+ "creation": "2020-06-08 14:48:48.101052",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "job_profile_salary_and_reputation_in_the_work_place",
+  "character_and_daily_routine",
+  "temperamental_details",
+  "alcoholic_smoker_drug_abuse_and_other_general_habits",
+  "social_recognition",
+  "occupationeducational_background",
+  "family_background_and_financial_status",
+  "details_of_any_criminal_background",
+  "medical_history",
+  "lifestyle",
+  "social_status",
+  "past_brokenunbroken_marriage",
+  "relations_with_other_menwomen",
+  "additional_information",
+  "verification_details_section",
+  "verified_by",
+  "column_break_36",
+  "designation",
+  "section_break_39",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "Matrimonial Check"
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "job_profile_salary_and_reputation_in_the_work_place",
+   "fieldtype": "Select",
+   "label": "Job Profile, Salary and Reputation in the Work Place",
+   "options": "Good\nAverage\nWorst\nNA"
+  },
+  {
+   "fieldname": "character_and_daily_routine",
+   "fieldtype": "Select",
+   "label": "Character and Daily Routine",
+   "options": "Good\nAverage\nWorst\nNA"
+  },
+  {
+   "fieldname": "temperamental_details",
+   "fieldtype": "Select",
+   "label": "Temperamental Details",
+   "options": "Good\nAverage\nWorst\nNA"
+  },
+  {
+   "fieldname": "alcoholic_smoker_drug_abuse_and_other_general_habits",
+   "fieldtype": "Select",
+   "label": "Alcoholic, Smoker, Drug Abuse and other General Habits",
+   "options": "Only Alcoholic\nSocial Drinker\nOnly Smoker\nYes\nNo\nNA"
+  },
+  {
+   "fieldname": "social_recognition",
+   "fieldtype": "Select",
+   "label": "Social Recognition",
+   "options": "Good\nAverage\nWorst\nNA"
+  },
+  {
+   "fieldname": "occupationeducational_background",
+   "fieldtype": "Data",
+   "label": "Occupation/Educational Background"
+  },
+  {
+   "fieldname": "family_background_and_financial_status",
+   "fieldtype": "Small Text",
+   "label": "Family Background and Financial Status"
+  },
+  {
+   "fieldname": "details_of_any_criminal_background",
+   "fieldtype": "Data",
+   "label": "Details of Any Criminal Background"
+  },
+  {
+   "fieldname": "medical_history",
+   "fieldtype": "Data",
+   "label": "Medical History"
+  },
+  {
+   "fieldname": "lifestyle",
+   "fieldtype": "Select",
+   "label": "Lifestyle",
+   "options": "Luxuries\nRural Lifestyle\nModern\nSimple Living\nTraditional Lifestyle"
+  },
+  {
+   "fieldname": "social_status",
+   "fieldtype": "Select",
+   "label": "Social Status",
+   "options": "Upper Class\nUpper Middle Class\nLower Middle Class\nWorking Class\nPoor"
+  },
+  {
+   "fieldname": "past_brokenunbroken_marriage",
+   "fieldtype": "Select",
+   "label": "Past Broken/Unbroken Marriage",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "relations_with_other_menwomen",
+   "fieldtype": "Select",
+   "label": "Relations With Other Men/Women",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Small Text",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "section_break_39",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:28.511081",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Matrimonial Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

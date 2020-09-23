@@ -1,0 +1,309 @@
+{
+ "autoname": "Exit Interview Check-.###",
+ "creation": "2020-06-12 14:16:20.008245",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "employee_name",
+  "employee_id",
+  "job_title",
+  "column_break_21",
+  "termination_date",
+  "reason_for_termination_involuntary",
+  "reason_for_termination_voluntary",
+  "questionarre_section",
+  "what_is_your_primary_reason_for_leavin",
+  "would_you_consider_returning_to_work_for_this",
+  "what_did_you_find_most_satisfying_about_your_job",
+  "what_did_you_find_the_most_frustrating_about_your_job",
+  "column_break_30",
+  "were_there_any_company_procedures_or_policies",
+  "would_you_recommend_this_company_to_a_colleague",
+  "is_there_anything_that_the_company_or_your_manager",
+  "do_you_have_any_suggestions_for_how_the",
+  "comments_section",
+  "employee_comments",
+  "rehire",
+  "column_break_38",
+  "interviewer_comments"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Data",
+   "label": "Employee ID"
+  },
+  {
+   "fieldname": "job_title",
+   "fieldtype": "Data",
+   "label": "Job Title"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "termination_date",
+   "fieldtype": "Data",
+   "label": "Termination Date"
+  },
+  {
+   "fieldname": "reason_for_termination_involuntary",
+   "fieldtype": "Select",
+   "label": "Reason for Termination Involuntary",
+   "options": "Lay Off\nPosition Eliminated\nAttendance\nReorganization\nViolation of Company Policy\nOther"
+  },
+  {
+   "fieldname": "reason_for_termination_voluntary",
+   "fieldtype": "Select",
+   "label": "Reason for Termination Voluntary",
+   "options": "Personal Reasons\nTook Another Position\nRetirement\nRelocating\nReturning to Higher Education\nOther"
+  },
+  {
+   "fieldname": "questionarre_section",
+   "fieldtype": "Section Break",
+   "label": "Questionarre"
+  },
+  {
+   "fieldname": "what_is_your_primary_reason_for_leavin",
+   "fieldtype": "Data",
+   "label": "What is your primary reason for leaving? If multiple, please specify?"
+  },
+  {
+   "fieldname": "would_you_consider_returning_to_work_for_this",
+   "fieldtype": "Data",
+   "label": "Would you consider returning to work for this company in the future?"
+  },
+  {
+   "fieldname": "what_did_you_find_most_satisfying_about_your_job",
+   "fieldtype": "Data",
+   "label": "What did you find most satisfying about your job?"
+  },
+  {
+   "fieldname": "what_did_you_find_the_most_frustrating_about_your_job",
+   "fieldtype": "Data",
+   "label": "What did you find the most frustrating about your job? "
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "were_there_any_company_procedures_or_policies",
+   "fieldtype": "Data",
+   "label": "Were there any company procedures or policies that made your job more difficult?"
+  },
+  {
+   "fieldname": "would_you_recommend_this_company_to_a_colleague",
+   "fieldtype": "Data",
+   "label": "Would you recommend this company to a colleague or friend as a good place to work?"
+  },
+  {
+   "fieldname": "is_there_anything_that_the_company_or_your_manager",
+   "fieldtype": "Data",
+   "label": "Is there anything that the company or your manager could have done to prevent you from leaving?"
+  },
+  {
+   "fieldname": "do_you_have_any_suggestions_for_how_the",
+   "fieldtype": "Data",
+   "label": "Do you have any suggestions for how the company can improve satisfaction in your position?"
+  },
+  {
+   "fieldname": "comments_section",
+   "fieldtype": "Section Break",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "employee_comments",
+   "fieldtype": "Small Text",
+   "label": "Employee Comments"
+  },
+  {
+   "fieldname": "rehire",
+   "fieldtype": "Select",
+   "label": "Is this employee eligible for rehire? ",
+   "options": "\nYes\nNo\nOthers"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "interviewer_comments",
+   "fieldtype": "Small Text",
+   "label": "Interviewer Comments"
+  }
+ ],
+ "modified": "2020-09-23 11:22:47.956260",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Exit Interview Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

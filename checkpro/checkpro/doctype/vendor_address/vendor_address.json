@@ -1,0 +1,55 @@
+{
+ "creation": "2020-06-11 13:19:33.843140",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "address",
+  "works",
+  "column_break_3",
+  "head_offfice",
+  "branch_office"
+ ],
+ "fields": [
+  {
+   "fieldname": "address",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Address",
+   "options": "\nTele\nFax\nMobile\nEmail ID"
+  },
+  {
+   "fieldname": "works",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Works"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "head_offfice",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Head Offfice"
+  },
+  {
+   "fieldname": "branch_office",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Branch Office"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:51.503624",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Vendor Address",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

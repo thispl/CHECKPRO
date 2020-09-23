@@ -1,0 +1,60 @@
+{
+ "autoname": "format:{check_package}-{Batch}-{###}",
+ "creation": "2020-05-16 11:47:34.161556",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "check_package",
+  "column_break_2",
+  "no_of_cases"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Check Package",
+   "options": "Check Package"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "no_of_cases",
+   "fieldtype": "Int",
+   "label": "No of Cases"
+  }
+ ],
+ "modified": "2020-09-23 11:22:27.455091",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Batch",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

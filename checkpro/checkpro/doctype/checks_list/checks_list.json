@@ -1,0 +1,97 @@
+{
+ "creation": "2020-05-11 18:06:45.377202",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "checks",
+  "check_id",
+  "ca_tat",
+  "ace_tat",
+  "ce_tat",
+  "column_break_5",
+  "units",
+  "check_price",
+  "check_selling_price",
+  "tcsp"
+ ],
+ "fields": [
+  {
+   "fieldname": "checks",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Checks",
+   "options": "Checks"
+  },
+  {
+   "fieldname": "check_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Check ID"
+  },
+  {
+   "fieldname": "ca_tat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "CA TAT"
+  },
+  {
+   "fieldname": "ace_tat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "ACE TAT"
+  },
+  {
+   "fetch_from": "checks.ce_tat",
+   "fieldname": "ce_tat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:parent.pricing_model==\"Units\"",
+   "fieldname": "units",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Units"
+  },
+  {
+   "fetch_from": "checks.check_price",
+   "fieldname": "check_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Check Price",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:parent.pricing_model==\"Units\"",
+   "fieldname": "check_selling_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Check Selling Price"
+  },
+  {
+   "depends_on": "eval:parent.pricing_model==\"Units\"",
+   "fieldname": "tcsp",
+   "fieldtype": "Currency",
+   "label": "Total Check Selling Price",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:50.891634",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Checks List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

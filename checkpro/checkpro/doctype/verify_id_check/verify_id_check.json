@@ -1,0 +1,537 @@
+{
+ "autoname": "Verify ID Check-.###",
+ "creation": "2020-06-06 11:08:54.072671",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "id_proof",
+  "aadhar_card_details_section",
+  "aadhar_number",
+  "dob_1",
+  "address_1",
+  "col1_column",
+  "name_1",
+  "gender",
+  "additional_information_1",
+  "pan_card_details_section",
+  "first_name",
+  "last_name",
+  "dob_6",
+  "col2_column",
+  "additional_information_2",
+  "voter_id_details_section",
+  "voter_id_number",
+  "name__2",
+  "father_name_1",
+  "col3_column",
+  "dob_2",
+  "address_2",
+  "additional_information_3",
+  "ration_card_details_section",
+  "ration_card_number",
+  "ward_number",
+  "street_number",
+  "door_number",
+  "col4_column",
+  "shop_name",
+  "additional_information_4",
+  "driving_licence_details_section",
+  "driving_licence_number",
+  "name_3",
+  "dob_3",
+  "col5_column",
+  "valid_from",
+  "valid_to",
+  "address_3",
+  "additional_information_5",
+  "passport_details_section",
+  "passport_number",
+  "sur_name",
+  "given_name",
+  "place_of_birth",
+  "dob_4",
+  "column_break_65",
+  "place_of_issue",
+  "date_of_issue",
+  "date_of_expiry",
+  "nationality",
+  "address_4",
+  "additional_information_6",
+  "verification_details_section",
+  "verified_by",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "ID Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "id_proof",
+   "fieldtype": "Select",
+   "label": "ID Proof",
+   "options": "Aadhar Card\nPan Card\nVoter ID\nRation Card\nPassport\nDriving Licence"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Aadhar Card\"], doc.id_proof)",
+   "fieldname": "aadhar_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "Aadhar Card Details"
+  },
+  {
+   "fieldname": "aadhar_number",
+   "fieldtype": "Int",
+   "label": "Aadhar Number"
+  },
+  {
+   "fieldname": "dob_1",
+   "fieldtype": "Date",
+   "label": "DOB "
+  },
+  {
+   "fieldname": "address_1",
+   "fieldtype": "Data",
+   "label": "Address "
+  },
+  {
+   "fieldname": "col1_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name_1",
+   "fieldtype": "Data",
+   "label": "Name "
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "Female\nMale\nOthers"
+  },
+  {
+   "fieldname": "additional_information_1",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Pan Card\"], doc.id_proof)",
+   "fieldname": "pan_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "PAN Card Details"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "dob_6",
+   "fieldtype": "Date",
+   "label": "DOB "
+  },
+  {
+   "fieldname": "col2_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "additional_information_2",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Voter ID\"], doc.id_proof)",
+   "fieldname": "voter_id_details_section",
+   "fieldtype": "Section Break",
+   "label": "Voter ID Details"
+  },
+  {
+   "fieldname": "voter_id_number",
+   "fieldtype": "Data",
+   "label": "Voter ID Number"
+  },
+  {
+   "fieldname": "name__2",
+   "fieldtype": "Data",
+   "label": "Name  "
+  },
+  {
+   "fieldname": "father_name_1",
+   "fieldtype": "Data",
+   "label": "Father Name "
+  },
+  {
+   "fieldname": "col3_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dob_2",
+   "fieldtype": "Date",
+   "label": "DOB "
+  },
+  {
+   "fieldname": "address_2",
+   "fieldtype": "Small Text",
+   "label": "Address "
+  },
+  {
+   "fieldname": "additional_information_3",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Ration Card\"], doc.id_proof)",
+   "fieldname": "ration_card_details_section",
+   "fieldtype": "Section Break",
+   "label": "Ration Card Details"
+  },
+  {
+   "fieldname": "ration_card_number",
+   "fieldtype": "Int",
+   "label": "Ration Card Number"
+  },
+  {
+   "fieldname": "ward_number",
+   "fieldtype": "Data",
+   "label": "Ward Number"
+  },
+  {
+   "fieldname": "street_number",
+   "fieldtype": "Int",
+   "label": "Street Number"
+  },
+  {
+   "fieldname": "door_number",
+   "fieldtype": "Data",
+   "label": "Door Number"
+  },
+  {
+   "fieldname": "col4_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shop_name",
+   "fieldtype": "Data",
+   "label": "Shop Name"
+  },
+  {
+   "fieldname": "additional_information_4",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Driving Licence\"], doc.id_proof)",
+   "fieldname": "driving_licence_details_section",
+   "fieldtype": "Section Break",
+   "label": "Driving Licence Details"
+  },
+  {
+   "fieldname": "driving_licence_number",
+   "fieldtype": "Data",
+   "label": "Driving Licence Number"
+  },
+  {
+   "fieldname": "name_3",
+   "fieldtype": "Data",
+   "label": "Name "
+  },
+  {
+   "fieldname": "dob_3",
+   "fieldtype": "Date",
+   "label": "DOB "
+  },
+  {
+   "fieldname": "col5_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  },
+  {
+   "fieldname": "address_3",
+   "fieldtype": "Data",
+   "label": "Address "
+  },
+  {
+   "fieldname": "additional_information_5",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:in_list([\"Passport\"], doc.id_proof)",
+   "fieldname": "passport_details_section",
+   "fieldtype": "Section Break",
+   "label": "Passport Details"
+  },
+  {
+   "fieldname": "passport_number",
+   "fieldtype": "Data",
+   "label": "Passport Number"
+  },
+  {
+   "fieldname": "sur_name",
+   "fieldtype": "Data",
+   "label": "Sur Name"
+  },
+  {
+   "fieldname": "given_name",
+   "fieldtype": "Data",
+   "label": "Given Name"
+  },
+  {
+   "fieldname": "place_of_birth",
+   "fieldtype": "Data",
+   "label": "Place of Birth"
+  },
+  {
+   "fieldname": "dob_4",
+   "fieldtype": "Date",
+   "label": "DOB "
+  },
+  {
+   "fieldname": "column_break_65",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "place_of_issue",
+   "fieldtype": "Data",
+   "label": "Place of Issue"
+  },
+  {
+   "fieldname": "date_of_issue",
+   "fieldtype": "Date",
+   "label": "Date of Issue"
+  },
+  {
+   "fieldname": "date_of_expiry",
+   "fieldtype": "Date",
+   "label": "Date of Expiry"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Select",
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "address_4",
+   "fieldtype": "Data",
+   "label": "Address "
+  },
+  {
+   "fieldname": "additional_information_6",
+   "fieldtype": "Data",
+   "label": "Additional Information "
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Data",
+   "label": "Verified By"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive"
+  }
+ ],
+ "modified": "2020-09-23 11:22:35.070124",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify ID Check",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

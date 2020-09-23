@@ -1,0 +1,54 @@
+{
+ "creation": "2020-06-06 15:08:49.027793",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "relation",
+  "column_break_2",
+  "name1",
+  "column_break_4",
+  "occ_study"
+ ],
+ "fields": [
+  {
+   "fieldname": "relation",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Relation",
+   "options": "\nFather\nMother\nSpouse\nChild1\nChild2\nBrother\nSister\nFather-in-law\nMother-in-law"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "occ_study",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Occupation & Study",
+   "options": "Working\nBusiness\nHome Maker\nEx-Defense Officer\nStudying\nNA"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:53.146301",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Family Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

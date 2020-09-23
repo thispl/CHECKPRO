@@ -1,0 +1,394 @@
+{
+ "autoname": "Medical Test -.###",
+ "creation": "2020-06-08 17:58:44.767447",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "list_of_master_check_up",
+  "master_check_up_panel_1_section",
+  "haemoglobin",
+  "mchc",
+  "mcv",
+  "mch",
+  "diff_count",
+  "platelet_count",
+  "pcv",
+  "total_wbc",
+  "peripheral_smear",
+  "esr",
+  "blood_group_and_rh_type",
+  "blood_sugar_fasting_and_pp",
+  "blood_urea_nitrogen",
+  "creatinine",
+  "column_break_34",
+  "uric_acid",
+  "lipid_profile",
+  "total_cholesterol",
+  "hdl_cholesterol",
+  "triglycerides",
+  "total_cholesterol_or_hdl_ratio",
+  "liver_function_tests",
+  "bilirubin",
+  "total_protein",
+  "globulin",
+  "sgpt",
+  "ggtp",
+  "albumin",
+  "albumin_to_globulin_ratio",
+  "alkaline_phosphatase",
+  "thyroid_function_tests",
+  "general_tests",
+  "section_break_51",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\n\\Completed\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "list_of_master_check_up",
+   "fieldtype": "Select",
+   "label": "List of Master Check up",
+   "options": "Panel - 1\nPanel - 2"
+  },
+  {
+   "fieldname": "master_check_up_panel_1_section",
+   "fieldtype": "Section Break",
+   "label": "Master Check up Panel 1"
+  },
+  {
+   "fieldname": "haemoglobin",
+   "fieldtype": "Data",
+   "label": "Haemoglobin"
+  },
+  {
+   "fieldname": "mchc",
+   "fieldtype": "Data",
+   "label": "MCHC"
+  },
+  {
+   "fieldname": "mcv",
+   "fieldtype": "Data",
+   "label": "MCV"
+  },
+  {
+   "fieldname": "mch",
+   "fieldtype": "Data",
+   "label": "MCH"
+  },
+  {
+   "fieldname": "diff_count",
+   "fieldtype": "Data",
+   "label": "Diff Count"
+  },
+  {
+   "fieldname": "platelet_count",
+   "fieldtype": "Data",
+   "label": "Platelet Count"
+  },
+  {
+   "fieldname": "pcv",
+   "fieldtype": "Data",
+   "label": "PCV"
+  },
+  {
+   "fieldname": "total_wbc",
+   "fieldtype": "Data",
+   "label": "Total WBC"
+  },
+  {
+   "fieldname": "peripheral_smear",
+   "fieldtype": "Data",
+   "label": "Peripheral Smear"
+  },
+  {
+   "fieldname": "esr",
+   "fieldtype": "Data",
+   "label": "ESR"
+  },
+  {
+   "fieldname": "blood_group_and_rh_type",
+   "fieldtype": "Data",
+   "label": "Blood Group And Rh Type"
+  },
+  {
+   "fieldname": "blood_sugar_fasting_and_pp",
+   "fieldtype": "Data",
+   "label": "Blood Sugar Fasting And PP"
+  },
+  {
+   "fieldname": "blood_urea_nitrogen",
+   "fieldtype": "Data",
+   "label": "Blood Urea Nitrogen"
+  },
+  {
+   "fieldname": "creatinine",
+   "fieldtype": "Data",
+   "label": "  Creatinine"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uric_acid",
+   "fieldtype": "Data",
+   "label": "Uric Acid"
+  },
+  {
+   "fieldname": "lipid_profile",
+   "fieldtype": "Data",
+   "label": "Lipid Profile"
+  },
+  {
+   "fieldname": "total_cholesterol",
+   "fieldtype": "Data",
+   "label": "Total Cholesterol"
+  },
+  {
+   "fieldname": "hdl_cholesterol",
+   "fieldtype": "Data",
+   "label": "HDL Cholesterol"
+  },
+  {
+   "fieldname": "triglycerides",
+   "fieldtype": "Data",
+   "label": "Triglycerides"
+  },
+  {
+   "fieldname": "total_cholesterol_or_hdl_ratio",
+   "fieldtype": "Data",
+   "label": "Total Cholesterol or HDL Ratio"
+  },
+  {
+   "fieldname": "liver_function_tests",
+   "fieldtype": "Data",
+   "label": "Liver Function Tests"
+  },
+  {
+   "fieldname": "bilirubin",
+   "fieldtype": "Data",
+   "label": " Bilirubin"
+  },
+  {
+   "fieldname": "total_protein",
+   "fieldtype": "Data",
+   "label": "Total Protein"
+  },
+  {
+   "fieldname": "globulin",
+   "fieldtype": "Data",
+   "label": "Globulin"
+  },
+  {
+   "fieldname": "sgpt",
+   "fieldtype": "Data",
+   "label": "SGPT"
+  },
+  {
+   "fieldname": "ggtp",
+   "fieldtype": "Data",
+   "label": "GGTP"
+  },
+  {
+   "fieldname": "albumin",
+   "fieldtype": "Data",
+   "label": "Albumin"
+  },
+  {
+   "fieldname": "albumin_to_globulin_ratio",
+   "fieldtype": "Data",
+   "label": "Albumin to Globulin Ratio"
+  },
+  {
+   "fieldname": "alkaline_phosphatase",
+   "fieldtype": "Data",
+   "label": " Alkaline Phosphatase"
+  },
+  {
+   "fieldname": "thyroid_function_tests",
+   "fieldtype": "Select",
+   "label": "Thyroid Function Tests"
+  },
+  {
+   "fieldname": "general_tests",
+   "fieldtype": "Select",
+   "label": "General Tests",
+   "options": "Urine Routine\nStool Routine"
+  },
+  {
+   "fieldname": "section_break_51",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:44.181959",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Medical Test",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

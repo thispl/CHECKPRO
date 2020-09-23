@@ -1,0 +1,270 @@
+{
+ "autoname": "Integrity Check-.###",
+ "creation": "2020-06-08 18:27:59.021807",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "how_prompt_are_you",
+  "in_situation",
+  "do_you_feel_guilty_when_you_do_something_you_should_not_do",
+  "do_you_believe_most_employers_take_advantage_of_the_people",
+  "what_would_you_do_if_someone_asked",
+  "do_you_like_decision_of_your_management_always",
+  "column_break_25",
+  "if_you_saw_a_coworker_doing_something",
+  "are_you_an_optimist",
+  "do_you_always_listen_to_your_parents",
+  "do_you_believe_in_late_working_hours",
+  "additional_information",
+  "section_break_29",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "how_prompt_are_you",
+   "fieldtype": "Select",
+   "label": "How prompt are you?",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "in_situation",
+   "fieldtype": "Select",
+   "label": "In what business/work-related situation do you feel honesty would be inappropriate?",
+   "options": "Yes, In Any Situation\nNo, In Any Situation\nNA"
+  },
+  {
+   "fieldname": "do_you_feel_guilty_when_you_do_something_you_should_not_do",
+   "fieldtype": "Select",
+   "label": "Do you feel guilty when you do something you should not do?",
+   "options": "Yes, He Feel Guilty And Won\u2019t Repeat The Same And Regret\nNo, He Feel Happy With His Actions"
+  },
+  {
+   "fieldname": "do_you_believe_most_employers_take_advantage_of_the_people",
+   "fieldtype": "Select",
+   "label": "Do you believe most employers take advantage of the people who work for them?",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "what_would_you_do_if_someone_asked",
+   "fieldtype": "Select",
+   "label": "What would you do if someone asked you to do something unethical?",
+   "options": "If The Suggestion Is Ethical Then After Consultation Of Seniors Will Go In Hand With It\nI'll Handle all the consequence with my own decision"
+  },
+  {
+   "fieldname": "do_you_like_decision_of_your_management_always",
+   "fieldtype": "Select",
+   "label": "Do you like decision of your management always?",
+   "options": "Yes, Support The Decision\nNever\nNA"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "if_you_saw_a_coworker_doing_something",
+   "fieldtype": "Select",
+   "label": "If you saw a co-worker doing something dishonest, would you tell your supervisor? What would you do about it?",
+   "options": "He/She Will Discuss With The Seniors And Tell The Supervisor\nHe/She Will take the Own Action\nHe/She Never Mind\nNA"
+  },
+  {
+   "fieldname": "are_you_an_optimist",
+   "fieldtype": "Select",
+   "label": "Are you an optimist?",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "do_you_always_listen_to_your_parents",
+   "fieldtype": "Select",
+   "label": "Do you always listen to your parents?",
+   "options": "Yes\nNo\nNA"
+  },
+  {
+   "fieldname": "do_you_believe_in_late_working_hours",
+   "fieldtype": "Select",
+   "label": "Do you believe in late working hours?",
+   "options": "NA\nYes\nNo"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Data",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:44.738818",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Integrity Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

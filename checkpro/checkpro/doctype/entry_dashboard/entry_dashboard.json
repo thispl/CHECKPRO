@@ -1,0 +1,48 @@
+{
+ "creation": "2020-06-20 10:46:59.474748",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "entry_dashboard",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "entry_dashboard",
+   "fieldtype": "Table",
+   "label": "Entry Dashboard List",
+   "options": "Entry Dashboard List"
+  },
+  {
+   "default": "0",
+   "fieldname": "description",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Description"
+  }
+ ],
+ "hide_toolbar": 1,
+ "issingle": 1,
+ "modified": "2020-09-23 11:22:38.728398",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Entry Dashboard",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

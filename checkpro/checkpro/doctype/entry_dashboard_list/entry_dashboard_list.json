@@ -1,0 +1,70 @@
+{
+ "creation": "2020-06-20 15:13:35.779320",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "batch",
+  "customer",
+  "check_package",
+  "column_break_4",
+  "entry_pending",
+  "entry_completed",
+  "entry_insufficient"
+ ],
+ "fields": [
+  {
+   "fieldname": "batch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Batch",
+   "options": "Batch"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Link",
+   "label": "Check  Package",
+   "options": "Check Package"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_pending",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Entry Pending"
+  },
+  {
+   "fieldname": "entry_completed",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Entry Completed"
+  },
+  {
+   "fieldname": "entry_insufficient",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Entry Insufficient"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:48.868557",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Entry Dashboard List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

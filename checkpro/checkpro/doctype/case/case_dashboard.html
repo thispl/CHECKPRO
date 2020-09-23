@@ -1,0 +1,10 @@
+{% if data %}
+<h5> {{ __("Checks Under this Case") }} </h5>
+{% for(const [key, value] of Object.entries(data)) { %}
+<a class="check-link" data-type="{{ value }}">
+    {%= value %} </a>
+<br>
+{% } %}
+{% } else { %}
+<p style="margin-top: 30px;"> No Checks have been added. </p>
+{% } %}

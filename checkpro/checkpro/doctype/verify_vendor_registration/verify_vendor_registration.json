@@ -1,0 +1,465 @@
+{
+ "autoname": "Verify Vendor Registration -.###",
+ "creation": "2020-06-11 17:29:35.735946",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "vendor_name",
+  "type_of_vendor",
+  "column_break_20",
+  "company_profile",
+  "section_break_22",
+  "vendor_details",
+  "financial_status_section",
+  "value_employed",
+  "turn_over3",
+  "income_tax",
+  "current_asset",
+  "column_break_29",
+  "current_liaility",
+  "orders_hand",
+  "amount",
+  "section_break_33",
+  "bank_details",
+  "banker_name",
+  "column_break_36",
+  "maimum_credit_facility_from_your_bankers",
+  "section_break_38",
+  "quality_system_implemented",
+  "section_break_40",
+  "owner_details",
+  "section_break_42",
+  "details_hmt",
+  "unit",
+  "sales",
+  "micro",
+  "products_offered",
+  "machinery",
+  "inspection",
+  "column_break_50",
+  "manpower",
+  "major",
+  "export_service",
+  "export_details",
+  "hmt",
+  "details_units",
+  "deal1",
+  "deal2",
+  "verification_details_section",
+  "verified_by",
+  "column_break_61",
+  "designation",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "Vendor Registration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "vendor_name",
+   "fieldtype": "Data",
+   "label": "Name & Address of the Vendor"
+  },
+  {
+   "fieldname": "type_of_vendor",
+   "fieldtype": "Select",
+   "label": "Type of Vendor",
+   "options": "\nManufacturer\nManufacturer's Authorized Distributor\nAuthorized Dealer\nStockist"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_profile",
+   "fieldtype": "Small Text",
+   "label": "Company Profile"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "vendor_details",
+   "fieldtype": "Table",
+   "label": "Vendor Details",
+   "options": "Vendor Address"
+  },
+  {
+   "fieldname": "financial_status_section",
+   "fieldtype": "Section Break",
+   "label": "Financial Status"
+  },
+  {
+   "fieldname": "value_employed",
+   "fieldtype": "Data",
+   "label": "Value of Total Capital Employed"
+  },
+  {
+   "fieldname": "turn_over3",
+   "fieldtype": "Data",
+   "label": "Turn over of the company for Past three years"
+  },
+  {
+   "fieldname": "income_tax",
+   "fieldtype": "Data",
+   "label": "IncomeTax return for past 3 financial years"
+  },
+  {
+   "fieldname": "current_asset",
+   "fieldtype": "Data",
+   "label": "Value of Current assets as on date"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_liaility",
+   "fieldtype": "Attach",
+   "label": "Value of current Liabilites as on date"
+  },
+  {
+   "fieldname": "orders_hand",
+   "fieldtype": "Data",
+   "label": "Value of orders in hand"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "label": "Amount upto which supply can be made at one time"
+  },
+  {
+   "fieldname": "section_break_33",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bank_details",
+   "fieldtype": "Section Break",
+   "label": "Banker's Details"
+  },
+  {
+   "fieldname": "banker_name",
+   "fieldtype": "Small Text",
+   "label": "Bankers's Name and Address"
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "maimum_credit_facility_from_your_bankers",
+   "fieldtype": "Data",
+   "label": "Maimum credit facility from your Bankers"
+  },
+  {
+   "fieldname": "section_break_38",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "quality_system_implemented",
+   "fieldtype": "Small Text",
+   "label": "Quality system implemented"
+  },
+  {
+   "fieldname": "section_break_40",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "owner_details",
+   "fieldtype": "Table",
+   "label": "Owner Details",
+   "options": "Owner"
+  },
+  {
+   "fieldname": "section_break_42",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "details_hmt",
+   "fieldtype": "Small Text",
+   "label": "Details of HMT employees having financial interest in the Unit"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "label": "Central Excise Range/Divn to which the Unit belongs"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Data",
+   "label": "Sales Tax Regn No-Central  & State"
+  },
+  {
+   "fieldname": "micro",
+   "fieldtype": "Data",
+   "label": "If Registered under Micro,Small & Medium Enterprises Act,2006,give Registration Certificate specifying category under which unit is covered"
+  },
+  {
+   "fieldname": "products_offered",
+   "fieldtype": "Attach",
+   "label": "Details of products offered"
+  },
+  {
+   "fieldname": "machinery",
+   "fieldtype": "Attach",
+   "label": "Details of Machinery"
+  },
+  {
+   "fieldname": "inspection",
+   "fieldtype": "Attach",
+   "label": "Details of Inspection/Testing Facility"
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "manpower",
+   "fieldtype": "Attach",
+   "label": "Manpower or Organisation structure"
+  },
+  {
+   "fieldname": "major",
+   "fieldtype": "Attach",
+   "label": "Details of your major present customers"
+  },
+  {
+   "fieldname": "export_service",
+   "fieldtype": "Select",
+   "label": "Are you exporting products/services?",
+   "options": "\nProducts\nServices"
+  },
+  {
+   "fieldname": "export_details",
+   "fieldtype": "Small Text",
+   "label": "Details of exports for past 3 years"
+  },
+  {
+   "fieldname": "hmt",
+   "fieldtype": "Select",
+   "label": "Are you supplying to any other units of HMT",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "details_units",
+   "fieldtype": "Data",
+   "label": "Details of Units"
+  },
+  {
+   "fieldname": "deal1",
+   "fieldtype": "Select",
+   "label": "Do you have your authorizes dealers/service center",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "deal2",
+   "fieldtype": "Small Text",
+   "label": "Details of Authorized dealer"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Data",
+   "label": "Verified By"
+  },
+  {
+   "fieldname": "column_break_61",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive"
+  }
+ ],
+ "modified": "2020-09-23 11:22:30.794015",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Vendor Registration",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DE Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

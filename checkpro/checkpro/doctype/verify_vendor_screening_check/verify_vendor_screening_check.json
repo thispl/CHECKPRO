@@ -1,0 +1,279 @@
+{
+ "autoname": "Verify Vendor Screening Check-.###",
+ "creation": "2020-06-11 16:27:28.229831",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "execution_status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "epi",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "physical_company_visit_details",
+  "supplier_and_customer_reference_details",
+  "performance_of_vendor",
+  "quality_of_service",
+  "total_number_of_employees",
+  "business_activity",
+  "license_validation_from",
+  "license_validation_to",
+  "financial_details",
+  "consumer_complaints",
+  "additional_information",
+  "verification_details_section",
+  "verified_by",
+  "column_break_31",
+  "designation",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Green\nRed\nAmber\nInterim"
+  },
+  {
+   "fieldname": "execution_status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Completed\nPending\nInsufficient\nHold\nDropped"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "epi",
+   "fieldtype": "Link",
+   "label": "EPI",
+   "options": "Vendor Screening Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "physical_company_visit_details",
+   "fieldtype": "Data",
+   "label": "Physical Company Visit Details"
+  },
+  {
+   "fieldname": "supplier_and_customer_reference_details",
+   "fieldtype": "Data",
+   "label": "Supplier And Customer Reference Details"
+  },
+  {
+   "fieldname": "performance_of_vendor",
+   "fieldtype": "Select",
+   "label": "Performance of Vendor",
+   "options": "Good\nAverage\nWorst\nNo Commands\nNA"
+  },
+  {
+   "fieldname": "quality_of_service",
+   "fieldtype": "Select",
+   "label": "Quality of Service",
+   "options": "Good\nAverage\nWorst\nNo Commands\nNA"
+  },
+  {
+   "fieldname": "total_number_of_employees",
+   "fieldtype": "Data",
+   "label": "Total Number of Employees "
+  },
+  {
+   "fieldname": "business_activity",
+   "fieldtype": "Data",
+   "label": "Business Activity"
+  },
+  {
+   "fieldname": "license_validation_from",
+   "fieldtype": "Date",
+   "label": "License Validation From"
+  },
+  {
+   "fieldname": "license_validation_to",
+   "fieldtype": "Date",
+   "label": " License Validation To"
+  },
+  {
+   "fieldname": "financial_details",
+   "fieldtype": "Data",
+   "label": "Financial Details"
+  },
+  {
+   "fieldname": "consumer_complaints",
+   "fieldtype": "Data",
+   "label": "Consumer complaints"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Data",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-09-23 11:22:31.482604",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Verify Vendor Screening Check",
+ "owner": "kartika.s@groupteampro.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

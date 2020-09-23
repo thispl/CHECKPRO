@@ -1,0 +1,36 @@
+{
+ "creation": "2020-06-18 14:16:01.442724",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "checks",
+  "entry_pending"
+ ],
+ "fields": [
+  {
+   "fieldname": "checks",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Checks",
+   "options": "Checks"
+  },
+  {
+   "fieldname": "entry_pending",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Execution Pending"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-23 11:22:50.072892",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Execution Pending Dashboard List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
