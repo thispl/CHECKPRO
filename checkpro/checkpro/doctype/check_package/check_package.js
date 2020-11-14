@@ -1,21 +1,21 @@
 // Copyright (c) 2020, suganya and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Check Package', {
+// frappe.ui.form.on('Check Package', {
 
-	calculate_sub3: function (frm) {
-		var r10 = frm.doc.checks_list
-		var a = 0
-		$.each(frm.doc.checks_list, function (i, d) {
-			if (d.tcsp) {
-				a += d.tcsp
-			}
+// 	calculate_sub3: function (frm) {
+// 		var r10 = frm.doc.checks_list
+// 		var a = 0
+// 		$.each(frm.doc.checks_list, function (i, d) {
+// 			if (d.tcsp) {
+// 				a += d.tcsp
+// 			}
 
-		})
-		frm.set_value("gsp", a)
+// 		})
+// 		frm.set_value("gsp", a)
 
-	},
-	onload: function (frm) {
+// 	},
+// 	onload: function (frm) {
 		// frappe.call({
 		// 	"method": "frappe.client.get_list",
 		// 	args: {
@@ -38,7 +38,7 @@ frappe.ui.form.on('Check Package', {
 		// 		refresh_field("checks_list")
 		// 	}
 		// })
-	},
+	// },
 	// pricing_model:function(frm){
 	// 	if(frm.doc.pricing_model=="Fixed"){
 	// 		$.each(frm.doc.checks_list, function (i, d) {
@@ -49,28 +49,28 @@ frappe.ui.form.on('Check Package', {
 	// }
 
 
-});
+// });
 
-frappe.ui.form.on('Checks List', {
-	check_selling_price: function (frm, cdt, cdn) {
-		var child = locals[cdt][cdn]
-		var total = child.units * child.check_selling_price
-		frappe.model.set_value(child.doctype, child.name, "tcsp", child.units * child.check_selling_price)
+// frappe.ui.form.on('Checks List', {
+// 	check_selling_price: function (frm, cdt, cdn) {
+// 		var child = locals[cdt][cdn]
+// 		var total = child.units * child.check_selling_price
+// 		frappe.model.set_value(child.doctype, child.name, "tcsp", child.units * child.check_selling_price)
 
-		frm.refresh_field("checks_list")
-		frm.trigger("calculate_sub3")
+// 		frm.refresh_field("checks_list")
+// 		frm.trigger("calculate_sub3")
 
-	},
-	checks: function (frm, cdt, cdn) {
-		var child = locals[cdt][cdn]
-		frappe.call({
-			"method": "frappe.client.get",
-			args: {
-				"doctype": "Checks",
-				"name": child.checks
+// 	},
+// 	checks: function (frm, cdt, cdn) {
+// 		var child = locals[cdt][cdn]
+// 		frappe.call({
+// 			"method": "frappe.client.get",
+// 			args: {
+// 				"doctype": "Checks",
+// 				"name": child.checks
 
-			},
-			callback: function (r) {
+// 			},
+// 			callback: function (r) {
 				// // console.log(r.message.check_variables)
 				// // $.each(r.message.check_variables, function (i, d) {
 				// // 	console.log(d.variable)
@@ -96,11 +96,11 @@ frappe.ui.form.on('Checks List', {
 				// // 	// });
 
 				// // 	// e.show();
-				// })
+// 				// })
 
-			}
-		})
+// 			}
+// 		})
 
 
-	}
-})
+// 	}
+// })

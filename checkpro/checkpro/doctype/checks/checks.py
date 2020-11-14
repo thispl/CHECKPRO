@@ -16,7 +16,7 @@ class Checks(Document):
         else:
             add_check = frappe.new_doc("DocType")
             add_check.name = self.check_name
-            add_check.module = "veriPRO"
+            add_check.module = "Checkpro"
             frappe.errprint("hi")
             add_check.autoname = self.check_name + '-.###'
             add_check.append("fields",{
@@ -207,7 +207,7 @@ class Checks(Document):
         else:
             vadd_check = frappe.new_doc("DocType")
             vadd_check.name = "Verify"+" "+self.check_name
-            vadd_check.module = "veriPRO"
+            vadd_check.module = "Checkpro"
             vadd_check.autoname = 'Verify'+' '+self.check_name+ '-.###'
             vadd_check.append("fields",{
             "fieldtype":"Data",
