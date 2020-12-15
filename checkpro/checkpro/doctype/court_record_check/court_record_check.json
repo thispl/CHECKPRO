@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Court Record Check-.###",
  "creation": "2020-06-06 16:25:57.749865",
  "doctype": "DocType",
@@ -14,6 +15,7 @@
   "case_information_section",
   "case_id",
   "case_name",
+  "column_break_10",
   "date_of_birth",
   "case_gender",
   "column_break_12",
@@ -25,18 +27,30 @@
   "social_behaviour",
   "civil_magistrate_session_court_if_yes_the_reason",
   "high_court_if_yes_the_reason",
-  "civil_judgement_search",
-  "year_of_residential",
-  "address",
   "additional_information",
+  "column_break_22",
+  "civil_judgement_search",
+  "year_of_search",
+  "address",
   "section_break_25",
-  "check_executive"
+  "check_executive",
+  "verified_court_record_check_details_section",
+  "verify_court_record_check",
+  "verify_social_behaviour",
+  "verify_civil_magistrate_session_court",
+  "verify_high_court",
+  "verify_additional_information",
+  "column_break_35",
+  "verify_civil_judgement_search",
+  "verify_year_of_search",
+  "verify_address"
  ],
  "fields": [
   {
    "fieldname": "ce_tat",
    "fieldtype": "Data",
    "label": "CE TAT",
+   "permlevel": 1,
    "read_only": 1
   },
   {
@@ -48,11 +62,13 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop",
+   "permlevel": 1
   },
   {
    "fieldname": "column_break_4",
@@ -157,18 +173,13 @@
    "label": "Civil Judgement Search"
   },
   {
-   "fieldname": "year_of_residential",
-   "fieldtype": "Data",
-   "label": "Year of Residential"
-  },
-  {
    "fieldname": "address",
    "fieldtype": "Small Text",
    "label": "Address"
   },
   {
    "fieldname": "additional_information",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Additional Information"
   },
   {
@@ -179,14 +190,93 @@
    "fieldname": "check_executive",
    "fieldtype": "Data",
    "label": "Check Executive",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified_court_record_check_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verified Court Record Check Details"
+  },
+  {
+   "fieldname": "verify_court_record_check",
+   "fieldtype": "Link",
+   "label": "Verify Court Record Check",
+   "options": "Verify Court Record Check"
+  },
+  {
+   "fetch_from": "verify_court_record_check.social_behaviour",
+   "fieldname": "verify_social_behaviour",
+   "fieldtype": "Data",
+   "label": "Verify Social Behaviour",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "verify_court_record_check.civil_magistrate_session_court_if_yes_the_reason",
+   "fieldname": "verify_civil_magistrate_session_court",
+   "fieldtype": "Data",
+   "label": "Verify Civil/ Magistrate/ Session court",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "verify_court_record_check.high_court_if_yes_the_reason",
+   "fieldname": "verify_high_court",
+   "fieldtype": "Data",
+   "label": "Verify High Court",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "verify_court_record_check.additional_information",
+   "fieldname": "verify_additional_information",
+   "fieldtype": "Small Text",
+   "label": "Verify Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "verify_court_record_check.civil_judgement_search",
+   "fieldname": "verify_civil_judgement_search",
+   "fieldtype": "Data",
+   "label": "Verify Civil Judgement Search",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "verify_court_record_check.address",
+   "fieldname": "verify_address",
+   "fieldtype": "Small Text",
+   "label": "Verify Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "year_of_search",
+   "fieldtype": "Data",
+   "label": "Year of Search"
+  },
+  {
+   "fetch_from": "verify_court_record_check.year_of_residential",
+   "fieldname": "verify_year_of_search",
+   "fieldtype": "Data",
+   "label": "Verify Year of Search",
    "read_only": 1
   }
  ],
- "modified": "2020-09-23 11:22:42.527034",
+ "links": [],
+ "modified": "2020-12-02 12:09:42.224213",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Court Record Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

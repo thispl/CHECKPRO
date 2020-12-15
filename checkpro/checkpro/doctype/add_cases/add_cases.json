@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "creation": "2020-11-26 14:52:22.981335",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "demographic_data_with_attachment",
+  "add_demographic_data",
+  "bulk_excel_upload",
+  "add_bulk_excel",
+  "case_and_check_as_attachment",
+  "add_attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "demographic_data_with_attachment",
+   "fieldtype": "Heading",
+   "label": "Add Case & Check One by One"
+  },
+  {
+   "fieldname": "add_demographic_data",
+   "fieldtype": "Button",
+   "label": "Enter"
+  },
+  {
+   "fieldname": "bulk_excel_upload",
+   "fieldtype": "Heading",
+   "label": "Add Case & Check as Bulk Data"
+  },
+  {
+   "fieldname": "add_bulk_excel",
+   "fieldtype": "Button",
+   "label": "Enter"
+  },
+  {
+   "fieldname": "case_and_check_as_attachment",
+   "fieldtype": "Heading",
+   "label": "Add Case & Check as Attachment"
+  },
+  {
+   "fieldname": "add_attachment",
+   "fieldtype": "Button",
+   "label": "Enter"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2020-11-27 18:34:07.998758",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Add Cases",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -51,7 +51,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\n\\Completed\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
   },
   {
    "fieldname": "column_break_4",
@@ -178,7 +178,7 @@
   }
  ],
  "links": [],
- "modified": "2020-10-27 18:10:36.666647",
+ "modified": "2020-12-05 17:32:21.058064",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Testing",

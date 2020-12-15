@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Address Check-.###",
  "creation": "2020-06-05 14:02:22.455057",
  "doctype": "DocType",
@@ -7,23 +8,38 @@
  "field_order": [
   "ce_tat",
   "customer",
+  "check_package",
+  "batch",
   "status",
   "execution_status",
   "column_break_4",
-  "check_package",
-  "batch",
   "epi",
+  "image",
+  "image__1",
+  "image_2",
+  "image_3",
   "case_information_section",
   "case_id",
   "case_name",
+  "entry_id",
+  "column_break_12",
   "date_of_birth",
   "case_gender",
-  "column_break_12",
+  "column_break_15",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "entry_address_type",
+  "entry_residence_type",
+  "entry_past_address",
+  "entry_present_address",
+  "entry_permanent_address",
+  "entry_period_of_stay_from",
+  "entry_period_of_stay_to",
+  "entry_additional_information",
+  "column_break_34",
   "address_type",
   "residence_type",
   "past_address",
@@ -35,9 +51,9 @@
   "verification_details_section",
   "verified_by",
   "column_break_30",
-  "designation",
+  "relation_with_profile",
   "date_of_entry",
-  "date_of_initiation",
+  "verifier_contact",
   "section_break_33",
   "check_executive"
  ],
@@ -57,12 +73,15 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Green\nRed\nAmber\nInterim"
+   "options": "Green\nRed\nAmber\nInterim\nPending"
   },
   {
+   "default": "Pending",
    "fieldname": "execution_status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -159,44 +178,44 @@
   {
    "fieldname": "address_type",
    "fieldtype": "Select",
-   "label": "Address Type",
-   "options": "Present\nPermanent"
+   "label": "VPD Address Type",
+   "options": "\nPresent\nPermanent"
   },
   {
    "fieldname": "residence_type",
    "fieldtype": "Select",
-   "label": "Residence Type",
-   "options": "Owned\nRental\nHostel\nPaying Guest\nLease\nRelative's Home"
+   "label": "VPD Residence Type",
+   "options": "\nOwned\nRental\nHostel\nPaying Guest\nLease\nRelative's Home"
   },
   {
    "fieldname": "past_address",
    "fieldtype": "Small Text",
-   "label": "Past Address"
+   "label": "VPD Past Address"
   },
   {
    "fieldname": "present_address",
    "fieldtype": "Small Text",
-   "label": "Present Address"
+   "label": "VPD Present Address"
   },
   {
    "fieldname": "permanent_address",
    "fieldtype": "Small Text",
-   "label": "Permanent Address"
+   "label": "VPD Permanent Address"
   },
   {
    "fieldname": "period_of_stay_from",
    "fieldtype": "Date",
-   "label": "Period of Stay From"
+   "label": "VPD Period of Stay From"
   },
   {
    "fieldname": "period_of_stay_to",
    "fieldtype": "Date",
-   "label": "Period of Stay To"
+   "label": "VPD Period of Stay To"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -206,26 +225,15 @@
   {
    "fieldname": "verified_by",
    "fieldtype": "Data",
-   "label": "Verified By",
-   "options": "User"
+   "label": "Verified By"
   },
   {
    "fieldname": "column_break_30",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "designation",
-   "fieldtype": "Data",
-   "label": "Relation with proifile"
-  },
-  {
    "fieldname": "date_of_entry",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "date_of_initiation",
-   "fieldtype": "Data",
-   "label": "Contact"
   },
   {
    "fieldname": "section_break_33",
@@ -237,13 +245,122 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "relation_with_profile",
+   "fieldtype": "Data",
+   "label": "Relation with profile"
+  },
+  {
+   "fieldname": "verifier_contact",
+   "fieldtype": "Data",
+   "label": "Verifier Contact"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Green\"",
+   "fieldname": "image",
+   "fieldtype": "HTML",
+   "label": "Image",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Positive.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Red\"",
+   "fieldname": "image__1",
+   "fieldtype": "HTML",
+   "label": "Image _1",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Amber\"",
+   "fieldname": "image_2",
+   "fieldtype": "HTML",
+   "label": "Image_2",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Dilemma.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Interim\"",
+   "fieldname": "image_3",
+   "fieldtype": "HTML",
+   "label": "Image_3",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+  },
+  {
+   "fieldname": "entry_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Address Check"
+  },
+  {
+   "fetch_from": "entry_id.address_type",
+   "fieldname": "entry_address_type",
+   "fieldtype": "Data",
+   "label": "EPI Address Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.residence_type",
+   "fieldname": "entry_residence_type",
+   "fieldtype": "Data",
+   "label": "EPI Residence Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.past_address",
+   "fieldname": "entry_past_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Past Address",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.present_address",
+   "fieldname": "entry_present_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Present Address",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.permanent_address",
+   "fieldname": "entry_permanent_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Permanent Address",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.period_of_stay_from",
+   "fieldname": "entry_period_of_stay_from",
+   "fieldtype": "Data",
+   "label": "EPI Period of Stay From",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.period_of_stay_to",
+   "fieldname": "entry_period_of_stay_to",
+   "fieldtype": "Data",
+   "label": "EPI Period of Stay To",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.additional_information",
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:34.578748",
+ "links": [],
+ "modified": "2020-12-03 11:11:11.479025",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Address Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

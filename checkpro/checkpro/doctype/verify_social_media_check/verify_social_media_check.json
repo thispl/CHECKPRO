@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Social Media Check-.###",
  "creation": "2020-06-08 15:40:11.903658",
  "doctype": "DocType",
@@ -12,18 +13,24 @@
   "column_break_4",
   "check_package",
   "batch",
-  "epi",
   "case_information_section",
   "case_id",
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_familiar_with_social_media",
+  "epi_types_of_social_media",
+  "epi_subject_interested",
+  "epi_type_of_contacts",
+  "epi_additional_information",
+  "column_break_25",
   "familiar_with_social_media",
   "types_of_social_media",
   "subject_interested",
@@ -153,28 +160,28 @@
   {
    "fieldname": "familiar_with_social_media",
    "fieldtype": "Data",
-   "label": "Familiar with Social Media"
+   "label": "VPD Familiar with Social Media"
   },
   {
    "fieldname": "types_of_social_media",
    "fieldtype": "Select",
-   "label": "Types of Social Media",
+   "label": "VPD Types of Social Media",
    "options": "Social Networks\nMedia Sharing Networks\nDiscussion Forums\nBookmarking and Content Curation Networks\nConsumer Review Networks\nBlogging And Publishing Networks\nInterest-Based Networks\nSocial Shopping Networks\nSharing Economy Networks\nAnonymous Social Networks"
   },
   {
    "fieldname": "subject_interested",
    "fieldtype": "Data",
-   "label": "Subject Interested"
+   "label": "VPD Subject Interested"
   },
   {
    "fieldname": "type_of_contacts",
    "fieldtype": "Select",
-   "label": "Type of Contacts"
+   "label": "VPD Type of Contacts"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -206,13 +213,52 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.familiar_with_social_media",
+   "fieldname": "epi_familiar_with_social_media",
+   "fieldtype": "Data",
+   "label": "EPI Familiar with Social Media",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.types_of_social_media",
+   "fieldname": "epi_types_of_social_media",
+   "fieldtype": "Data",
+   "label": "EPI Types of Social Media",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.subject_interested",
+   "fieldname": "epi_subject_interested",
+   "fieldtype": "Data",
+   "label": "EPI Subject Interested",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.type_of_contacts",
+   "fieldname": "epi_type_of_contacts",
+   "fieldtype": "Data",
+   "label": "EPI Type of Contacts"
+  },
+  {
+   "fetch_from": "epi_id.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:29.052117",
+ "links": [],
+ "modified": "2020-12-05 17:47:52.558482",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Social Media Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

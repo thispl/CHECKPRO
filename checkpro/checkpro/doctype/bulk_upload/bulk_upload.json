@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "autoname": "BU-.#####",
+ "creation": "2020-11-27 09:32:56.611628",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "batch",
+  "column_break_3",
+  "check_package",
+  "checks_created",
+  "section_break_6",
+  "bulk_upload_download_template",
+  "download_template",
+  "import_file",
+  "checks_section",
+  "bulk_upload_checks"
+ ],
+ "fields": [
+  {
+   "fetch_from": "batch.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "batch.check_package",
+   "fieldname": "check_package",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "options": "Check Package",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Batch",
+   "options": "Batch",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "checks_created",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Checks Created"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "download_template",
+   "fieldtype": "Button",
+   "label": "Download Template"
+  },
+  {
+   "fieldname": "import_file",
+   "fieldtype": "Attach",
+   "label": "Import File"
+  },
+  {
+   "fieldname": "checks_section",
+   "fieldtype": "Section Break",
+   "label": "Checks"
+  },
+  {
+   "fieldname": "bulk_upload_checks",
+   "fieldtype": "Table",
+   "label": "Bulk Upload Checks",
+   "options": "Bulk Upload Checks"
+  },
+  {
+   "fieldname": "bulk_upload_download_template",
+   "fieldtype": "Heading",
+   "label": "Bulk Upload Download Template"
+  }
+ ],
+ "links": [],
+ "modified": "2020-11-27 19:35:59.242734",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Bulk Upload",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

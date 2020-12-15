@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-06-23 11:36:20.656142",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -8,7 +9,8 @@
   "column_break_2",
   "check_status",
   "description",
-  "units"
+  "units",
+  "report_status"
  ],
  "fields": [
   {
@@ -24,7 +26,6 @@
   {
    "fieldname": "check_status",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Check Status"
   },
   {
@@ -37,11 +38,20 @@
   {
    "fieldname": "units",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Units"
+  },
+  {
+   "fieldname": "report_status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Report Status",
+   "search_index": 1
   }
  ],
  "istable": 1,
- "modified": "2020-09-23 11:22:27.692073",
+ "links": [],
+ "modified": "2020-11-27 12:31:36.003171",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checkwise Report",

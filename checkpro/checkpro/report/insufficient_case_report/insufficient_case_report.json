@@ -1,0 +1,31 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2020-11-27 19:27:59.712659",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{\"filters\":[[\"Case\",\"ca_status\",\"=\",\"Insufficient\",false]],\"fields\":[[\"name\",\"Case\"],[\"docstatus\",\"Case\"],[\"customer\",\"Case\"],[\"check_package\",\"Case\"],[\"batch\",\"Case\"],[\"case_name\",\"Case\"],[\"client_employee_code\",\"Case\"],[\"case_report\",\"Case\"],[\"ca_status\",\"Case\"],[\"case_gender\",\"Case\"],[\"date_of_birth\",\"Case\"],[\"email_id\",\"Case\"],[\"father_name\",\"Case\"],[\"contact\",\"Case\"],[\"address\",\"Case\"],[\"checks\",\"Checkwise Report\"],[\"units\",\"Checkwise Report\"],[\"check_status\",\"Checkwise Report\"],[\"report_status\",\"Checkwise Report\"]],\"order_by\":\"`tabCase`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"customer\":120,\"check_package\":120,\"batch\":120,\"case_name\":120,\"client_employee_code\":120,\"case_report\":120,\"ca_status\":120,\"case_gender\":120,\"date_of_birth\":120,\"email_id\":120,\"father_name\":120,\"contact\":120,\"address\":120,\"Checkwise Report:checks\":120,\"Checkwise Report:units\":120,\"Checkwise Report:check_status\":120,\"Checkwise Report:report_status\":120},\"group_by\":null}",
+ "letter_head": "TeamPRO Letter Head",
+ "modified": "2020-11-27 19:29:52.323649",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Insufficient Case Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Case",
+ "report_name": "Insufficient Case Report",
+ "report_type": "Report Builder",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Customer"
+  }
+ ]
+}

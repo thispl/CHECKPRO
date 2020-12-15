@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Reference Check-.###",
  "creation": "2020-06-06 15:43:57.133048",
  "doctype": "DocType",
@@ -12,18 +13,34 @@
   "column_break_4",
   "check_package",
   "batch",
-  "epi",
   "case_information_section",
   "case_id",
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_reference_name",
+  "epi_company_name",
+  "epi_contact_details",
+  "epi_how_do_you_know_the_referrer",
+  "epi_employment_details",
+  "epi_education_details",
+  "epi_communication_skill",
+  "epi_attitude_towards_work",
+  "epi_grade_level_of_job_performance",
+  "epi_any_personal_issue",
+  "epi_honesty",
+  "epi_reliability",
+  "epi_team_player",
+  "epi_time_management",
+  "epi_additional_information",
+  "1_column",
   "reference_name",
   "company_name",
   "contact_details",
@@ -96,7 +113,7 @@
   {
    "fieldname": "epi",
    "fieldtype": "Link",
-   "label": "EPI",
+   "label": "EPI ID",
    "options": "Reference Check",
    "read_only": 1
   },
@@ -164,87 +181,87 @@
   {
    "fieldname": "reference_name",
    "fieldtype": "Data",
-   "label": "Reference Name"
+   "label": "VPD Reference Name"
   },
   {
    "fieldname": "company_name",
    "fieldtype": "Data",
-   "label": "Company Name"
+   "label": "VPD Company Name"
   },
   {
    "fieldname": "contact_details",
    "fieldtype": "Int",
-   "label": "Contact Details"
+   "label": "VPD Contact Details"
   },
   {
    "fieldname": "how_do_you_know_the_referrer",
    "fieldtype": "Data",
-   "label": "How do you know the Referrer "
+   "label": "VPD How do you know the Referrer "
   },
   {
    "fieldname": "employment_details",
    "fieldtype": "Select",
-   "label": "Employment Details",
+   "label": "VPD Employment Details",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "education_details",
    "fieldtype": "Select",
-   "label": "Education Details",
+   "label": "VPD Education Details",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "communication_skill",
    "fieldtype": "Select",
-   "label": "Communication Skill",
+   "label": "VPD Communication Skill",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "attitude_towards_work",
    "fieldtype": "Select",
-   "label": "Attitude Towards Work",
+   "label": "VPD Attitude Towards Work",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "grade_level_of_job_performance",
    "fieldtype": "Select",
-   "label": "Grade Level of Job performance",
+   "label": "VPD Grade Level of Job performance",
    "options": "A+\nA\nB\nC\nD\nNA"
   },
   {
    "fieldname": "any_personal_issue",
    "fieldtype": "Select",
-   "label": "Any Personal Issue",
+   "label": "VPD Any Personal Issue",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "honesty",
    "fieldtype": "Select",
-   "label": "Honesty",
+   "label": "VPD Honesty",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "reliability",
    "fieldtype": "Select",
-   "label": "Reliability",
+   "label": "VPD Reliability",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "team_player",
    "fieldtype": "Select",
-   "label": "Team Player",
+   "label": "VPD Team Player",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "time_management",
    "fieldtype": "Select",
-   "label": "Time Management",
+   "label": "VPD Time Management",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -276,9 +293,119 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fetch_from": "epi.reference_name",
+   "fieldname": "epi_reference_name",
+   "fieldtype": "Data",
+   "label": "EPI Reference Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.company_name",
+   "fieldname": "epi_company_name",
+   "fieldtype": "Data",
+   "label": "EPI Company Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.contact_details",
+   "fieldname": "epi_contact_details",
+   "fieldtype": "Data",
+   "label": "EPI Contact Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.how_do_you_know_the_referrer",
+   "fieldname": "epi_how_do_you_know_the_referrer",
+   "fieldtype": "Data",
+   "label": "EPI How do you know the Referrer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.employment_details",
+   "fieldname": "epi_employment_details",
+   "fieldtype": "Data",
+   "label": "EPI Employment Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.education_details",
+   "fieldname": "epi_education_details",
+   "fieldtype": "Data",
+   "label": "EPI Education Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.communication_skill",
+   "fieldname": "epi_communication_skill",
+   "fieldtype": "Data",
+   "label": "EPI Communication Skill",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.attitude_towards_work",
+   "fieldname": "epi_attitude_towards_work",
+   "fieldtype": "Data",
+   "label": "EPI Attitude Towards Work",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.grade_level_of_job_performance",
+   "fieldname": "epi_grade_level_of_job_performance",
+   "fieldtype": "Data",
+   "label": "EPI Grade Level of Job performance",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.any_personal_issue",
+   "fieldname": "epi_any_personal_issue",
+   "fieldtype": "Data",
+   "label": "EPI Any Personal Issue",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.honesty",
+   "fieldname": "epi_honesty",
+   "fieldtype": "Data",
+   "label": "EPI Honesty",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.reliability",
+   "fieldname": "epi_reliability",
+   "fieldtype": "Data",
+   "label": "EPI Reliability",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.team_player",
+   "fieldname": "epi_team_player",
+   "fieldtype": "Data",
+   "label": "EPI Team Player",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.time_management",
+   "fieldname": "epi_time_management",
+   "fieldtype": "Data",
+   "label": "EPI Time Management",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "1_column",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:37.635498",
+ "links": [],
+ "modified": "2020-12-07 20:19:53.620544",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Reference Check",

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Financial Status Check-.###",
  "creation": "2020-06-06 12:17:07.894266",
  "doctype": "DocType",
@@ -8,6 +9,7 @@
   "ce_tat",
   "customer",
   "status",
+  "epi_id",
   "column_break_4",
   "check_package",
   "batch",
@@ -22,6 +24,15 @@
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_own_properties",
+  "epi_own_home",
+  "epi_own_vehical",
+  "epi_economic_class",
+  "epi_no_of_earning_members",
+  "epi_monthly_income",
+  "epi_loan_details",
+  "epi_additional_information",
+  "column_break_27",
   "own_properties",
   "own_home",
   "own_vehical",
@@ -58,7 +69,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\n\\Completed\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
   },
   {
    "fieldname": "column_break_4",
@@ -141,48 +152,48 @@
   {
    "fieldname": "own_properties",
    "fieldtype": "Select",
-   "label": "Own Properties ",
+   "label": "VPD Own Properties ",
    "options": "Yes\nNo\nNA\nRefused to Confirm"
   },
   {
    "fieldname": "own_home",
    "fieldtype": "Select",
-   "label": "Own Home",
+   "label": "VPD Own Home",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "own_vehical",
    "fieldtype": "Select",
-   "label": "Own Vehical ",
+   "label": "VPD Own Vehical ",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "economic_class",
    "fieldtype": "Select",
-   "label": "Economic Class",
+   "label": "VPD Economic Class",
    "options": "Upper Class\nUpper Middle Class\nLower Middle Class\nWorking Class\nPoor\nNA"
   },
   {
    "fieldname": "no_of_earning_members",
    "fieldtype": "Select",
-   "label": "No. of Earning Members",
+   "label": "VPD No. of Earning Members",
    "options": "Above 3 Persons\nBelow 2 Persons\nNone\nNA"
   },
   {
    "fieldname": "monthly_income",
    "fieldtype": "Select",
-   "label": "Monthly Income",
+   "label": "VPD Monthly Income",
    "options": "Less Than (\u20b9) 5000 - 15,000\nMore Than (\u20b9) 20,000 - 50,000\nAbove (\u20b9) 50,000\nNA"
   },
   {
    "fieldname": "loan_details",
    "fieldtype": "Small Text",
-   "label": "Loan Details"
+   "label": "VPD Loan Details"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Data",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -228,13 +239,80 @@
    "fieldtype": "Data",
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "epi_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Financial Status Check"
+  },
+  {
+   "fetch_from": "epi_id.own_properties",
+   "fieldname": "epi_own_properties",
+   "fieldtype": "Data",
+   "label": "EPI Own Properties",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.own_home",
+   "fieldname": "epi_own_home",
+   "fieldtype": "Data",
+   "label": "EPI Own Home",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.own_vehical",
+   "fieldname": "epi_own_vehical",
+   "fieldtype": "Data",
+   "label": "EPI Own Vehical",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.economic_class",
+   "fieldname": "epi_economic_class",
+   "fieldtype": "Data",
+   "label": "EPI Economic Class",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.no_of_earning_members",
+   "fieldname": "epi_no_of_earning_members",
+   "fieldtype": "Data",
+   "label": "EPI No. of Earning Members",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.monthly_income",
+   "fieldname": "epi_monthly_income",
+   "fieldtype": "Data",
+   "label": "EPI Monthly Income",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.loan_details",
+   "fieldname": "epi_loan_details",
+   "fieldtype": "Small Text",
+   "label": "EPI Loan Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Data",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:53.385643",
+ "links": [],
+ "modified": "2020-12-05 17:34:19.772934",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Financial Status Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

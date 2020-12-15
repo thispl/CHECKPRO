@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Criminal Record Check-.###",
  "creation": "2020-06-06 11:23:15.891583",
  "doctype": "DocType",
@@ -17,12 +18,22 @@
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi_id",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_address_line_1",
+  "epi_address_line_2",
+  "epi_city",
+  "epi_record_found",
+  "epi_record_description_if_found",
+  "epi_record_searched_from",
+  "epi__record_searched_to",
+  "epi_additional_information",
+  "1_column",
   "address_line_1",
   "address_line_2",
   "city",
@@ -152,43 +163,43 @@
   {
    "fieldname": "address_line_1",
    "fieldtype": "Data",
-   "label": "Address Line 1"
+   "label": "VPD Address Line 1"
   },
   {
    "fieldname": "address_line_2",
    "fieldtype": "Data",
-   "label": "Address Line 2"
+   "label": "VPD Address Line 2"
   },
   {
    "fieldname": "city",
    "fieldtype": "Data",
-   "label": "City"
+   "label": "VPD City"
   },
   {
    "fieldname": "record_found",
    "fieldtype": "Select",
-   "label": "Record Found",
+   "label": "VPD Record Found",
    "options": "Yes\nNot Found"
   },
   {
    "fieldname": "record_description_if_found",
    "fieldtype": "Data",
-   "label": "Record Description if Found"
+   "label": "VPD Record Description if Found"
   },
   {
    "fieldname": "record_searched_from",
    "fieldtype": "Int",
-   "label": "Record Searched From"
+   "label": "VPD Record Searched From"
   },
   {
    "fieldname": "record_searched_to",
    "fieldtype": "Int",
-   "label": " Record Searched To"
+   "label": "VPD Record Searched To"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Data",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -197,7 +208,7 @@
   },
   {
    "fieldname": "verified_by",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "label": "Verifier",
    "options": "User"
   },
@@ -235,13 +246,80 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "epi_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Criminal Record Check"
+  },
+  {
+   "fetch_from": "epi_id.address_line_1",
+   "fieldname": "epi_address_line_1",
+   "fieldtype": "Data",
+   "label": "EPI Address Line 1",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.address_line_2",
+   "fieldname": "epi_address_line_2",
+   "fieldtype": "Data",
+   "label": "EPI Address Line 2",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.city",
+   "fieldname": "epi_city",
+   "fieldtype": "Data",
+   "label": "EPI City",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.record_found",
+   "fieldname": "epi_record_found",
+   "fieldtype": "Data",
+   "label": "EPI Record Found",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.record_description_if_found",
+   "fieldname": "epi_record_description_if_found",
+   "fieldtype": "Data",
+   "label": "EPI Record Description if Found",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.record_searched_from",
+   "fieldname": "epi_record_searched_from",
+   "fieldtype": "Data",
+   "label": "EPI Record Searched From",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.record_searched_to",
+   "fieldname": "epi__record_searched_to",
+   "fieldtype": "Data",
+   "label": "EPI Record Searched To",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Data",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "1_column",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:35.997249",
+ "links": [],
+ "modified": "2020-12-07 20:56:30.603019",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Criminal Record Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

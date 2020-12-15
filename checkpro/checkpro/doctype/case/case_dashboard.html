@@ -1,9 +1,20 @@
-{% if data %}
-<h5> {{ __("Checks Under this Case") }} </h5>
-{% for(const [key, value] of Object.entries(data)) { %}
-<a class="check-link" data-type="{{ value }}">
+{% if entry_data %}
+<h5> {{ __("Entry Panel") }} </h5>
+{% for(const [key, value] of Object.entries(entry_data)) { %}
+<a class="check-link" target="_blank" data-type="{{ value }}">
     {%= value %} </a>
 <br>
+{% } %}
+{% } else { %}
+<p style="margin-top: 30px;"> No Checks have been added. </p>
+{% } %}
+
+{% if verify_data %}
+<h5> {{ __("Report Panel") }} </h5>
+{% for(const [key, value] of Object.entries(verify_data)) { %}
+<b><a class="check-link" target="_blank" data-type="{{ value }}">
+    {%= value %} </a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- <br> -->
 {% } %}
 {% } else { %}
 <p style="margin-top: 30px;"> No Checks have been added. </p>

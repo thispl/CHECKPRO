@@ -1,0 +1,35 @@
+{
+ "allow_roles": [
+  {
+   "role": "Customer"
+  }
+ ],
+ "creation": "2020-11-26 14:54:20.035510",
+ "docstatus": 0,
+ "doctype": "Module Onboarding",
+ "documentation_url": "https://docs.erpnext.com/docs/user/manual/en/website",
+ "idx": 0,
+ "is_complete": 0,
+ "modified": "2020-11-26 14:54:20.035510",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "checkPRO",
+ "owner": "Administrator",
+ "steps": [
+  {
+   "step": "Add Check Package"
+  },
+  {
+   "step": "Add Batch"
+  },
+  {
+   "step": "Add Cases"
+  },
+  {
+   "step": "View Dashboard"
+  }
+ ],
+ "subtitle": "Case Entry, Reporting, Dashboards, and more.",
+ "success_message": "Your CheckPRO is all set up!",
+ "title": "Let's Set Up Your checkPRO."
+}

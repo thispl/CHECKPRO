@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Matrimonial Check-.###",
  "creation": "2020-06-08 14:48:48.101052",
  "doctype": "DocType",
@@ -12,18 +13,33 @@
   "column_break_4",
   "check_package",
   "batch",
-  "epi",
   "case_information_section",
   "case_id",
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_job_profile_salary_and_reputation_in_the_work_place",
+  "epi_character_and_daily_routine",
+  "epi_temperamental_details",
+  "epi_alcoholic_smoker_drug_abuse_and_other_general_habits",
+  "epi_social_recognition",
+  "epi_occupationeducational_background",
+  "epi_family_background_and_financial_status",
+  "epi_details_of_any_criminal_background",
+  "epi_medical_history",
+  "epi_lifestyle",
+  "epi_social_status",
+  "epi_past_brokenunbroken_marriage",
+  "epi_relations_with_other_menwomen",
+  "epi_additional_information",
+  "column_break_34",
   "job_profile_salary_and_reputation_in_the_work_place",
   "character_and_daily_routine",
   "temperamental_details",
@@ -95,7 +111,7 @@
   {
    "fieldname": "epi",
    "fieldtype": "Link",
-   "label": "EPI",
+   "label": "EPI ID",
    "options": "Matrimonial Check"
   },
   {
@@ -162,81 +178,81 @@
   {
    "fieldname": "job_profile_salary_and_reputation_in_the_work_place",
    "fieldtype": "Select",
-   "label": "Job Profile, Salary and Reputation in the Work Place",
+   "label": "VPD Job Profile, Salary and Reputation in the Work Place",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "character_and_daily_routine",
    "fieldtype": "Select",
-   "label": "Character and Daily Routine",
+   "label": "VPD Character and Daily Routine",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "temperamental_details",
    "fieldtype": "Select",
-   "label": "Temperamental Details",
+   "label": "VPD Temperamental Details",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "alcoholic_smoker_drug_abuse_and_other_general_habits",
    "fieldtype": "Select",
-   "label": "Alcoholic, Smoker, Drug Abuse and other General Habits",
+   "label": "VPD Alcoholic, Smoker, Drug Abuse and other General Habits",
    "options": "Only Alcoholic\nSocial Drinker\nOnly Smoker\nYes\nNo\nNA"
   },
   {
    "fieldname": "social_recognition",
    "fieldtype": "Select",
-   "label": "Social Recognition",
+   "label": "VPD Social Recognition",
    "options": "Good\nAverage\nWorst\nNA"
   },
   {
    "fieldname": "occupationeducational_background",
    "fieldtype": "Data",
-   "label": "Occupation/Educational Background"
+   "label": "VPD Occupation/Educational Background"
   },
   {
    "fieldname": "family_background_and_financial_status",
    "fieldtype": "Small Text",
-   "label": "Family Background and Financial Status"
+   "label": "VPD Family Background and Financial Status"
   },
   {
    "fieldname": "details_of_any_criminal_background",
    "fieldtype": "Data",
-   "label": "Details of Any Criminal Background"
+   "label": "VPD Details of Any Criminal Background"
   },
   {
    "fieldname": "medical_history",
    "fieldtype": "Data",
-   "label": "Medical History"
+   "label": "VPD Medical History"
   },
   {
    "fieldname": "lifestyle",
    "fieldtype": "Select",
-   "label": "Lifestyle",
+   "label": "VPD Lifestyle",
    "options": "Luxuries\nRural Lifestyle\nModern\nSimple Living\nTraditional Lifestyle"
   },
   {
    "fieldname": "social_status",
    "fieldtype": "Select",
-   "label": "Social Status",
+   "label": "VPD Social Status",
    "options": "Upper Class\nUpper Middle Class\nLower Middle Class\nWorking Class\nPoor"
   },
   {
    "fieldname": "past_brokenunbroken_marriage",
    "fieldtype": "Select",
-   "label": "Past Broken/Unbroken Marriage",
+   "label": "VPD Past Broken/Unbroken Marriage",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "relations_with_other_menwomen",
    "fieldtype": "Select",
-   "label": "Relations With Other Men/Women",
+   "label": "VPD Relations With Other Men/Women",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -268,13 +284,116 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fetch_from": "epi.job_profile_salary_and_reputation_in_the_work_place",
+   "fieldname": "epi_job_profile_salary_and_reputation_in_the_work_place",
+   "fieldtype": "Data",
+   "label": "EPI Job Profile, Salary and Reputation in the Work Place",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.character_and_daily_routine",
+   "fieldname": "epi_character_and_daily_routine",
+   "fieldtype": "Data",
+   "label": "EPI Character and Daily Routine",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.temperamental_details",
+   "fieldname": "epi_temperamental_details",
+   "fieldtype": "Data",
+   "label": "EPI Temperamental Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.alcoholic_smoker_drug_abuse_and_other_general_habits",
+   "fieldname": "epi_alcoholic_smoker_drug_abuse_and_other_general_habits",
+   "fieldtype": "Data",
+   "label": "EPI Alcoholic, Smoker, Drug Abuse and other General Habits",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.social_recognition",
+   "fieldname": "epi_social_recognition",
+   "fieldtype": "Data",
+   "label": "EPI Social Recognition",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.occupationeducational_background",
+   "fieldname": "epi_occupationeducational_background",
+   "fieldtype": "Data",
+   "label": "EPI Occupation/Educational Background",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.family_background_and_financial_status",
+   "fieldname": "epi_family_background_and_financial_status",
+   "fieldtype": "Small Text",
+   "label": "EPI Family Background and Financial Status",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.details_of_any_criminal_background",
+   "fieldname": "epi_details_of_any_criminal_background",
+   "fieldtype": "Data",
+   "label": "EPI Details of Any Criminal Background",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.medical_history",
+   "fieldname": "epi_medical_history",
+   "fieldtype": "Data",
+   "label": "EPI Medical History",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.lifestyle",
+   "fieldname": "epi_lifestyle",
+   "fieldtype": "Data",
+   "label": "EPI Lifestyle",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.social_status",
+   "fieldname": "epi_social_status",
+   "fieldtype": "Data",
+   "label": "EPI Social Status",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.past_brokenunbroken_marriage",
+   "fieldname": "epi_past_brokenunbroken_marriage",
+   "fieldtype": "Data",
+   "label": "EPI Past Broken/Unbroken Marriage",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.relations_with_other_menwomen",
+   "fieldname": "epi_relations_with_other_menwomen",
+   "fieldtype": "Data",
+   "label": "EPI Relations With Other Men/Women",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:28.511081",
+ "links": [],
+ "modified": "2020-12-07 20:45:58.311702",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Matrimonial Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

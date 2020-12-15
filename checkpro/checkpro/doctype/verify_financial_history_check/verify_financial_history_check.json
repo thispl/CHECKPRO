@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Financial History Check-.###",
  "creation": "2020-06-06 12:28:11.032405",
  "doctype": "DocType",
@@ -18,12 +19,21 @@
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi_id",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_audited_fs",
+  "epi_un_audited_fs",
+  "epi_budget_and_variation",
+  "epi_financial_package",
+  "epi_detail_of_capital_expenditure",
+  "epi_forecast_projection",
+  "epi_additional_information",
+  "column_break_28",
   "audited_fs",
   "un_audited_fs",
   "budget_and_variation",
@@ -159,37 +169,37 @@
   {
    "fieldname": "audited_fs",
    "fieldtype": "Data",
-   "label": "Audited FS"
+   "label": "VPD Audited FS"
   },
   {
    "fieldname": "un_audited_fs",
    "fieldtype": "Data",
-   "label": "Un Audited FS"
+   "label": "VPD Un Audited FS"
   },
   {
    "fieldname": "budget_and_variation",
    "fieldtype": "Data",
-   "label": "Budget and Variation"
+   "label": "VPD Budget and Variation"
   },
   {
    "fieldname": "financial_package",
    "fieldtype": "Data",
-   "label": "Financial Package"
+   "label": "VPD Financial Package"
   },
   {
    "fieldname": "detail_of_capital_expenditure",
    "fieldtype": "Data",
-   "label": "Detail of Capital Expenditure"
+   "label": "VPD Detail of Capital Expenditure"
   },
   {
    "fieldname": "forecast_projection",
    "fieldtype": "Data",
-   "label": "Forecast Projection"
+   "label": "VPD Forecast Projection"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Data",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -236,13 +246,73 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "epi_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Financial History Check"
+  },
+  {
+   "fetch_from": "epi_id.audited_fs",
+   "fieldname": "epi_audited_fs",
+   "fieldtype": "Data",
+   "label": "EPI Audited FS",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.un_audited_fs",
+   "fieldname": "epi_un_audited_fs",
+   "fieldtype": "Data",
+   "label": "EPI Un Audited FS",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.budget_and_variation",
+   "fieldname": "epi_budget_and_variation",
+   "fieldtype": "Data",
+   "label": "EPI Budget and Variation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.financial_package",
+   "fieldname": "epi_financial_package",
+   "fieldtype": "Data",
+   "label": "EPI Financial Package",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.detail_of_capital_expenditure",
+   "fieldname": "epi_detail_of_capital_expenditure",
+   "fieldtype": "Data",
+   "label": "EPI Detail of Capital Expenditure",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.forecast_projection",
+   "fieldname": "epi_forecast_projection",
+   "fieldtype": "Data",
+   "label": "EPI Forecast Projection",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.additional_information",
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Data",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:36.444978",
+ "links": [],
+ "modified": "2020-12-07 19:27:59.716783",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Financial History Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

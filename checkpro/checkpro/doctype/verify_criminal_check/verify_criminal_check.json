@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Criminal Check-.###",
  "creation": "2020-07-02 11:42:08.928558",
  "doctype": "DocType",
@@ -16,12 +17,16 @@
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi_id",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_name",
+  "epi_dob",
+  "column_break_21",
   "name1",
   "dob",
   "verification_details_section",
@@ -135,12 +140,12 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Name"
+   "label": "VPD Name"
   },
   {
    "fieldname": "dob",
    "fieldtype": "Date",
-   "label": "DOB"
+   "label": "VPD DOB"
   },
   {
    "fieldname": "verification_details_section",
@@ -186,13 +191,38 @@
    "fieldtype": "Data",
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "epi_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Criminal Check"
+  },
+  {
+   "fetch_from": "epi_id.name1",
+   "fieldname": "epi_name",
+   "fieldtype": "Data",
+   "label": "EPI Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.dob",
+   "fieldname": "epi_dob",
+   "fieldtype": "Data",
+   "label": "EPI DOB",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:26.684428",
+ "links": [],
+ "modified": "2020-12-07 20:49:40.775751",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Criminal Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

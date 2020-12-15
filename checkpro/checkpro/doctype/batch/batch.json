@@ -1,11 +1,13 @@
 {
- "autoname": "format:{check_package}-{Batch}-{###}",
+ "actions": [],
+ "autoname": "format:{customer_short_code}-{Batch}-{###}",
  "creation": "2020-05-16 11:47:34.161556",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "customer_short_code",
   "check_package",
   "column_break_2",
   "no_of_cases"
@@ -33,9 +35,16 @@
    "fieldname": "no_of_cases",
    "fieldtype": "Int",
    "label": "No of Cases"
+  },
+  {
+   "fetch_from": "customer.short_code",
+   "fieldname": "customer_short_code",
+   "fieldtype": "Read Only",
+   "label": "Customer Short Code"
   }
  ],
- "modified": "2020-09-23 11:22:27.455091",
+ "links": [],
+ "modified": "2020-12-03 15:18:44.667829",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Batch",

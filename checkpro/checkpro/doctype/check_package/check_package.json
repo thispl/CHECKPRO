@@ -14,6 +14,7 @@
   "section_break_6",
   "check_name",
   "checks_list",
+  "column_break_9",
   "gsp",
   "description"
  ],
@@ -27,24 +28,26 @@
   {
    "fieldname": "pricing_model",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Pricing Model",
-   "options": "\nUnits\nFixed"
+   "options": "\nUnits\nFixed",
+   "permlevel": 1
   },
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "customer.short_code",
    "fieldname": "customer_short_code",
-   "fieldtype": "Data",
-   "label": "Customer Short Code"
+   "fieldtype": "Read Only",
+   "label": "Customer Short Code",
+   "permlevel": 1
   },
   {
    "fieldname": "package_tat",
    "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Package TAT"
+   "label": "Package TAT",
+   "permlevel": 1
   },
   {
    "fieldname": "section_break_6",
@@ -66,8 +69,8 @@
   {
    "fieldname": "gsp",
    "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Gross Selling Price"
+   "label": "Gross Selling Price",
+   "permlevel": 1
   },
   {
    "default": "0",
@@ -75,10 +78,14 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Description"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
   }
  ],
  "links": [],
- "modified": "2020-10-27 18:26:49.420433",
+ "modified": "2020-11-25 18:41:30.564129",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Package",

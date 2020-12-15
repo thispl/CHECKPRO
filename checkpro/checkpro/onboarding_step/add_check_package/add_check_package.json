@@ -1,0 +1,19 @@
+{
+ "action": "Create Entry",
+ "creation": "2020-11-26 14:46:40.337826",
+ "docstatus": 0,
+ "doctype": "Onboarding Step",
+ "idx": 0,
+ "is_complete": 0,
+ "is_mandatory": 0,
+ "is_single": 0,
+ "is_skipped": 0,
+ "modified": "2020-11-26 14:46:40.337826",
+ "modified_by": "Administrator",
+ "name": "Add Check Package",
+ "owner": "Administrator",
+ "reference_document": "Check Package",
+ "show_full_form": 1,
+ "title": "Add Check Package",
+ "validate_action": 1
+}

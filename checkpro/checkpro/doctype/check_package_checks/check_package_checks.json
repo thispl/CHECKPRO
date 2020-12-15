@@ -1,0 +1,31 @@
+{
+ "actions": [],
+ "creation": "2020-11-25 16:23:58.808486",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "checks"
+ ],
+ "fields": [
+  {
+   "fieldname": "checks",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Checks",
+   "options": "All Checks"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2020-11-25 17:19:32.519138",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Check Package Checks",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Employment Check-.###",
  "creation": "2020-06-05 12:03:24.259460",
  "doctype": "DocType",
@@ -7,23 +8,47 @@
  "field_order": [
   "ce_tat",
   "customer",
-  "status",
-  "execution_status",
-  "column_break_4",
   "check_package",
   "batch",
+  "status",
+  "execution_status",
+  "report",
+  "column_break_4",
   "epi",
+  "image",
+  "image_1",
+  "image_2",
+  "image_3",
   "case_information_section",
   "case_id",
   "case_name",
+  "entry_id",
+  "column_break_12",
   "date_of_birth",
   "case_gender",
-  "column_break_12",
+  "column_break_15",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "entry_employee_name",
+  "entry_employee_code",
+  "entry_employer_name",
+  "entry_address",
+  "entry_employment_type",
+  "entry_period_of_employment_from",
+  "entry_period_of_employment_to",
+  "entry_joining_designation",
+  "entry_leaving_designation",
+  "entry_name_of_reporting_manager",
+  "entry_designation_of_reporting_manager",
+  "entry_reason_for_departure",
+  "entry_character_and_conduct",
+  "entry_gap_in_employment",
+  "entry_eligible_for_rehire",
+  "entry_additional_information",
+  "column_break_27",
   "employee_name",
   "employee_code",
   "employer_name",
@@ -54,6 +79,7 @@
    "fieldname": "ce_tat",
    "fieldtype": "Data",
    "label": "CE TAT",
+   "permlevel": 1,
    "read_only": 1
   },
   {
@@ -65,12 +91,15 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Green\nRed\nAmber\nInterim"
+   "options": "Green\nRed\nAmber\nInterim\nPending"
   },
   {
+   "default": "Pending",
    "fieldname": "execution_status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -167,87 +196,87 @@
   {
    "fieldname": "employee_name",
    "fieldtype": "Data",
-   "label": "Employee Name"
+   "label": "VPD Employee Name"
   },
   {
    "fieldname": "employee_code",
    "fieldtype": "Data",
-   "label": "Employee Code"
+   "label": "VPD Employee Code"
   },
   {
    "fieldname": "employer_name",
    "fieldtype": "Data",
-   "label": "Employer Name"
+   "label": "VPD Employer Name"
   },
   {
    "fieldname": "address",
-   "fieldtype": "Data",
-   "label": "Address"
+   "fieldtype": "Small Text",
+   "label": "VPD Address"
   },
   {
    "fieldname": "employment_type",
    "fieldtype": "Select",
-   "label": "Employment Type",
+   "label": "VPD Employment Type",
    "options": "Temporary\nPermanent\nContract"
   },
   {
    "fieldname": "period_of_employment_from",
    "fieldtype": "Date",
-   "label": "Period of Employment From"
+   "label": "VPD Period of Employment From"
   },
   {
    "fieldname": "period_of_employment_to",
    "fieldtype": "Date",
-   "label": "Period of Employment To"
+   "label": "VPD Period of Employment To"
   },
   {
    "fieldname": "joining_designation",
    "fieldtype": "Data",
-   "label": "Joining Designation"
+   "label": "VPD Joining Designation"
   },
   {
    "fieldname": "leaving_designation",
    "fieldtype": "Data",
-   "label": "Leaving Designation"
+   "label": "VPD Leaving Designation"
   },
   {
    "fieldname": "name_of_reporting_manager",
    "fieldtype": "Data",
-   "label": "Name of Reporting Manager "
+   "label": "VPD Name of Reporting Manager "
   },
   {
    "fieldname": "designation_of_reporting_manager",
    "fieldtype": "Data",
-   "label": "Designation of Reporting Manager "
+   "label": "VPD Designation of Reporting Manager "
   },
   {
    "fieldname": "reason_for_departure",
    "fieldtype": "Select",
-   "label": "Reason for Departure",
+   "label": "VPD Reason for Departure",
    "options": "Better Job Opportunity\nPersonal Reason\nTerminate\nHealth Issue\nNot Provided\nLack Of Knowledge"
   },
   {
    "fieldname": "character_and_conduct",
    "fieldtype": "Select",
-   "label": "Character And Conduct ",
+   "label": "VPD Character And Conduct ",
    "options": "Good\nAverage\nWorst"
   },
   {
    "fieldname": "gap_in_employment",
    "fieldtype": "Select",
-   "label": "Gap in Employment",
+   "label": "VPD Gap in Employment",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "eligible_for_rehire",
    "fieldtype": "Select",
-   "label": "Eligible for Rehire",
+   "label": "VPD Eligible for Rehire",
    "options": "Yes\nNo\nNA"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -256,9 +285,8 @@
   },
   {
    "fieldname": "verified_by",
-   "fieldtype": "Link",
-   "label": "Verified By",
-   "options": "User"
+   "fieldtype": "Data",
+   "label": "Verified By"
   },
   {
    "fieldname": "designation",
@@ -288,14 +316,176 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Check Executive",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.execution_status == 'Completed'",
+   "fieldname": "report",
+   "fieldtype": "Attach",
+   "label": "Report"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Green\"",
+   "fieldname": "image",
+   "fieldtype": "HTML",
+   "label": "Image",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Positive.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Red\"",
+   "fieldname": "image_1",
+   "fieldtype": "HTML",
+   "label": "Image_1",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Amber\"",
+   "fieldname": "image_2",
+   "fieldtype": "HTML",
+   "label": "Image_2",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Dilemma.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Interim\"",
+   "fieldname": "image_3",
+   "fieldtype": "HTML",
+   "label": "Image_3",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+  },
+  {
+   "fieldname": "entry_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Employment Check"
+  },
+  {
+   "fetch_from": "entry_id.employee_name",
+   "fieldname": "entry_employee_name",
+   "fieldtype": "Data",
+   "label": "EPI Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.employee_code",
+   "fieldname": "entry_employee_code",
+   "fieldtype": "Data",
+   "label": "EPI Employee Code",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.employer_name",
+   "fieldname": "entry_employer_name",
+   "fieldtype": "Data",
+   "label": "EPI Employer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.address",
+   "fieldname": "entry_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Address",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.employment_type",
+   "fieldname": "entry_employment_type",
+   "fieldtype": "Data",
+   "label": "EPI Employment Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.period_of_employment_from",
+   "fieldname": "entry_period_of_employment_from",
+   "fieldtype": "Data",
+   "label": "EPI Period of Employment From",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.period_of_employment_to",
+   "fieldname": "entry_period_of_employment_to",
+   "fieldtype": "Data",
+   "label": "EPI Period of Employment To",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.joining_designation",
+   "fieldname": "entry_joining_designation",
+   "fieldtype": "Data",
+   "label": "EPI Joining Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.leaving_designation",
+   "fieldname": "entry_leaving_designation",
+   "fieldtype": "Data",
+   "label": "EPI Leaving Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.name_of_reporting_manager",
+   "fieldname": "entry_name_of_reporting_manager",
+   "fieldtype": "Data",
+   "label": "EPI Name of Reporting Manager",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.designation_of_reporting_manager",
+   "fieldname": "entry_designation_of_reporting_manager",
+   "fieldtype": "Data",
+   "label": "EPI Designation of Reporting Manager",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.reason_for_departure",
+   "fieldname": "entry_reason_for_departure",
+   "fieldtype": "Data",
+   "label": "EPI Reason for Departure",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.character_and_conduct",
+   "fieldname": "entry_character_and_conduct",
+   "fieldtype": "Data",
+   "label": "EPI Character And Conduct",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.gap_in_employment",
+   "fieldname": "entry_gap_in_employment",
+   "fieldtype": "Data",
+   "label": "EPI Gap in Employment",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.eligible_for_rehire",
+   "fieldname": "entry_eligible_for_rehire",
+   "fieldtype": "Data",
+   "label": "EPI Eligible for Rehire",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.additional_information",
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
    "read_only": 1
   }
  ],
- "modified": "2020-09-23 11:22:33.068608",
+ "links": [],
+ "modified": "2020-12-03 11:10:27.484080",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Employment Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

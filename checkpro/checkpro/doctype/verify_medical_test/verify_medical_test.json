@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Medical Test -.###",
  "creation": "2020-06-08 17:58:45.219347",
  "doctype": "DocType",
@@ -18,12 +19,46 @@
   "case_name",
   "date_of_birth",
   "case_gender",
+  "epi_id",
   "column_break_12",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "epi_list_of_master_check_up",
+  "epi_haemoglobin",
+  "epi_mchc",
+  "epi_mcv",
+  "epi_mch",
+  "epi_diff_count",
+  "epi_platelet_count",
+  "epi_pcv",
+  "epi_total_wbc",
+  "epi_peripheral_smear",
+  "epi_esr",
+  "epi_blood_group_and_rh_type",
+  "epi_blood_sugar_fasting_and_pp",
+  "epi_blood_urea_nitrogen",
+  "epi_creatinine",
+  "epi_uric_acid",
+  "epi_lipid_profile",
+  "epi_total_cholesterol",
+  "epi_hdl_cholesterol",
+  "epi_triglycerides",
+  "epi_total_cholesterol_or_hdl_ratio",
+  "epi_liver_function_tests",
+  "epi_bilirubin",
+  "epi_total_protein",
+  "epi_globulin",
+  "epi_sgpt",
+  "epi_ggtp",
+  "epi_albumin",
+  "epi_albumin_to_globulin_ratio",
+  "epi_alkaline_phosphatase",
+  "epi_thyroid_function_tests",
+  "epi_general_tests",
+  "column_break_53",
   "list_of_master_check_up",
   "haemoglobin",
   "mchc",
@@ -179,163 +214,163 @@
   {
    "fieldname": "list_of_master_check_up",
    "fieldtype": "Select",
-   "label": "List of Master Check up",
+   "label": "VPD List of Master Check up",
    "options": "Panel - 1\nPanel - 2"
   },
   {
    "fieldname": "haemoglobin",
    "fieldtype": "Data",
-   "label": "Haemoglobin"
+   "label": "VPD Haemoglobin"
   },
   {
    "fieldname": "mchc",
    "fieldtype": "Data",
-   "label": "MCHC"
+   "label": "VPD MCHC"
   },
   {
    "fieldname": "mcv",
    "fieldtype": "Data",
-   "label": "MCV"
+   "label": "VPD MCV"
   },
   {
    "fieldname": "mch",
    "fieldtype": "Data",
-   "label": "MCH"
+   "label": "VPD MCH"
   },
   {
    "fieldname": "diff_count",
    "fieldtype": "Data",
-   "label": "Diff Count"
+   "label": "VPD Diff Count"
   },
   {
    "fieldname": "platelet_count",
    "fieldtype": "Data",
-   "label": "Platelet Count"
+   "label": "VPD Platelet Count"
   },
   {
    "fieldname": "pcv",
    "fieldtype": "Data",
-   "label": "PCV"
+   "label": "VPD PCV"
   },
   {
    "fieldname": "total_wbc",
    "fieldtype": "Data",
-   "label": "Total WBC"
+   "label": "VPD Total WBC"
   },
   {
    "fieldname": "peripheral_smear",
    "fieldtype": "Data",
-   "label": "Peripheral Smear"
+   "label": "VPD Peripheral Smear"
   },
   {
    "fieldname": "esr",
    "fieldtype": "Data",
-   "label": "ESR"
+   "label": "VPD ESR"
   },
   {
    "fieldname": "blood_group_and_rh_type",
    "fieldtype": "Data",
-   "label": "Blood Group And Rh Type"
+   "label": "VPD Blood Group And Rh Type"
   },
   {
    "fieldname": "blood_sugar_fasting_and_pp",
    "fieldtype": "Data",
-   "label": "Blood Sugar Fasting And PP"
+   "label": "VPD Blood Sugar Fasting And PP"
   },
   {
    "fieldname": "blood_urea_nitrogen",
    "fieldtype": "Data",
-   "label": "Blood Urea Nitrogen"
+   "label": "VPD Blood Urea Nitrogen"
   },
   {
    "fieldname": "creatinine",
    "fieldtype": "Data",
-   "label": "  Creatinine"
+   "label": "VPD Creatinine"
   },
   {
    "fieldname": "uric_acid",
    "fieldtype": "Data",
-   "label": "Uric Acid"
+   "label": "VPD Uric Acid"
   },
   {
    "fieldname": "lipid_profile",
    "fieldtype": "Data",
-   "label": "Lipid Profile"
+   "label": "VPD Lipid Profile"
   },
   {
    "fieldname": "total_cholesterol",
    "fieldtype": "Data",
-   "label": "Total Cholesterol"
+   "label": "VPD Total Cholesterol"
   },
   {
    "fieldname": "hdl_cholesterol",
    "fieldtype": "Data",
-   "label": "HDL Cholesterol"
+   "label": "VPD HDL Cholesterol"
   },
   {
    "fieldname": "triglycerides",
    "fieldtype": "Data",
-   "label": "Triglycerides"
+   "label": "VPD Triglycerides"
   },
   {
    "fieldname": "total_cholesterol_or_hdl_ratio",
    "fieldtype": "Data",
-   "label": "Total Cholesterol or HDL Ratio"
+   "label": "VPD Total Cholesterol or HDL Ratio"
   },
   {
    "fieldname": "liver_function_tests",
    "fieldtype": "Data",
-   "label": "Liver Function Tests"
+   "label": "VPD Liver Function Tests"
   },
   {
    "fieldname": "bilirubin",
    "fieldtype": "Data",
-   "label": " Bilirubin"
+   "label": "VPD Bilirubin"
   },
   {
    "fieldname": "total_protein",
    "fieldtype": "Data",
-   "label": "Total Protein"
+   "label": "VPD Total Protein"
   },
   {
    "fieldname": "globulin",
    "fieldtype": "Data",
-   "label": "Globulin"
+   "label": "VPD Globulin"
   },
   {
    "fieldname": "sgpt",
    "fieldtype": "Data",
-   "label": "SGPT"
+   "label": "VPD SGPT"
   },
   {
    "fieldname": "ggtp",
    "fieldtype": "Data",
-   "label": "GGTP"
+   "label": "VPD GGTP"
   },
   {
    "fieldname": "albumin",
    "fieldtype": "Data",
-   "label": "Albumin"
+   "label": "VPD Albumin"
   },
   {
    "fieldname": "albumin_to_globulin_ratio",
    "fieldtype": "Data",
-   "label": "Albumin to Globulin Ratio"
+   "label": "VPD Albumin to Globulin Ratio"
   },
   {
    "fieldname": "alkaline_phosphatase",
    "fieldtype": "Data",
-   "label": " Alkaline Phosphatase"
+   "label": "VPD Alkaline Phosphatase"
   },
   {
    "fieldname": "thyroid_function_tests",
    "fieldtype": "Select",
-   "label": "Thyroid Function Tests"
+   "label": "VPD Thyroid Function Tests"
   },
   {
    "fieldname": "general_tests",
    "fieldtype": "Select",
-   "label": "General Tests",
+   "label": "VPD General Tests",
    "options": "Urine Routine\nStool Routine"
   },
   {
@@ -377,13 +412,248 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "epi_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Medical Test"
+  },
+  {
+   "fetch_from": "epi_id.list_of_master_check_up",
+   "fieldname": "epi_list_of_master_check_up",
+   "fieldtype": "Data",
+   "label": "EPI List of Master Check up",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.haemoglobin",
+   "fieldname": "epi_haemoglobin",
+   "fieldtype": "Data",
+   "label": "EPI Haemoglobin",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.mchc",
+   "fieldname": "epi_mchc",
+   "fieldtype": "Data",
+   "label": "EPI MCHC",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.mcv",
+   "fieldname": "epi_mcv",
+   "fieldtype": "Data",
+   "label": "EPI MCV",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.mch",
+   "fieldname": "epi_mch",
+   "fieldtype": "Data",
+   "label": "EPI MCH",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.diff_count",
+   "fieldname": "epi_diff_count",
+   "fieldtype": "Data",
+   "label": "EPI Diff Count",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.platelet_count",
+   "fieldname": "epi_platelet_count",
+   "fieldtype": "Data",
+   "label": "EPI Platelet Count",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.pcv",
+   "fieldname": "epi_pcv",
+   "fieldtype": "Data",
+   "label": "EPI PCV",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.total_wbc",
+   "fieldname": "epi_total_wbc",
+   "fieldtype": "Data",
+   "label": "EPI Total WBC",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.peripheral_smear",
+   "fieldname": "epi_peripheral_smear",
+   "fieldtype": "Data",
+   "label": "EPI Peripheral Smear",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.esr",
+   "fieldname": "epi_esr",
+   "fieldtype": "Data",
+   "label": "EPI ESR",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.blood_group_and_rh_type",
+   "fieldname": "epi_blood_group_and_rh_type",
+   "fieldtype": "Data",
+   "label": "EPI Blood Group And Rh Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.blood_sugar_fasting_and_pp",
+   "fieldname": "epi_blood_sugar_fasting_and_pp",
+   "fieldtype": "Data",
+   "label": "EPI Blood Sugar Fasting And PP",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.blood_urea_nitrogen",
+   "fieldname": "epi_blood_urea_nitrogen",
+   "fieldtype": "Data",
+   "label": "EPI Blood Urea Nitrogen",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.creatinine",
+   "fieldname": "epi_creatinine",
+   "fieldtype": "Data",
+   "label": "EPI Creatinine",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.uric_acid",
+   "fieldname": "epi_uric_acid",
+   "fieldtype": "Data",
+   "label": "EPI Uric Acid",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.lipid_profile",
+   "fieldname": "epi_lipid_profile",
+   "fieldtype": "Data",
+   "label": "EPI Lipid Profile",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.total_cholesterol",
+   "fieldname": "epi_total_cholesterol",
+   "fieldtype": "Data",
+   "label": "EPI Total Cholesterol",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.hdl_cholesterol",
+   "fieldname": "epi_hdl_cholesterol",
+   "fieldtype": "Data",
+   "label": "EPI HDL Cholesterol",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.triglycerides",
+   "fieldname": "epi_triglycerides",
+   "fieldtype": "Data",
+   "label": "EPI Triglycerides",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.total_cholesterol_or_hdl_ratio",
+   "fieldname": "epi_total_cholesterol_or_hdl_ratio",
+   "fieldtype": "Data",
+   "label": "EPI Total Cholesterol or HDL Ratio",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.liver_function_tests",
+   "fieldname": "epi_liver_function_tests",
+   "fieldtype": "Data",
+   "label": "EPI Liver Function Tests",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.bilirubin",
+   "fieldname": "epi_bilirubin",
+   "fieldtype": "Data",
+   "label": "EPI Bilirubin",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.total_protein",
+   "fieldname": "epi_total_protein",
+   "fieldtype": "Data",
+   "label": "EPI Total Protein",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.globulin",
+   "fieldname": "epi_globulin",
+   "fieldtype": "Data",
+   "label": "EPI Globulin",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.sgpt",
+   "fieldname": "epi_sgpt",
+   "fieldtype": "Data",
+   "label": "EPI SGPT",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.ggtp",
+   "fieldname": "epi_ggtp",
+   "fieldtype": "Data",
+   "label": "EPI GGTP",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.albumin",
+   "fieldname": "epi_albumin",
+   "fieldtype": "Data",
+   "label": "EPI Albumin",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.albumin_to_globulin_ratio",
+   "fieldname": "epi_albumin_to_globulin_ratio",
+   "fieldtype": "Data",
+   "label": "EPI Albumin to Globulin Ratio",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.alkaline_phosphatase",
+   "fieldname": "epi_alkaline_phosphatase",
+   "fieldtype": "Data",
+   "label": "EPI Alkaline Phosphatase",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.thyroid_function_tests",
+   "fieldname": "epi_thyroid_function_tests",
+   "fieldtype": "Data",
+   "label": "EPI Thyroid Function Tests",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "epi_id.general_tests",
+   "fieldname": "epi_general_tests",
+   "fieldtype": "Data",
+   "label": "EPI General Tests",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_53",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:29.518958",
+ "links": [],
+ "modified": "2020-12-05 18:25:22.097618",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Medical Test",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

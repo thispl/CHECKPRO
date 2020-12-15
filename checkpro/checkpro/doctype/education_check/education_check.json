@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Education Check-.###",
  "creation": "2020-06-05 13:01:33.361725",
  "doctype": "DocType",
@@ -14,6 +15,7 @@
   "case_information_section",
   "case_id",
   "case_name",
+  "column_break_10",
   "date_of_birth",
   "case_gender",
   "column_break_12",
@@ -23,18 +25,18 @@
   "client_employee_code",
   "section_break_17",
   "employee_name",
-  "employee_code",
   "institution_name",
   "affiliated_university_name",
+  "registration_number",
+  "additional_information",
+  "column_break_23",
   "course",
   "course_start",
   "course_end",
-  "registration_number",
   "graduated",
   "reason",
   "graduation_year",
   "gpa_or_grade_obtained",
-  "additional_information",
   "section_break_31",
   "check_executive"
  ],
@@ -43,6 +45,7 @@
    "fieldname": "ce_tat",
    "fieldtype": "Data",
    "label": "CE TAT",
+   "permlevel": 1,
    "read_only": 1
   },
   {
@@ -54,11 +57,13 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop",
+   "permlevel": 1
   },
   {
    "fieldname": "column_break_4",
@@ -147,11 +152,6 @@
    "label": "Employee Name"
   },
   {
-   "fieldname": "employee_code",
-   "fieldtype": "Data",
-   "label": "Employee Code"
-  },
-  {
    "fieldname": "institution_name",
    "fieldtype": "Data",
    "label": "Institution Name"
@@ -190,11 +190,13 @@
    "options": "Yes\nNo\nNA\nPursuing"
   },
   {
+   "depends_on": "eval:doc.graduated === 'No'",
    "fieldname": "reason",
    "fieldtype": "Data",
    "label": "Reason"
   },
   {
+   "depends_on": "eval:doc.graduated === 'Yes'",
    "fieldname": "graduation_year",
    "fieldtype": "Select",
    "label": "Graduation Year",
@@ -218,14 +220,24 @@
    "fieldname": "check_executive",
    "fieldtype": "Data",
    "label": "Check Executive",
+   "permlevel": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-23 11:22:39.345751",
+ "links": [],
+ "modified": "2020-12-02 11:58:59.392199",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Education Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-05-11 18:06:45.377202",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -21,32 +22,32 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Checks",
-   "options": "Checks"
+   "options": "All Checks"
   },
   {
    "fieldname": "check_id",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Check ID"
+   "label": "Check ID",
+   "permlevel": 1
   },
   {
    "fieldname": "ca_tat",
    "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "CA TAT"
+   "label": "CA TAT",
+   "permlevel": 1
   },
   {
    "fieldname": "ace_tat",
    "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "ACE TAT"
+   "label": "ACE TAT",
+   "permlevel": 1
   },
   {
-   "fetch_from": "checks.ce_tat",
    "fieldname": "ce_tat",
    "fieldtype": "Int",
-   "in_list_view": 1,
    "label": "CE TAT",
+   "permlevel": 1,
    "read_only": 1
   },
   {
@@ -61,30 +62,31 @@
    "label": "Units"
   },
   {
-   "fetch_from": "checks.check_price",
    "fieldname": "check_price",
    "fieldtype": "Currency",
-   "in_list_view": 1,
    "label": "Check Price",
+   "permlevel": 1,
    "read_only": 1
   },
   {
    "depends_on": "eval:parent.pricing_model==\"Units\"",
    "fieldname": "check_selling_price",
    "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Check Selling Price"
+   "label": "Check Selling Price",
+   "permlevel": 1
   },
   {
    "depends_on": "eval:parent.pricing_model==\"Units\"",
    "fieldname": "tcsp",
    "fieldtype": "Currency",
    "label": "Total Check Selling Price",
+   "permlevel": 1,
    "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-09-23 11:22:50.891634",
+ "links": [],
+ "modified": "2020-11-25 18:37:38.136875",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checks List",

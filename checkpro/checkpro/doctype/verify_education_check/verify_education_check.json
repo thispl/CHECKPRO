@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Education Check-.###",
  "creation": "2020-06-05 13:01:33.857608",
  "doctype": "DocType",
@@ -7,31 +8,49 @@
  "field_order": [
   "ce_tat",
   "customer",
+  "check_package",
+  "batch",
   "status",
   "execution_status",
   "column_break_4",
-  "check_package",
-  "batch",
   "epi",
+  "image",
+  "image_1",
+  "image_2",
+  "image_3",
   "case_information_section",
   "case_id",
   "case_name",
+  "entry_id",
+  "column_break_12",
   "date_of_birth",
   "case_gender",
-  "column_break_12",
+  "column_break_15",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "entry_employee_name",
+  "entry_institution_name",
+  "entry_registration_number",
+  "entry_affiliated_university_name",
+  "entry_course",
+  "entry_course_start",
+  "entry_course_end",
+  "entry_graduated",
+  "entry_reason",
+  "entry_graduation_year",
+  "entry_gpa_or_grade_obtained",
+  "entry_additional_information",
+  "column_break_25",
   "employee_name",
-  "employee_code",
   "institution_name",
+  "registration_number",
   "affiliated_university_name",
   "course",
   "course_start",
   "course_end",
-  "registration_number",
   "graduated",
   "reason",
   "graduation_year",
@@ -63,12 +82,15 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Green\nRed\nAmber\nInterim"
+   "options": "Green\nRed\nAmber\nInterim\nPending"
   },
   {
+   "default": "Pending",
    "fieldname": "execution_status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -165,71 +187,66 @@
   {
    "fieldname": "employee_name",
    "fieldtype": "Data",
-   "label": "Employee Name"
-  },
-  {
-   "fieldname": "employee_code",
-   "fieldtype": "Data",
-   "label": "Employee Code"
+   "label": "VPD Employee Name"
   },
   {
    "fieldname": "institution_name",
    "fieldtype": "Data",
-   "label": "Institution Name"
+   "label": "VPD Institution Name"
   },
   {
    "fieldname": "affiliated_university_name",
    "fieldtype": "Data",
-   "label": "Affiliated University Name"
+   "label": "VPD Affiliated University Name"
   },
   {
    "fieldname": "course",
    "fieldtype": "Data",
-   "label": "Course "
+   "label": "VPD Course "
   },
   {
    "fieldname": "course_start",
    "fieldtype": "Select",
-   "label": "Course Start ",
-   "options": "NA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
+   "label": "VPD Course Start ",
+   "options": "\nNA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
   },
   {
    "fieldname": "course_end",
    "fieldtype": "Select",
-   "label": "Course End ",
-   "options": "NA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
+   "label": "VPD Course End ",
+   "options": "\nNA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
   },
   {
    "fieldname": "registration_number",
    "fieldtype": "Data",
-   "label": "Registration Number"
+   "label": "VPD Registration Number"
   },
   {
    "fieldname": "graduated",
    "fieldtype": "Select",
-   "label": "Graduated",
-   "options": "Yes\nNo\nNA\nPursuing"
+   "label": "VPD Graduated",
+   "options": "\nYes\nNo\nNA\nPursuing"
   },
   {
    "fieldname": "reason",
    "fieldtype": "Data",
-   "label": "Reason"
+   "label": "VPD Reason"
   },
   {
    "fieldname": "graduation_year",
    "fieldtype": "Select",
-   "label": "Graduation Year",
-   "options": "NA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
+   "label": "VPD Graduation Year",
+   "options": "\nNA\n1980\n1981\n1982\n1983\n1984\n1985\n1986\n1987\n1988\n1989\n1990\n1991\n1992\n1993\n1994\n1995\n1996\n1997\n1998\n1999\n2000\n2001\n2002\n2003\n2004\n2005\n2006\n2007\n2008\n2009\n2010\n2011\n2012\n2013\n2014\n2015\n2016\n2017\n2018\n2019\n2020\n2021\n2022"
   },
   {
    "fieldname": "gpa_or_grade_obtained",
    "fieldtype": "Data",
-   "label": "GPA or Grade Obtained"
+   "label": "VPD GPA or Grade Obtained"
   },
   {
    "fieldname": "additional_information",
    "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -238,9 +255,8 @@
   },
   {
    "fieldname": "verified_by",
-   "fieldtype": "Link",
-   "label": "Verified By",
-   "options": "User"
+   "fieldtype": "Data",
+   "label": "Verified By"
   },
   {
    "fieldname": "designation",
@@ -275,14 +291,142 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Check Executive",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Green\"",
+   "fieldname": "image",
+   "fieldtype": "HTML",
+   "label": "Image",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Positive.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Red\"",
+   "fieldname": "image_1",
+   "fieldtype": "HTML",
+   "label": "Image_1",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Amber\"",
+   "fieldname": "image_2",
+   "fieldtype": "HTML",
+   "label": "Image_2",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Dilemma.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Interim\"",
+   "fieldname": "image_3",
+   "fieldtype": "HTML",
+   "label": "Image_3",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+  },
+  {
+   "fieldname": "entry_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Education Check"
+  },
+  {
+   "fetch_from": "entry_id.employee_name",
+   "fieldname": "entry_employee_name",
+   "fieldtype": "Data",
+   "label": "EPI Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.institution_name",
+   "fieldname": "entry_institution_name",
+   "fieldtype": "Data",
+   "label": "EPI Institution Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.affiliated_university_name",
+   "fieldname": "entry_affiliated_university_name",
+   "fieldtype": "Data",
+   "label": "EPI Affiliated University Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.registration_number",
+   "fieldname": "entry_registration_number",
+   "fieldtype": "Data",
+   "label": "EPI Registration Number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.additional_information",
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.course",
+   "fieldname": "entry_course",
+   "fieldtype": "Data",
+   "label": "EPI Course",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.course_start",
+   "fieldname": "entry_course_start",
+   "fieldtype": "Data",
+   "label": "EPI Course Start",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.course_end",
+   "fieldname": "entry_course_end",
+   "fieldtype": "Data",
+   "label": "EPI Course End",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.graduated",
+   "fieldname": "entry_graduated",
+   "fieldtype": "Data",
+   "label": "EPI Graduated",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.reason",
+   "fieldname": "entry_reason",
+   "fieldtype": "Data",
+   "label": "EPI Reason",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.graduation_year",
+   "fieldname": "entry_graduation_year",
+   "fieldtype": "Data",
+   "label": "EPI Graduation Year",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.gpa_or_grade_obtained",
+   "fieldname": "entry_gpa_or_grade_obtained",
+   "fieldtype": "Data",
+   "label": "EPI GPA or Grade Obtained",
    "read_only": 1
   }
  ],
- "modified": "2020-09-23 11:22:33.900962",
+ "links": [],
+ "modified": "2020-12-03 11:10:36.447761",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Education Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Verify Court Record Check-.###",
  "creation": "2020-06-06 16:25:58.090429",
  "doctype": "DocType",
@@ -7,30 +8,44 @@
  "field_order": [
   "ce_tat",
   "customer",
+  "check_package",
+  "batch",
   "status",
   "execution_status",
   "column_break_4",
-  "check_package",
-  "batch",
   "epi",
+  "image",
+  "image_1",
+  "image_2",
+  "image_3",
   "case_information_section",
   "case_id",
   "case_name",
+  "entry_id",
+  "column_break_12",
   "date_of_birth",
   "case_gender",
-  "column_break_12",
+  "column_break_15",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
   "section_break_17",
+  "entry_social_behaviour",
+  "entry_civil_magistrate_session_court_if_yes_the_reason",
+  "entry_high_court_if_yes_the_reason",
+  "entry_additional_information",
+  "entry_civil_judgement_search",
+  "entry_year_of_search",
+  "entry_address",
+  "column_break_24",
   "social_behaviour",
   "civil_magistrate_session_court_if_yes_the_reason",
   "high_court_if_yes_the_reason",
-  "civil_judgement_search",
-  "year_of_residential",
-  "address",
   "additional_information",
+  "civil_judgement_search",
+  "year_of_search",
+  "address",
   "verification_details_section",
   "verified_by",
   "column_break_29",
@@ -45,6 +60,7 @@
    "fieldname": "ce_tat",
    "fieldtype": "Data",
    "label": "CE TAT",
+   "permlevel": 1,
    "read_only": 1
   },
   {
@@ -56,12 +72,15 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Green\nRed\nAmber\nInterim"
+   "options": "Green\nRed\nAmber\nInterim\nPending"
   },
   {
+   "default": "Pending",
    "fieldname": "execution_status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -158,38 +177,33 @@
   {
    "fieldname": "social_behaviour",
    "fieldtype": "Select",
-   "label": "Social Behaviour",
-   "options": "Good\nLiberal\nWorst\nNA"
+   "label": "VPD Social Behaviour",
+   "options": "\nGood\nLiberal\nWorst\nNA"
   },
   {
    "fieldname": "civil_magistrate_session_court_if_yes_the_reason",
    "fieldtype": "Data",
-   "label": "Civil/ Magistrate/ Session court( If Yes the reason)"
+   "label": "VPD Civil/ Magistrate/ Session court( If Yes the reason)"
   },
   {
    "fieldname": "high_court_if_yes_the_reason",
    "fieldtype": "Data",
-   "label": "High Court( If yes the reason)"
+   "label": "VPD High Court( If yes the reason)"
   },
   {
    "fieldname": "civil_judgement_search",
    "fieldtype": "Data",
-   "label": "Civil Judgement Search"
-  },
-  {
-   "fieldname": "year_of_residential",
-   "fieldtype": "Data",
-   "label": "Year of Residential"
+   "label": "VPD Civil Judgement Search"
   },
   {
    "fieldname": "address",
    "fieldtype": "Small Text",
-   "label": "Address"
+   "label": "VPD Address"
   },
   {
    "fieldname": "additional_information",
-   "fieldtype": "Data",
-   "label": "Additional Information"
+   "fieldtype": "Small Text",
+   "label": "VPD Additional Information"
   },
   {
    "fieldname": "verification_details_section",
@@ -198,9 +212,8 @@
   },
   {
    "fieldname": "verified_by",
-   "fieldtype": "Link",
-   "label": "Verified By",
-   "options": "User"
+   "fieldtype": "Data",
+   "label": "Verified By"
   },
   {
    "fieldname": "column_break_29",
@@ -230,13 +243,110 @@
    "in_list_view": 1,
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Green\"",
+   "fieldname": "image",
+   "fieldtype": "HTML",
+   "label": "Image",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Positive.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Red\"",
+   "fieldname": "image_1",
+   "fieldtype": "HTML",
+   "label": "Image_1",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Amber\"",
+   "fieldname": "image_2",
+   "fieldtype": "HTML",
+   "label": "Image_2",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Dilemma.png\" width=\"250\">"
+  },
+  {
+   "depends_on": "eval:doc.status == \"Interim\"",
+   "fieldname": "image_3",
+   "fieldtype": "HTML",
+   "label": "Image_3",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+  },
+  {
+   "fetch_from": "entry_id.social_behaviour",
+   "fieldname": "entry_social_behaviour",
+   "fieldtype": "Data",
+   "label": "EPI Social Behaviour",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.civil_magistrate_session_court_if_yes_the_reason",
+   "fieldname": "entry_civil_magistrate_session_court_if_yes_the_reason",
+   "fieldtype": "Data",
+   "label": "EPI Civil/ Magistrate/ Session court( If Yes the reason)",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.high_court_if_yes_the_reason",
+   "fieldname": "entry_high_court_if_yes_the_reason",
+   "fieldtype": "Data",
+   "label": "EPI High Court( If yes the reason)",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.additional_information",
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Small Text",
+   "label": "EPI Additional Information",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.civil_judgement_search",
+   "fieldname": "entry_civil_judgement_search",
+   "fieldtype": "Data",
+   "label": "EPI Civil Judgement Search",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "entry_id.address",
+   "fieldname": "entry_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_id",
+   "fieldtype": "Link",
+   "label": "EPI ID",
+   "options": "Court Record Check"
+  },
+  {
+   "fetch_from": "entry_id.year_of_search",
+   "fieldname": "entry_year_of_search",
+   "fieldtype": "Data",
+   "label": "EPI Year of Search",
+   "read_only": 1
+  },
+  {
+   "fieldname": "year_of_search",
+   "fieldtype": "Data",
+   "label": "VPD Year of search"
   }
  ],
- "modified": "2020-09-23 11:22:38.328432",
+ "links": [],
+ "modified": "2020-12-03 11:10:58.315172",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Verify Court Record Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
