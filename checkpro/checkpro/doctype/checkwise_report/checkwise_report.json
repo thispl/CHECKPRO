@@ -24,8 +24,10 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "check_status",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Check Status"
   },
   {
@@ -44,14 +46,13 @@
   {
    "fieldname": "report_status",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Report Status",
    "search_index": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2020-11-27 12:31:36.003171",
+ "modified": "2020-12-16 20:59:30.779308",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checkwise Report",
