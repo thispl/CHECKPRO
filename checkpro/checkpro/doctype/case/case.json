@@ -13,10 +13,17 @@
   "date_of_initiating",
   "ca_status",
   "case_report",
+  "remarks_green",
+  "remarks_red",
+  "remarks_amber",
+  "remarks_interim",
   "column_break_3",
   "tat",
   "end_date",
+  "hr_name",
+  "hr_designation",
   "checks_created",
+  "check_report_status_4",
   "check_report_status",
   "check_report_status_1",
   "check_report_status_2",
@@ -32,6 +39,7 @@
   "address",
   "client_employee_code",
   "contact",
+  "without_consern",
   "section_break_22",
   "checkwise_report",
   "description",
@@ -58,26 +66,29 @@
    "read_only": 1
   },
   {
+   "default": "Draft",
    "fieldname": "entry_status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Entry Status",
-   "options": "\nInsufficient\nDraft\nSubmitted",
-   "permlevel": 2
+   "options": "Draft\nPending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only": 1
   },
   {
+   "default": "Today",
    "fieldname": "date_of_initiating",
    "fieldtype": "Date",
    "label": "Date of Initiating",
    "permlevel": 1
   },
   {
+   "default": "Pending",
    "fieldname": "case_report",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Case Execution Report",
-   "options": "\nGreen\nRed\nAmber\nInterim",
+   "options": "Pending\nGreen\nRed\nAmber\nInterim",
    "permlevel": 1
   },
   {
@@ -98,8 +109,9 @@
    "fieldname": "ca_status",
    "fieldtype": "Select",
    "label": "Case Execution Status",
-   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop",
-   "permlevel": 1
+   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "description": "Days",
@@ -124,13 +136,13 @@
    "fieldname": "case_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Case Name",
+   "label": "Name",
    "reqd": 1
   },
   {
    "fieldname": "case_gender",
    "fieldtype": "Select",
-   "label": "Case Gender",
+   "label": "Gender",
    "options": "\nMale\nFemale\nOthers",
    "reqd": 1
   },
@@ -158,7 +170,6 @@
   {
    "fieldname": "age",
    "fieldtype": "Int",
-   "hidden": 1,
    "label": "Age",
    "read_only": 1
   },
@@ -172,6 +183,7 @@
    "fieldname": "contact",
    "fieldtype": "Data",
    "label": "Contact No.",
+   "length": 10,
    "options": "Phone"
   },
   {
@@ -202,8 +214,7 @@
    "fieldname": "checkwise_report",
    "fieldtype": "Table",
    "label": "Checkwise Report",
-   "options": "Checkwise Report",
-   "permlevel": 1
+   "options": "Checkwise Report"
   },
   {
    "fieldname": "amended_from",
@@ -241,11 +252,58 @@
    "fieldtype": "HTML",
    "label": "Check Report Status_3",
    "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+  },
+  {
+   "default": "0",
+   "fieldname": "without_consern",
+   "fieldtype": "Check",
+   "label": "without concern"
+  },
+  {
+   "depends_on": "eval:doc.case_report==\"Green\"",
+   "fieldname": "remarks_green",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "depends_on": "eval:doc.case_report==\"Red\"",
+   "fieldname": "remarks_red",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "depends_on": "eval:doc.case_report==\"Amber\"",
+   "fieldname": "remarks_amber",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "depends_on": "eval:doc.case_report==\"Interim\"",
+   "fieldname": "remarks_interim",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "hr_name",
+   "fieldtype": "Data",
+   "label": "HR Name"
+  },
+  {
+   "fieldname": "hr_designation",
+   "fieldtype": "Data",
+   "label": "HR Designation"
+  },
+  {
+   "depends_on": "eval:doc.case_report == \"Pending\"",
+   "fieldname": "check_report_status_4",
+   "fieldtype": "HTML",
+   "label": "check_report_status",
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"http://192.168.0.111/files/pending.png\" width=\"300\">"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2020-12-09 12:22:47.443822",
+ "modified": "2021-02-06 12:27:41.671356",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",

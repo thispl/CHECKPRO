@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{customer_short_code}-{Batch}-{###}",
+ "autoname": "format:{customer_short_code}-{Batch}{###}",
  "creation": "2020-05-16 11:47:34.161556",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -39,12 +39,13 @@
   {
    "fetch_from": "customer.short_code",
    "fieldname": "customer_short_code",
-   "fieldtype": "Read Only",
+   "fieldtype": "Data",
+   "hidden": 1,
    "label": "Customer Short Code"
   }
  ],
  "links": [],
- "modified": "2020-12-03 15:18:44.667829",
+ "modified": "2021-01-21 12:20:55.921506",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Batch",

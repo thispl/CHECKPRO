@@ -1,0 +1,290 @@
+{
+ "actions": [],
+ "autoname": "Social media checck-.###",
+ "creation": "2021-01-19 18:43:21.441412",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "entry_familiar_with_social_media",
+  "entry_types_of_social_media",
+  "entry_subject_interested",
+  "entry_type_of_contacts",
+  "entry_additional_information",
+  "column_break_23",
+  "verify_familiar_with_social_media",
+  "verify_types_of_social_media",
+  "verify_subject_interested",
+  "verify_type_of_contacts",
+  "verify_additional_information",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "date_of_entry",
+  "column_break_33",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_36",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "entry_familiar_with_social_media",
+   "fieldtype": "Data",
+   "label": "Entry Familiar with Social Media",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "entry_types_of_social_media",
+   "fieldtype": "Data",
+   "label": "Entry Types of Social Media"
+  },
+  {
+   "fieldname": "entry_subject_interested",
+   "fieldtype": "Data",
+   "label": "Entry Subject Interested"
+  },
+  {
+   "fieldname": "entry_type_of_contacts",
+   "fieldtype": "Select",
+   "label": "Entry Type of Contacts",
+   "options": "Politics\nFamily\nFriends"
+  },
+  {
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Data",
+   "label": "Entry Additional Information"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verify_familiar_with_social_media",
+   "fieldtype": "Data",
+   "label": "Verify Familiar with Social Media",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_types_of_social_media",
+   "fieldtype": "Data",
+   "label": "Verify Types of Social Media",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_subject_interested",
+   "fieldtype": "Data",
+   "label": "Verify Subject Interested",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_type_of_contacts",
+   "fieldtype": "Select",
+   "label": "Verify Type of Contacts",
+   "options": "Politics\nFamily\nFriends",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_additional_information",
+   "fieldtype": "Data",
+   "label": "Verify Additional Information",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation"
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion"
+  },
+  {
+   "fieldname": "section_break_36",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-01-22 16:45:52.852453",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Social media checck",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

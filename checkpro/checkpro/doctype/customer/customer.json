@@ -36,8 +36,10 @@
   },
   {
    "fieldname": "mobile_no",
-   "fieldtype": "Int",
-   "label": "Mobile No"
+   "fieldtype": "Data",
+   "label": "Mobile No",
+   "length": 10,
+   "options": "Phone"
   },
   {
    "fieldname": "address",
@@ -47,7 +49,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-11-26 19:47:27.089673",
+ "modified": "2021-01-19 12:14:33.959574",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Customer",

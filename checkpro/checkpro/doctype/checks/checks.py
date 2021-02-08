@@ -5,213 +5,21 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+from frappe.permissions import add_permission, update_permission_property
 
 class Checks(Document):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     def validate(self):
-        check = frappe.db.exists("DocType",self.check_name)
-        if check:
-            frappe.throw(self.check_name + ' ' + "already exists.")
-            # variable = frappe.get_doc("Doctype",self.check_name)
-            # frappe.errprint(variable)
-        else:
-            add_check = frappe.new_doc("DocType")
-            add_check.name = self.check_name
-            add_check.module = "Checkpro"
-            frappe.errprint("hi")
-            add_check.autoname = self.check_name + '-.###'
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"CE TAT",
-            "read_only":1,
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Customer",
-            "read_only":1,
-            "in_standard_filter":1
-            })
-           
-            add_check.append("fields",{
-            "fieldtype":"Select",
-            "label":"Status",
-            "options":"Completed\nPending\nInsufficient\nHold\nDrop"
-          
-            })
-            add_check.append("fields",{
-            "fieldtype":"Column Break",
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Check Package",
-            "read_only":1,
-            "in_standard_filter":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Batch",
-            "read_only":1,
-            "in_standard_filter":1
-            
-            })
-            add_check.append("fields",{
-            "fieldtype":"Section Break",
-            "label":"Case Information",
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Case ID",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Case Name",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Date",
-            "label":"Date of Birth",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Case Gender",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Column Break",
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Father Name",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Contact Number",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Email ID",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Client Employee Code",
-            "read_only":1
-            })
-            add_check.append("fields",{
-            "fieldtype":"Section Break",
-            })
-            for c in self.check_variables:
-                if c.variable_type=="Select":
-                    add_check.append("fields",{
-                        "fieldtype":"Select",
-                        "options":c.options,
-                        "label":c.variable,
-                        
-                    }) 
-                if c.variable_type=="Text":
-                    add_check.append("fields",{
-                        "fieldtype":"Data",
-                        "label":c.variable,
-                        
-                    })
-                if c.variable_type=="Number":
-                    add_check.append("fields",{
-                        "fieldtype":"Int",
-                        "label":c.variable,
-                       
-                        
-
-                    })
-                if c.variable_type=="Date":
-                    add_check.append("fields",{
-                	    "fieldtype":"Date",
-                	    "label":c.variable,
-                       
-                    })
-                if c.variable_type=="Description":
-                    add_check.append("fields",{
-                	    "fieldtype":"Small Text",
-                	    "label":c.variable,
-                       
-                    })
-                if c.variable_type=="Section":
-                    add_check.append("fields",{
-                	    "fieldtype":"Section Break",
-                        "label":c.variable,
-                        
-                	    
-                    })
-                if c.variable_type=="Column":
-                    add_check.append("fields",{
-                	    "fieldtype":"Column Break",
-                        "label":c.variable,
-                      
-                	    
-                    })
-                if c.variable_type=="Link":
-                    add_check.append("fields",{
-                	    "fieldtype":"Link",
-                        "label":c.variable,
-                        "options":c.options
-                      
-                    })
-                if c.variable_type=="Table":
-                    add_check.append("fields",{
-                	    "fieldtype":"Table",
-                        "label":c.variable,
-                        "options":c.options
-                      
-                    })
-                
-                
-              
-            add_check.append("fields",{
-            "fieldtype":"Section Break",
-            }) 
-            add_check.append("fields",{
-            "fieldtype":"Data",
-            "label":"Check Executive",
-            "read_only":1
-            })
-
-            
-            add_check.append("permissions",{
-            "role":"System Manager",
-            "read":1,
-            "write":1,
-            "create":1,
-            "delete":1
-            })
-            add_check.append("permissions",{
-            "role":"DE Executive",
-            "read":1,
-            "write":1,
-            "create":1,
-            "delete":1
-            })
-            add_check.append("permissions",{
-            "role":"Check Executive",
-            "read":1,
-            })
-            add_check.save(ignore_permissions=True)
-            
-        
-
-        vcheck = frappe.db.exists("DocType",'Verify'+' '+self.check_name)
+        vcheck = frappe.db.exists("DocType",self.check_name)
         if vcheck:
-            frappe.erprint("yes")
-            frappe.throw('Verify'+' '+self.check_name + ' ' + "already exists.")
+            frappe.throw(self.check_name + ' ' + "already exists.")
         else:
             vadd_check = frappe.new_doc("DocType")
-            vadd_check.name = "Verify"+" "+self.check_name
+            vadd_check.name = self.check_name
             vadd_check.module = "Checkpro"
-            vadd_check.autoname = 'Verify'+' '+self.check_name+ '-.###'
+            vadd_check.autoname = self.check_name+ '-.###'
             vadd_check.append("fields",{
             "fieldtype":"Data",
-            "label":"CE TAT",
+            "label":"CE TAT(days)",
             "read_only":1,
             })
             vadd_check.append("fields",{
@@ -221,9 +29,35 @@ class Checks(Document):
             "in_standard_filter":1
             })
             vadd_check.append("fields",{
+            "fieldtype":"Data",
+            "label":"Customer Shortcode",
+            "read_only":1
+            })
+            vadd_check.append("fields",{
             "fieldtype":"Select",
-            "label":"Status",
-            "options":" \n\Completed\nPending\nInsufficient\nHold\nDrop"
+            "label":"Entry Status",
+            "options":"\nPending\nCompleted\nInsufficient\nHold\nDrop",
+            "default":"Pending",
+            "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Select",
+            "label":"Execution Status",
+            "options":"\nPending\nCompleted\nInsufficient\nHold\nDrop",
+            "default":"Pending",
+            "depends_on":"eval:doc.workflow_state==" +'"Pending for Verification"'+'||'+'doc.workflow_state ==' +'"Pending for Approval"'+'||'+'doc.workflow_state ==' +'"Pending for QC"'
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Select",
+            "label":"Report Status",
+            "options":"\nPending\nGreen\nRed\nAmber\nInterim",
+            "default":"Pending",
+            "depends_on":"eval:doc.workflow_state==" +'"Pending for QC"'+'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Small Text",
+            "label":"Observation",
+            "depends_on":"eval:doc.workflow_state==" +'"Pending for QC"'+'||'+'doc.workflow_state ==' +'"Pending for Approval"'
             })
             vadd_check.append("fields",{
             "fieldtype":"Column Break",
@@ -240,6 +74,21 @@ class Checks(Document):
             "read_only":1,
             })
             vadd_check.append("fields",{
+            "label":"Proof Attachment",
+            "fieldtype":"Attach",
+            "depends_on":"eval:doc.workflow_state==" +'"Pending for QC"'+'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Data",
+            "label":"Attachment",
+            "depends_on":"eval:doc.workflow_state==" +'"Pending for QC"'+'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Date",
+            "label":"Date of Entry",
+            "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"' +'||'+'doc.workflow_state ==' +'"Pending for Verification"'
+            })
+            vadd_check.append("fields",{
             "fieldtype":"Section Break",
             "label":"Case Information",
             })
@@ -250,7 +99,7 @@ class Checks(Document):
             })
             vadd_check.append("fields",{
             "fieldtype":"Data",
-            "label":"Case Name",
+            "label":"Name",
             "read_only":1
             })
             vadd_check.append("fields",{
@@ -260,7 +109,12 @@ class Checks(Document):
             })
             vadd_check.append("fields",{
             "fieldtype":"Data",
-            "label":"Case Gender",
+            "label":"Gender",
+            "read_only":1
+            })
+            vadd_check.append("fields",{
+            "fieldtype":"Data",
+            "label":"Age",
             "read_only":1
             })
             vadd_check.append("fields",{
@@ -295,77 +149,165 @@ class Checks(Document):
                      vadd_check.append("fields",{
                         "fieldtype":"Select",
                         "options":c.options,
-                        "label":c.variable
-                    })
+                        "label":'EPI'+" "+c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
+                        })
                 if c.variable_type=="Number":
                     vadd_check.append("fields",{
                         "fieldtype":"Int",
-                        "label":c.variable
+                        "label":'EPI'+" " +c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Description":
                     vadd_check.append("fields",{
                         "fieldtype":"Small Text",
-                        "label":c.variable
+                        "label":'EPI'+ " "+c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Text":
                     vadd_check.append("fields",{
                 	    "fieldtype":"Data",
-                	    "label":c.variable
+                	    "label":'EPI'+" " +c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Date":
                     vadd_check.append("fields",{
                 	    "fieldtype":"Date",
-                	    "label":c.variable
+                	    "label":'EPI'+ " "+c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Section":
-                    add_check.append("fields",{
+                    vadd_check.append("fields",{
                 	    "fieldtype":"Section Break",
-                        "label":c.variable,
-                        
+                        "label":'EPI'+ " "+c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Column":
-                    add_check.append("fields",{
+                    vadd_check.append("fields",{
                 	    "fieldtype":"Column Break",
-                        "label":c.variable,  
+                        "label":'EPI'+ " "+c.variable,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
                 if c.variable_type=="Link":
-                    add_check.append("fields",{
+                    vadd_check.append("fields",{
                 	    "fieldtype":"Link",
-                        "label":c.variable,
-                        "options":c.options
-                      
+                        "label":'EPI'+ " "+c.variable,
+                        "options":c.options,
+                        "read_only_depends_on":"eval:doc.workflow_state!=" +'"Draft"'
                     })
-              
+            vadd_check.append("fields",{
+            "fieldtype":"Column Break",
+            })
+            
+
+            for c in self.check_variables:
+                if c.variable_type=="Select":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Select",
+                        "options":c.options,
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    })
+                if c.variable_type=="Number":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Int",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    
+                    })
+                if c.variable_type=="Description":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Small Text",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    })
+                if c.variable_type=="Text":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Data",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    
+                    })
+                if c.variable_type=="Date":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Date",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    
+                    })
+                if c.variable_type=="Section":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Section Break",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                       
+                    })
+                if c.variable_type=="Column":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Column Break",
+                        "label":'VPD'+ " "+c.variable,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    })
+                if c.variable_type=="Link":
+                    vadd_check.append("fields",{
+                        "fieldtype":"Link",
+                        "label":'VPD'+ " "+c.variable,
+                        "options":c.options,
+                        "permlevel":1,
+                        "read_only_depends_on":"eval:doc.workflow_state ==" +'"Pending for QC"' +'||'+'doc.workflow_state ==' +'"Pending for Approval"'
+                    })
+            vadd_check.append("fields",{
+                "fieldtype":"Column Break",
+                "permlevel":2
+            })
+            for c in self.check_variables:
+                vadd_check.append("fields",{
+                    "fieldtype":"Select",
+                    "options": "Positive\nNegative",
+                    "label":c.variable +" "+"Line Status",
+                    "permlevel":2
+                })
+            
             vadd_check.append("fields",{
             "fieldtype":"Section Break",
-            "label":"Verification Details"
+            "label":"Verification Details",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Link",
             "label":"Verified By",
-            "options":"User"
+            "options":"User",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Data",
             "label":"Designation",
-            })
-            vadd_check.append("fields",{
-            "fieldtype":"Date",
-            "label":"Date of Entry",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Column Break",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Date",
             "label":"Date of Initiation",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Date",
             "label":"Date of Completion",
+            "permlevel":1
             })
             vadd_check.append("fields",{
             "fieldtype":"Section Break",
+            "permlevel":1
             }) 
             vadd_check.append("fields",{
             "fieldtype":"Data",
@@ -381,97 +323,73 @@ class Checks(Document):
                 "delete":1
             })
             vadd_check.append("permissions",{
-            "role":"Check Executive",
-            "read":1,
-            "write":1,
-            "create":1,
-            "delete":1
+                "role":"VPI user",
+                "read":1,
+                "write":1,
+                "create":1,
+                "delete":1
+            })
+            vadd_check.append("permissions",{
+                "role":"Check Executive",
+                "read":1,
+                "write":1,
+                "create":1,
+                "delete":1
             })
             
             vadd_check.save(ignore_permissions=True)
-
-        # # vcheck = frappe.db.exists("DocType",'Verify' + ' ' + checks.checks)
-        # # if vcheck:
-        # # 	frappe.throw("Verify" + '' + self.check_name + ' ' + "already exists")	
-        # # else:
-        # # 	vadd_check = frappe.new_doc("DocType")
-        # #     vadd_check.name = self.check_name
-        # #     vadd_check.module = "veriPRO"
-        # #     for c in self.check_variables:
-        # # 	    if c.variable_type=="Select":
-        # # 		    vadd_check.append("fields",{
-        # # 			    "fieldtype":"Select",
-        # # 			    "options":c.options,
-        # # 			    "label":c.variable
-        # # 		    })
-        # # 	    if c.variable_type=="Number":
-        # # 		    vadd_check.append("fields",{
-        # # 		    	"fieldtype":"Int",
-        # # 			    "label":c.variable
-        # # 		    })
-        # # 	    if c.variable_type=="Description":
-        # # 		    vadd_check.append("fields",{
-        # # 			    "fieldtype":"Small Text",
-        # # 			    "label":c.variable
-        # # 		    })
-        # #     vadd_check.append("permissions",{
-        # # 	    "role":"System Manager",
-        # # 	    "read":1,
-        # # 	    "write":1,
-        # # 	    "create":1,
-        # # 	    "delete":1
-        # # 	})
-        # #     vadd_check.insert()
-        # #     vadd_check.save(ignore_permissions=True)
-            
-            
-
-
-            
-        # # # # check = frappe.db.exists("DocType",self.check_name)
-        # # # # if check:
-        # # # # 	c1 = frappe.get_doc(self.check_name)
-        # # # else:
-        # # # 	add_check = frappe.new_doc("DocType")
-        # # # 	for c in self.check_variables:
-        # # # 		if 
-
-        
-        # # #   add_check.update({
-            
-        # # # 	add_check.name:self.check_name,
-        # # # 	add_check.module:"veriPRO"
-        # # # 	for c in self.check_variables:
-        # # # 		if c.variable_type=="Select":
-        # # # 		   add_check.append("fields",{
-        # # # 			   "fieldtype":"Select",
-        # # # 			   "options":c.options,
-        # # # 			   "label":c.variable
-        # # # 		   })
-        # # # 		if c.variable_type=="Text":
-        # # # 		   add_check.append("fields",{
-        # # # 			   "fieldtype":"Data",
-        # # # 			   "label":c.variable
-        # # # 		   })
-        # # # 		if c.variable_type=="Number":
-        # # # 			add_check.append("fields",{
-        # # # 			   "fieldtype":"Int",
-        # # # 			   "label":c.variable
-        # # # 			})
-        # # # 		if c.variable_type=="Description":
-        # # # 		    add_check.append("fields",{
-        # # # 			   "fieldtype":"Small Text",
-        # # # 			   "label":c.variable
-        # # # 		    })
-        # # # 	add_check.append("permissions",{
-        # # # 	    "role":"System Manager",
-        # # # 	    "read":1,
-        # # # 	    "write":1,
-        # # # 	    "create":1,
-        # # # 	    "delete":1
-        # # # 	})
-        # # # add_check.insert()
-        # # # add_check.save(ignore_permissions=True)
-        # # # })
-
-                    
+            doctype = vadd_check.name
+            add_permission(doctype,"VPI user", 1)
+            update_permission_property(doctype, "VPI user", 1, 'write', 1)
+            add_permission(doctype,"Check Executive", 2)
+            update_permission_property(doctype, "Check Executive", 2, 'write', 1)
+            if(vadd_check.name):
+                wf = frappe.new_doc("Workflow")
+                wf.workflow_name=vadd_check.name
+                wf.document_type=vadd_check.name
+                wf.is_active=1
+                wf.append("states",{
+                    "state":"Draft",
+                    "allow_edit":"System Manager"
+                })
+                wf.append("states",{
+                    "state":"Pending for Verification",
+                    "allow_edit":"VPI user"
+                })
+                wf.append("states",{
+                    "state":"Pending for QC",
+                    "allow_edit":"Check Executive"
+                })
+                wf.append("states",{
+                    "state":"Pending for Approval",
+                    "allow_edit":"Approver"
+                })
+                wf.append("states",{
+                    "state":"Approved",
+                    "allow_edit":"Approver"
+                })
+                wf.append("transitions",{
+                    "state":"Draft",
+                    "action":"Review",
+                    "next_state":"Pending for Verification",
+                    "allowed":"System Manager"
+                })
+                wf.append("transitions",{
+                    "state":"Pending for Verification",
+                    "action":"Review",
+                    "next_state":"Pending for QC",
+                    "allowed":"VPI user"
+                })
+                wf.append("transitions",{
+                    "state":"Pending for QC",
+                    "action":"Review",
+                    "next_state":"Pending for Approval",
+                    "allowed":"Check Executive"
+                })
+                wf.append("transitions",{
+                    "state":"Pending for Approval",
+                    "action":"Approve",
+                    "next_state":"Approved",
+                    "allowed":"Approver"
+                })
+                wf.save(ignore_permissions=True)

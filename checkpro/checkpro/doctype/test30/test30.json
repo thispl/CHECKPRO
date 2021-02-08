@@ -1,0 +1,452 @@
+{
+ "actions": [],
+ "autoname": "test30-.###",
+ "creation": "2021-02-05 15:23:17.590167",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tatdays",
+  "customer",
+  "customer_shortcode",
+  "entry_status",
+  "execution_status",
+  "report_status",
+  "observation",
+  "column_break_8",
+  "check_package",
+  "batch",
+  "attachment",
+  "attachment_word",
+  "date_of_entry",
+  "case_information_section",
+  "case_id",
+  "name1",
+  "date_of_birth",
+  "gender",
+  "age",
+  "column_break_20",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_25",
+  "epi_employee_name",
+  "epi_employee_code",
+  "epi_employer_name",
+  "epi_employment_type",
+  "epi_period_of_employment_from",
+  "epi_period_of_employment_to",
+  "epi_joining_designation",
+  "column_break_33",
+  "vpd_employee_name",
+  "vpd_employee_code",
+  "vpd_employer_name",
+  "vpd_employment_type",
+  "vpd_period_of_employment_from",
+  "vpd_period_of_employment_to",
+  "vpd_joining_designation",
+  "column_break_41",
+  "employee_name_line_status",
+  "employee_code_line_status",
+  "employer_name_line_status",
+  "employment_type_line_status",
+  "period_of_employment_from_line_status",
+  "period_of_employment_to_line_status",
+  "joining_designation_line_status",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "column_break_52",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_55",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tatdays",
+   "fieldtype": "Data",
+   "label": "CE TAT(days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_shortcode",
+   "fieldtype": "Data",
+   "label": "Customer Shortcode",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Pending for QC\"",
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "label": "Execution Status",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop"
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "report_status",
+   "fieldtype": "Select",
+   "label": "Report Status",
+   "options": "\nPending\nGreen\nRed\nAmber\nInterim"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "label": "Observation"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "attachment_word",
+   "fieldtype": "Data",
+   "label": "Attachment Word"
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Pending for Verification\""
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "epi_employee_name",
+   "fieldtype": "Data",
+   "label": "EPI Employee Name",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_employee_code",
+   "fieldtype": "Int",
+   "label": "EPI Employee Code",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_employer_name",
+   "fieldtype": "Data",
+   "label": "EPI Employer Name",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_employment_type",
+   "fieldtype": "Data",
+   "label": "EPI Employment Type",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_period_of_employment_from",
+   "fieldtype": "Data",
+   "label": "EPI Period of Employment From",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_period_of_employment_to",
+   "fieldtype": "Data",
+   "label": "EPI Period of Employment To",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_joining_designation",
+   "fieldtype": "Data",
+   "label": "EPI Joining Designation",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vpd_employee_name",
+   "fieldtype": "Data",
+   "label": "VPD Employee Name",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_employee_code",
+   "fieldtype": "Int",
+   "label": "VPD Employee Code",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_employer_name",
+   "fieldtype": "Data",
+   "label": "VPD Employer Name",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_employment_type",
+   "fieldtype": "Data",
+   "label": "VPD Employment Type",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_period_of_employment_from",
+   "fieldtype": "Data",
+   "label": "VPD Period of Employment From",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_period_of_employment_to",
+   "fieldtype": "Data",
+   "label": "VPD Period of Employment To",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_joining_designation",
+   "fieldtype": "Data",
+   "label": "VPD Joining Designation",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "column_break_41",
+   "fieldtype": "Column Break",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "employee_name_line_status",
+   "fieldtype": "Select",
+   "label": "Employee Name Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "employee_code_line_status",
+   "fieldtype": "Select",
+   "label": "Employee Code Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "employer_name_line_status",
+   "fieldtype": "Select",
+   "label": "Employer Name Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "employment_type_line_status",
+   "fieldtype": "Select",
+   "label": "Employment Type Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "period_of_employment_from_line_status",
+   "fieldtype": "Select",
+   "label": "Period of Employment From Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "period_of_employment_to_line_status",
+   "fieldtype": "Select",
+   "label": "Period of Employment To Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "joining_designation_line_status",
+   "fieldtype": "Select",
+   "label": "Joining Designation Line Status",
+   "options": "Positive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_52",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_55",
+   "fieldtype": "Section Break",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-02-05 15:23:17.590167",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "test30",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

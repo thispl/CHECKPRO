@@ -1,0 +1,378 @@
+{
+ "actions": [],
+ "autoname": "Test Education-.###",
+ "creation": "2021-01-08 18:47:12.383407",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tat",
+  "customer",
+  "status",
+  "column_break_4",
+  "check_package",
+  "batch",
+  "case_information_section",
+  "case_id",
+  "case_name",
+  "date_of_birth",
+  "case_gender",
+  "column_break_12",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_17",
+  "entry_student_name",
+  "entry_register_no",
+  "entry_college_name",
+  "entry_university_name",
+  "entry_course",
+  "entry_period_of_study",
+  "entry_year_of_passed",
+  "entry_communication",
+  "entry_grade_score",
+  "entry_verified_by",
+  "entry_designation",
+  "entry_additional_information",
+  "column_break_30",
+  "verify_student_name",
+  "verify_register_no",
+  "verify_college_name",
+  "verify_university_name",
+  "verify_course",
+  "verify_period_of_study",
+  "verify_year_of_passed",
+  "verify_communication",
+  "verify_grade_score",
+  "verify_verified_by",
+  "verify_designation",
+  "verify_additional_information",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "date_of_entry",
+  "column_break_47",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_50",
+  "check_executive"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tat",
+   "fieldtype": "Data",
+   "label": "CE TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_gender",
+   "fieldtype": "Data",
+   "label": "Case Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "entry_student_name",
+   "fieldtype": "Data",
+   "label": "Entry Student Name"
+  },
+  {
+   "fieldname": "entry_register_no",
+   "fieldtype": "Int",
+   "label": "Entry Register No"
+  },
+  {
+   "fieldname": "entry_college_name",
+   "fieldtype": "Data",
+   "label": "Entry College Name"
+  },
+  {
+   "fieldname": "entry_university_name",
+   "fieldtype": "Data",
+   "label": "Entry University Name"
+  },
+  {
+   "fieldname": "entry_course",
+   "fieldtype": "Data",
+   "label": "Entry Course"
+  },
+  {
+   "fieldname": "entry_period_of_study",
+   "fieldtype": "Data",
+   "label": "Entry Period Of Study"
+  },
+  {
+   "fieldname": "entry_year_of_passed",
+   "fieldtype": "Data",
+   "label": "Entry Year of Passed"
+  },
+  {
+   "fieldname": "entry_communication",
+   "fieldtype": "Data",
+   "label": "Entry Communication"
+  },
+  {
+   "fieldname": "entry_grade_score",
+   "fieldtype": "Data",
+   "label": "Entry Grade Score"
+  },
+  {
+   "fieldname": "entry_verified_by",
+   "fieldtype": "Data",
+   "label": "Entry Verified By"
+  },
+  {
+   "fieldname": "entry_designation",
+   "fieldtype": "Data",
+   "label": "Entry Designation"
+  },
+  {
+   "fieldname": "entry_additional_information",
+   "fieldtype": "Data",
+   "label": "Entry Additional Information"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verify_student_name",
+   "fieldtype": "Data",
+   "label": "Verify Student Name",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_register_no",
+   "fieldtype": "Int",
+   "label": "Verify Register No",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_college_name",
+   "fieldtype": "Data",
+   "label": "Verify College Name",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_university_name",
+   "fieldtype": "Data",
+   "label": "Verify University Name",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_course",
+   "fieldtype": "Data",
+   "label": "Verify Course",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_period_of_study",
+   "fieldtype": "Data",
+   "label": "Verify Period Of Study",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_year_of_passed",
+   "fieldtype": "Data",
+   "label": "Verify Year of Passed",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_communication",
+   "fieldtype": "Data",
+   "label": "Verify Communication",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_grade_score",
+   "fieldtype": "Data",
+   "label": "Verify Grade Score",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_verified_by",
+   "fieldtype": "Data",
+   "label": "Verify Verified By",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_designation",
+   "fieldtype": "Data",
+   "label": "Verify Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verify_additional_information",
+   "fieldtype": "Data",
+   "label": "Verify Additional Information",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details"
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry"
+  },
+  {
+   "fieldname": "column_break_47",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation"
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion"
+  },
+  {
+   "fieldname": "section_break_50",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_executive",
+   "fieldtype": "Data",
+   "label": "Check Executive",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-01-11 14:45:57.957921",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Test Education",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

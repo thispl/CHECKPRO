@@ -4,8 +4,9 @@
 <br>
 <h5> {{ __("Checks Under this Batch") }} </h5>
 {% for(const [key, value] of Object.entries(data)) { %}
-<a class="check-link" data-type="{{ value }}">
-    {%= value %} </a>
+
+<a class="check-link" data-type="{{ value.checks }}">
+    {%= value.checks %} </a> ({%= value.units %})
 <br>
 {% } %}
 {% } else { %}

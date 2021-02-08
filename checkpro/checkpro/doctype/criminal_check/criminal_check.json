@@ -1,37 +1,79 @@
 {
+ "actions": [],
  "autoname": "Criminal Check-.###",
- "creation": "2020-07-02 11:42:08.328929",
+ "creation": "2021-01-30 16:15:31.606937",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "ce_tat",
+  "ce_tatdays",
   "customer",
   "status",
-  "column_break_4",
+  "observation",
+  "column_break_5",
   "check_package",
   "batch",
   "case_information_section",
   "case_id",
-  "case_name",
+  "name1",
   "date_of_birth",
-  "case_gender",
-  "column_break_12",
+  "gender",
+  "column_break_13",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
-  "section_break_17",
-  "name1",
-  "dob",
-  "section_break_20",
+  "section_break_18",
+  "epi_address",
+  "epi_city",
+  "epi_state_and_country",
+  "epi_record_found",
+  "epi_record_description__if_found",
+  "epi_no_of_years_searched",
+  "epi_name_of_police_station",
+  "epi_official_name",
+  "epi_official_designation",
+  "epi_official_contact_details",
+  "epi_additional_information",
+  "column_break_30",
+  "vpd_address",
+  "vpd_city",
+  "vpd_state_and_country",
+  "vpd_record_found",
+  "vpd_record_description__if_found",
+  "vpd_no_of_years_searched",
+  "vpd_name_of_police_station",
+  "vpd_official_name",
+  "vpd_official_designation",
+  "vpd_official_contact_details",
+  "vpd_additional_information",
+  "column_break_42",
+  "address_line_status",
+  "city_line_status",
+  "state_and_country_line_status",
+  "record_found_line_status",
+  "record_description__if_found_line_status",
+  "no_of_years_searched_line_status",
+  "name_of_police_station_line_status",
+  "official_name_line_status",
+  "official_designation_line_status",
+  "official_contact_details_line_status",
+  "additional_information_line_status",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "date_of_entry",
+  "column_break_58",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_61",
   "check_executive"
  ],
  "fields": [
   {
-   "fieldname": "ce_tat",
+   "fieldname": "ce_tatdays",
    "fieldtype": "Data",
-   "label": "CE TAT",
+   "label": "CE TAT(days)",
    "read_only": 1
   },
   {
@@ -42,13 +84,20 @@
    "read_only": 1
   },
   {
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Completed\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop"
   },
   {
-   "fieldname": "column_break_4",
+   "depends_on": "eval:doc.workflow_state==\"Pending for Approval\"",
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "label": "Observation"
+  },
+  {
+   "fieldname": "column_break_5",
    "fieldtype": "Column Break"
   },
   {
@@ -61,7 +110,6 @@
   {
    "fieldname": "batch",
    "fieldtype": "Data",
-   "in_standard_filter": 1,
    "label": "Batch",
    "read_only": 1
   },
@@ -77,9 +125,9 @@
    "read_only": 1
   },
   {
-   "fieldname": "case_name",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Case Name",
+   "label": "Name",
    "read_only": 1
   },
   {
@@ -89,13 +137,13 @@
    "read_only": 1
   },
   {
-   "fieldname": "case_gender",
+   "fieldname": "gender",
    "fieldtype": "Data",
-   "label": "Case Gender",
+   "label": "Gender",
    "read_only": 1
   },
   {
-   "fieldname": "column_break_12",
+   "fieldname": "column_break_13",
    "fieldtype": "Column Break"
   },
   {
@@ -123,22 +171,273 @@
    "read_only": 1
   },
   {
-   "fieldname": "section_break_17",
+   "fieldname": "section_break_18",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "name1",
+   "fieldname": "epi_address",
+   "fieldtype": "Small Text",
+   "label": "EPI Address",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_city",
    "fieldtype": "Data",
-   "label": "Name"
+   "label": "EPI City",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "dob",
+   "fieldname": "epi_state_and_country",
+   "fieldtype": "Data",
+   "label": "EPI State and Country",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_record_found",
+   "fieldtype": "Data",
+   "label": "EPI Record found",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_record_description__if_found",
+   "fieldtype": "Data",
+   "label": "EPI Record Description  if found",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_no_of_years_searched",
+   "fieldtype": "Int",
+   "label": "EPI No of years searched",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_name_of_police_station",
+   "fieldtype": "Data",
+   "label": "EPI Name of police station",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_official_name",
+   "fieldtype": "Data",
+   "label": "EPI Official Name",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_official_designation",
+   "fieldtype": "Data",
+   "label": "EPI Official Designation",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_official_contact_details",
+   "fieldtype": "Data",
+   "label": "EPI Official Contact Details",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Data",
+   "label": "EPI Additional Information",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vpd_address",
+   "fieldtype": "Small Text",
+   "label": "VPD Address",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_city",
+   "fieldtype": "Data",
+   "label": "VPD City",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_state_and_country",
+   "fieldtype": "Data",
+   "label": "VPD State and Country",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_record_found",
+   "fieldtype": "Data",
+   "label": "VPD Record found",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_record_description__if_found",
+   "fieldtype": "Data",
+   "label": "VPD Record Description  if found",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_no_of_years_searched",
+   "fieldtype": "Int",
+   "label": "VPD No of years searched",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_name_of_police_station",
+   "fieldtype": "Data",
+   "label": "VPD Name of police station",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_official_name",
+   "fieldtype": "Data",
+   "label": "VPD Official Name",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_official_designation",
+   "fieldtype": "Data",
+   "label": "VPD Official Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_official_contact_details",
+   "fieldtype": "Data",
+   "label": "VPD Official Contact Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_additional_information",
+   "fieldtype": "Data",
+   "label": "VPD Additional Information",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_42",
+   "fieldtype": "Column Break",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "address_line_status",
+   "fieldtype": "Select",
+   "label": "Address Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "city_line_status",
+   "fieldtype": "Select",
+   "label": "City Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "state_and_country_line_status",
+   "fieldtype": "Select",
+   "label": "State and Country Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "record_found_line_status",
+   "fieldtype": "Select",
+   "label": "Record found Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "record_description__if_found_line_status",
+   "fieldtype": "Select",
+   "label": "Record Description  if found Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "no_of_years_searched_line_status",
+   "fieldtype": "Select",
+   "label": "No of years searched Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "name_of_police_station_line_status",
+   "fieldtype": "Select",
+   "label": "Name of police station Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "official_name_line_status",
+   "fieldtype": "Select",
+   "label": "Official Name Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "official_designation_line_status",
+   "fieldtype": "Select",
+   "label": "Official Designation Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "official_contact_details_line_status",
+   "fieldtype": "Select",
+   "label": "Official Contact Details Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "additional_information_line_status",
+   "fieldtype": "Select",
+   "label": "Additional Information Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_entry",
    "fieldtype": "Date",
-   "label": "DOB"
+   "label": "Date of Entry",
+   "permlevel": 1
   },
   {
-   "fieldname": "section_break_20",
-   "fieldtype": "Section Break"
+   "fieldname": "column_break_58",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_61",
+   "fieldtype": "Section Break",
+   "permlevel": 1
   },
   {
    "fieldname": "check_executive",
@@ -147,11 +446,13 @@
    "read_only": 1
   }
  ],
- "modified": "2020-09-23 11:22:27.126573",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-01-30 17:56:12.493684",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Criminal Check",
- "owner": "kartika.s@groupteampro.com",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
@@ -162,18 +463,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "DE Executive",
    "share": 1,
    "write": 1
   },

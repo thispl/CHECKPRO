@@ -6,18 +6,22 @@
  "engine": "InnoDB",
  "field_order": [
   "checks",
+  "check_id",
   "column_break_2",
   "check_status",
+  "execution_status",
   "description",
   "units",
   "report_status"
  ],
  "fields": [
   {
+   "columns": 2,
    "fieldname": "checks",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Checks"
+   "label": "Checks",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_2",
@@ -25,10 +29,13 @@
   },
   {
    "allow_on_submit": 1,
+   "columns": 2,
    "fieldname": "check_status",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Check Status"
+   "label": "Check Status",
+   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -38,21 +45,42 @@
    "label": "Description"
   },
   {
+   "columns": 2,
    "fieldname": "units",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Units"
+   "label": "Units",
+   "read_only": 1
   },
   {
+   "columns": 2,
    "fieldname": "report_status",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Report Status",
+   "options": "Pending\nGreen\nRed\nAmber\nInterim",
+   "read_only": 1,
    "search_index": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Execution Status",
+   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_id",
+   "fieldtype": "Data",
+   "label": "Check Id",
+   "read_only": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2020-12-16 20:59:30.779308",
+ "modified": "2021-02-06 12:04:54.123412",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checkwise Report",

@@ -14,5 +14,5 @@ class Batch(Document):
 @frappe.whitelist()
 def get_checks(check_package):
 	check_list = {}
-	checks = frappe.get_all('Checks List',{'parent':check_package},['checks'])
+	checks = frappe.get_all('Checks List',{'parent':check_package},['checks','units'])
 	return checks

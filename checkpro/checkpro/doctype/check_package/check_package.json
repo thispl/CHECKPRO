@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{customer_short_code}-{CP}-{###}",
+ "autoname": "format:{customer_short_code}-{CP}{###}",
  "creation": "2020-05-11 17:55:14.089510",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -39,15 +39,15 @@
   {
    "fetch_from": "customer.short_code",
    "fieldname": "customer_short_code",
-   "fieldtype": "Read Only",
+   "fieldtype": "Data",
+   "hidden": 1,
    "label": "Customer Short Code",
    "permlevel": 1
   },
   {
    "fieldname": "package_tat",
    "fieldtype": "Int",
-   "label": "Package TAT",
-   "permlevel": 1
+   "label": "Package TAT(days)"
   },
   {
    "fieldname": "section_break_6",
@@ -85,7 +85,7 @@
   }
  ],
  "links": [],
- "modified": "2020-11-25 18:41:30.564129",
+ "modified": "2021-01-21 12:19:19.370122",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Package",

@@ -1,59 +1,93 @@
 {
  "actions": [],
  "autoname": "Employment Check-.###",
- "creation": "2020-06-05 12:03:23.921819",
+ "creation": "2021-01-30 15:34:34.257811",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "ce_tat",
+  "ce_tatdays",
   "customer",
   "status",
-  "column_break_4",
+  "observation",
+  "column_break_5",
   "check_package",
   "batch",
   "case_information_section",
   "case_id",
-  "case_name",
+  "name1",
   "date_of_birth",
-  "case_gender",
-  "column_break_12",
+  "gender",
+  "column_break_13",
   "father_name",
   "contact_number",
   "email_id",
   "client_employee_code",
-  "section_break_17",
-  "employee_name",
-  "employee_code",
-  "employer_name",
-  "address",
-  "employment_type",
-  "period_of_employment_from",
-  "period_of_employment_to",
-  "column_break_24",
-  "joining_designation",
-  "leaving_designation",
-  "name_of_reporting_manager",
-  "designation_of_reporting_manager",
-  "reason_for_departure",
-  "character_and_conduct",
-  "gap_in_employment",
-  "eligible_for_rehire",
-  "additional_information",
-  "section_break_34",
+  "section_break_18",
+  "epi_employer_name",
+  "epi_address_and_contact_details",
+  "epi_employee_code",
+  "epi_employment_type",
+  "epi_period_of_employment",
+  "epi_designation",
+  "epi_reason_for_leaving",
+  "epi_ctc_drawn",
+  "epi_character_and_conduct",
+  "epi_behaviour_with_colleagues",
+  "epi_reporting_persons_name_and_designation",
+  "epi_gaps_jn_employment",
+  "epi_verified_by",
+  "epi_additional_information",
+  "column_break_33",
+  "vpd_employer_name",
+  "vpd_address_and_contact_details",
+  "vpd_employee_code",
+  "vpd_employment_type",
+  "vpd_period_of_employment",
+  "vpd_designation",
+  "vpd_reason_for_leaving",
+  "vpd_ctc_drawn",
+  "vpd_character_and_conduct",
+  "vpd_behaviour_with_colleagues",
+  "vpd_reporting_persons_name_and_designation",
+  "vpd_gaps_jn_employment",
+  "vpd_verified_by",
+  "vpd_additional_information",
+  "column_break_48",
+  "employer_name_line_status",
+  "address_and_contact_details_line_status",
+  "employee_code_line_status",
+  "employment_type_line_status",
+  "period_of_employment_line_status",
+  "designation_line_status",
+  "reason_for_leaving_line_status",
+  "ctc_drawn_line_status",
+  "character_and_conduct_line_status",
+  "behaviour_with_colleagues_line_status",
+  "reporting_persons_name_and_designation_line_status",
+  "gaps_jn_employment_line_status",
+  "verified_by_line_status",
+  "additional_information_line_status",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "date_of_entry",
+  "column_break_67",
+  "date_of_initiation",
+  "date_of_completion",
+  "section_break_70",
   "check_executive"
  ],
  "fields": [
   {
-   "fieldname": "ce_tat",
+   "fieldname": "ce_tatdays",
    "fieldtype": "Data",
-   "label": "CE TAT",
+   "label": "CE TAT(days)",
    "read_only": 1
   },
   {
    "fieldname": "customer",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer",
    "read_only": 1
@@ -62,18 +96,22 @@
    "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Status",
-   "options": "\nCompleted\nPending\nInsufficient\nHold\nDrop"
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop"
   },
   {
-   "fieldname": "column_break_4",
+   "depends_on": "eval:doc.workflow_state==\"Pending for Approval\"",
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "label": "Observation"
+  },
+  {
+   "fieldname": "column_break_5",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "check_package",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Check Package",
    "read_only": 1
@@ -81,8 +119,6 @@
   {
    "fieldname": "batch",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Batch",
    "read_only": 1
   },
@@ -98,9 +134,9 @@
    "read_only": 1
   },
   {
-   "fieldname": "case_name",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Case Name",
+   "label": "Name",
    "read_only": 1
   },
   {
@@ -110,13 +146,13 @@
    "read_only": 1
   },
   {
-   "fieldname": "case_gender",
+   "fieldname": "gender",
    "fieldtype": "Data",
-   "label": "Case Gender",
+   "label": "Gender",
    "read_only": 1
   },
   {
-   "fieldname": "column_break_12",
+   "fieldname": "column_break_13",
    "fieldtype": "Column Break"
   },
   {
@@ -144,101 +180,330 @@
    "read_only": 1
   },
   {
-   "fieldname": "section_break_17",
+   "fieldname": "section_break_18",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "employee_name",
+   "fieldname": "epi_employer_name",
    "fieldtype": "Data",
-   "label": "Employee Name"
+   "label": "EPI Employer Name",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "employee_code",
+   "fieldname": "epi_address_and_contact_details",
    "fieldtype": "Data",
-   "label": "Employee Code"
+   "label": "EPI Address and contact details",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "employer_name",
+   "fieldname": "epi_employee_code",
+   "fieldtype": "Int",
+   "label": "EPI Employee Code",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_employment_type",
    "fieldtype": "Data",
-   "label": "Employer Name"
+   "label": "EPI Employment Type",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "address",
+   "fieldname": "epi_period_of_employment",
    "fieldtype": "Data",
-   "label": "Address"
+   "label": "EPI Period of Employment",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "employment_type",
-   "fieldtype": "Select",
-   "label": "Employment Type",
-   "options": "Temporary\nPermanent\nContract"
-  },
-  {
-   "fieldname": "period_of_employment_from",
-   "fieldtype": "Date",
-   "label": "Period of Employment From"
-  },
-  {
-   "fieldname": "period_of_employment_to",
-   "fieldtype": "Date",
-   "label": "Period of Employment To"
-  },
-  {
-   "fieldname": "joining_designation",
+   "fieldname": "epi_designation",
    "fieldtype": "Data",
-   "label": "Joining Designation"
+   "label": "EPI Designation",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
   },
   {
-   "fieldname": "column_break_24",
+   "fieldname": "epi_reason_for_leaving",
+   "fieldtype": "Data",
+   "label": "EPI Reason for leaving",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_ctc_drawn",
+   "fieldtype": "Data",
+   "label": "EPI CTC Drawn",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_character_and_conduct",
+   "fieldtype": "Data",
+   "label": "EPI Character and conduct",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_behaviour_with_colleagues",
+   "fieldtype": "Data",
+   "label": "EPI Behaviour with colleagues",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_reporting_persons_name_and_designation",
+   "fieldtype": "Data",
+   "label": "EPI Reporting person's name and designation",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_gaps_jn_employment",
+   "fieldtype": "Data",
+   "label": "EPI Gaps jn employment",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_verified_by",
+   "fieldtype": "Data",
+   "label": "EPI Verified By",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_additional_information",
+   "fieldtype": "Data",
+   "label": "EPI Additional Information",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "column_break_33",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "leaving_designation",
+   "fieldname": "vpd_employer_name",
    "fieldtype": "Data",
-   "label": "Leaving Designation"
+   "label": "VPD Employer Name",
+   "permlevel": 1
   },
   {
-   "fieldname": "name_of_reporting_manager",
+   "fieldname": "vpd_address_and_contact_details",
    "fieldtype": "Data",
-   "label": "Name of Reporting Manager "
+   "label": "VPD Address and contact details",
+   "permlevel": 1
   },
   {
-   "fieldname": "designation_of_reporting_manager",
+   "fieldname": "vpd_employee_code",
+   "fieldtype": "Int",
+   "label": "VPD Employee Code",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_employment_type",
    "fieldtype": "Data",
-   "label": "Designation of Reporting Manager "
+   "label": "VPD Employment Type",
+   "permlevel": 1
   },
   {
-   "fieldname": "reason_for_departure",
+   "fieldname": "vpd_period_of_employment",
+   "fieldtype": "Data",
+   "label": "VPD Period of Employment",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_designation",
+   "fieldtype": "Data",
+   "label": "VPD Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_reason_for_leaving",
+   "fieldtype": "Data",
+   "label": "VPD Reason for leaving",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_ctc_drawn",
+   "fieldtype": "Data",
+   "label": "VPD CTC Drawn",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_character_and_conduct",
+   "fieldtype": "Data",
+   "label": "VPD Character and conduct",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_behaviour_with_colleagues",
+   "fieldtype": "Data",
+   "label": "VPD Behaviour with colleagues",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_reporting_persons_name_and_designation",
+   "fieldtype": "Data",
+   "label": "VPD Reporting person's name and designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_gaps_jn_employment",
+   "fieldtype": "Data",
+   "label": "VPD Gaps jn employment",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_verified_by",
+   "fieldtype": "Data",
+   "label": "VPD Verified By",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "vpd_additional_information",
+   "fieldtype": "Data",
+   "label": "VPD Additional Information",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_48",
+   "fieldtype": "Column Break",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "employer_name_line_status",
    "fieldtype": "Select",
-   "label": "Reason for Departure",
-   "options": "Better Job Opportunity\nPersonal Reason\nTerminate\nHealth Issue\nNot Provided\nLack Of Knowledge"
+   "label": "Employer Name Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
   },
   {
-   "fieldname": "character_and_conduct",
+   "fieldname": "address_and_contact_details_line_status",
    "fieldtype": "Select",
-   "label": "Character And Conduct ",
-   "options": "Good\nAverage\nWorst"
+   "label": "Address and contact details Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
   },
   {
-   "fieldname": "gap_in_employment",
+   "fieldname": "employee_code_line_status",
    "fieldtype": "Select",
-   "label": "Gap in Employment",
-   "options": "Yes\nNo\nNA"
+   "label": "Employee Code Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
   },
   {
-   "fieldname": "eligible_for_rehire",
+   "fieldname": "employment_type_line_status",
    "fieldtype": "Select",
-   "label": "Eligible for Rehire",
-   "options": "Yes\nNo\nNA"
+   "label": "Employment Type Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
   },
   {
-   "fieldname": "additional_information",
-   "fieldtype": "Small Text",
-   "label": "Additional Information"
+   "fieldname": "period_of_employment_line_status",
+   "fieldtype": "Select",
+   "label": "Period of Employment Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
   },
   {
-   "fieldname": "section_break_34",
-   "fieldtype": "Section Break"
+   "fieldname": "designation_line_status",
+   "fieldtype": "Select",
+   "label": "Designation Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "reason_for_leaving_line_status",
+   "fieldtype": "Select",
+   "label": "Reason for leaving Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "ctc_drawn_line_status",
+   "fieldtype": "Select",
+   "label": "CTC Drawn Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "character_and_conduct_line_status",
+   "fieldtype": "Select",
+   "label": "Character and conduct Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "behaviour_with_colleagues_line_status",
+   "fieldtype": "Select",
+   "label": "Behaviour with colleagues Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "reporting_persons_name_and_designation_line_status",
+   "fieldtype": "Select",
+   "label": "Reporting person's name and designation Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "gaps_jn_employment_line_status",
+   "fieldtype": "Select",
+   "label": "Gaps jn employment Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "verified_by_line_status",
+   "fieldtype": "Select",
+   "label": "Verified By Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "additional_information_line_status",
+   "fieldtype": "Select",
+   "label": "Additional Information Line Status",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_67",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_70",
+   "fieldtype": "Section Break",
+   "permlevel": 1
   },
   {
    "fieldname": "check_executive",
@@ -247,8 +512,9 @@
    "read_only": 1
   }
  ],
+ "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-11-28 21:16:38.899942",
+ "modified": "2021-01-30 17:27:04.838116",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Employment Check",
@@ -263,18 +529,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "DE Executive",
    "share": 1,
    "write": 1
   },

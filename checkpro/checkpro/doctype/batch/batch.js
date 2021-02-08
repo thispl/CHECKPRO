@@ -44,8 +44,10 @@ frappe.ui.form.on("Batch", {
 				callback: function (r) {
 					if (!r.exc && r.message) {
 						$.each(r.message, function (i, d) {
-							checks.push(d.checks)
-
+							var checkdata = {}
+							checkdata.checks = d.checks
+							checkdata.units = d.units
+							checks.push(checkdata)
 						})
 					}
 				}
