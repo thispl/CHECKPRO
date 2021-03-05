@@ -26,7 +26,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer",
+   "options": "Client",
    "read_only": 1
   },
   {
@@ -91,7 +91,7 @@
   }
  ],
  "links": [],
- "modified": "2020-11-27 19:35:59.242734",
+ "modified": "2021-03-05 19:24:49.646901",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Bulk Upload",

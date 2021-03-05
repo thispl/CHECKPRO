@@ -54,7 +54,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer",
+   "options": "Client",
    "read_only": 1
   },
   {
@@ -322,7 +322,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-03-05 11:13:07.957094",
+ "modified": "2021-03-05 19:24:50.619247",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",
