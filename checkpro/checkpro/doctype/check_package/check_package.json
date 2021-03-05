@@ -11,10 +11,11 @@
   "column_break_3",
   "customer_short_code",
   "package_tat",
+  "total_sp",
+  "total",
   "section_break_6",
-  "check_name",
   "checks_list",
-  "column_break_9",
+  "section_break_10",
   "gsp",
   "description"
  ],
@@ -22,15 +23,18 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "pricing_model",
    "fieldtype": "Select",
-   "label": "Pricing Model",
-   "options": "\nUnits\nFixed",
-   "permlevel": 1
+   "in_list_view": 1,
+   "label": "Package Pricing Model",
+   "options": "\nCheck Based\nLumpsum",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
@@ -47,24 +51,20 @@
   {
    "fieldname": "package_tat",
    "fieldtype": "Int",
-   "label": "Package TAT(days)"
+   "in_list_view": 1,
+   "label": "Package TAT(in days)",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_6",
-   "fieldtype": "Section Break",
-   "label": "Checks"
-  },
-  {
-   "fieldname": "check_name",
-   "fieldtype": "HTML",
-   "label": "Check Name",
-   "read_only": 1
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "checks_list",
    "fieldtype": "Table",
-   "label": "Checks List",
-   "options": "Checks List"
+   "label": "Select Checks",
+   "options": "Checks List",
+   "reqd": 1
   },
   {
    "fieldname": "gsp",
@@ -80,12 +80,27 @@
    "label": "Description"
   },
   {
-   "fieldname": "column_break_9",
-   "fieldtype": "Column Break"
+   "depends_on": "eval:doc.pricing_model ==\"Check Based\"",
+   "fieldname": "total_sp",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total SP (Rs.)",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.pricing_model ==\"Lumpsum\"",
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "label": "Total SP (Rs.)",
+   "mandatory_depends_on": "eval:doc.pricing_model ==\"Lumpsum\""
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
   }
  ],
  "links": [],
- "modified": "2021-01-21 12:19:19.370122",
+ "modified": "2021-02-20 11:02:02.356474",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Package",

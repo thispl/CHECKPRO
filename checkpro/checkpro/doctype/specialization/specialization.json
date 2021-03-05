@@ -1,39 +1,26 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "field:check_name",
- "creation": "2020-11-25 16:50:05.352921",
+ "autoname": "field:specialization",
+ "creation": "2021-02-20 12:53:40.560268",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "check_name",
-  "ce_tat",
-  "check_price"
+  "specialization"
  ],
  "fields": [
   {
-   "fieldname": "check_name",
+   "fieldname": "specialization",
    "fieldtype": "Data",
-   "label": "Check Name",
+   "label": "Specialization",
    "unique": 1
-  },
-  {
-   "fieldname": "ce_tat",
-   "fieldtype": "Data",
-   "label": "CE TAT"
-  },
-  {
-   "fieldname": "check_price",
-   "fieldtype": "Data",
-   "label": "Check Price"
   }
  ],
  "links": [],
- "modified": "2021-02-09 11:26:50.948730",
+ "modified": "2021-02-20 13:09:23.203618",
  "modified_by": "Administrator",
  "module": "Checkpro",
- "name": "All Checks",
+ "name": "Specialization",
  "owner": "Administrator",
  "permissions": [
   {

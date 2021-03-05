@@ -16,5 +16,20 @@ frappe.ui.form.on('Checks', {
 
 	})
 	},
+	// after_workflow_action:(frm)=>{
+	// 	console.log("hi")
+	// 	if (frm.doc.workflow_state == "Pending for QC") {
+	// 		frm.set_value("date_of_initiation",frappe.datetime.nowdate())
+	// 		console.log(frm.doc.workflow_state)
+	// }
 
+	// }
+	// onload(frm){
+	// 	"workflow_state": frm => {
+	// 		if (frm.doc.workflow_state == "My Target State"){
+	// 			frm.set_value("actual_end_date", frappe.datetime.nowdate());
+	// 		}
+	// 		}
+	// }
+	
 });

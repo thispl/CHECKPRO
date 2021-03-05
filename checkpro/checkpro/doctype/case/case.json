@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "Case-.###.-.{case_name}",
+ "autoname": "Case-.###",
  "creation": "2020-05-16 16:37:52.388181",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,17 +11,17 @@
   "batch",
   "entry_status",
   "date_of_initiating",
+  "column_break_3",
+  "tat",
+  "end_date",
+  "hr_name",
+  "hr_designation",
   "ca_status",
   "case_report",
   "remarks_green",
   "remarks_red",
   "remarks_amber",
   "remarks_interim",
-  "column_break_3",
-  "tat",
-  "end_date",
-  "hr_name",
-  "hr_designation",
   "checks_created",
   "check_report_status_4",
   "check_report_status",
@@ -34,16 +34,17 @@
   "date_of_birth",
   "email_id",
   "father_name",
+  "without_consern",
   "column_break_11",
   "age",
   "address",
   "client_employee_code",
   "contact",
-  "without_consern",
   "section_break_22",
   "checkwise_report",
   "description",
-  "amended_from"
+  "amended_from",
+  "no_of_cases"
  ],
  "fields": [
   {
@@ -76,11 +77,9 @@
    "read_only": 1
   },
   {
-   "default": "Today",
    "fieldname": "date_of_initiating",
    "fieldtype": "Date",
-   "label": "Date of Initiating",
-   "permlevel": 1
+   "label": "Date of Initiating"
   },
   {
    "default": "Pending",
@@ -88,8 +87,9 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Case Execution Report",
-   "options": "Pending\nGreen\nRed\nAmber\nInterim",
-   "permlevel": 1
+   "options": "Pending\nPositive\nNegative\nDilemma\nInterim",
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "column_break_3",
@@ -101,8 +101,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Batch",
-   "options": "Batch",
-   "reqd": 1
+   "options": "Batch"
   },
   {
    "default": "Pending",
@@ -118,12 +117,14 @@
    "fetch_from": "check_package.package_tat",
    "fieldname": "tat",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "TAT",
-   "permlevel": 2
+   "read_only": 1
   },
   {
    "fieldname": "end_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "End Date",
    "permlevel": 2
   },
@@ -136,21 +137,18 @@
    "fieldname": "case_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Name",
-   "reqd": 1
+   "label": "Name"
   },
   {
    "fieldname": "case_gender",
    "fieldtype": "Select",
    "label": "Gender",
-   "options": "\nMale\nFemale\nOthers",
-   "reqd": 1
+   "options": "\nMale\nFemale\nTransgender"
   },
   {
    "fieldname": "date_of_birth",
    "fieldtype": "Date",
-   "label": "Date of Birth",
-   "reqd": 1
+   "label": "Date of Birth"
   },
   {
    "fieldname": "email_id",
@@ -229,29 +227,33 @@
    "depends_on": "eval:doc.case_report == \"Green\"",
    "fieldname": "check_report_status",
    "fieldtype": "HTML",
+   "hidden": 1,
    "label": "Check Report Status",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Positive.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Positive.png\" width=\"250\">"
   },
   {
    "depends_on": "eval:doc.case_report == \"Red\"",
    "fieldname": "check_report_status_1",
    "fieldtype": "HTML",
+   "hidden": 1,
    "label": "Check Report Status_1",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Negative.png\" width=\"250\">"
   },
   {
    "depends_on": "eval:doc.case_report == \"Amber\"",
    "fieldname": "check_report_status_2",
    "fieldtype": "HTML",
+   "hidden": 1,
    "label": "Check Report Status_2",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Dilemma.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Dilemma.png\" width=\"250\">"
   },
   {
    "depends_on": "eval:doc.case_report == \"Interim\"",
    "fieldname": "check_report_status_3",
    "fieldtype": "HTML",
+   "hidden": 1,
    "label": "Check Report Status_3",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Interim.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Interim.png\" width=\"250\">"
   },
   {
    "default": "0",
@@ -260,50 +262,67 @@
    "label": "without concern"
   },
   {
-   "depends_on": "eval:doc.case_report==\"Green\"",
+   "depends_on": "eval:doc.case_report==\"Positive\"",
    "fieldname": "remarks_green",
    "fieldtype": "Small Text",
-   "label": "Remarks"
+   "label": "Remarks",
+   "permlevel": 1
   },
   {
-   "depends_on": "eval:doc.case_report==\"Red\"",
+   "depends_on": "eval:doc.case_report==\"Negative\"",
    "fieldname": "remarks_red",
    "fieldtype": "Small Text",
-   "label": "Remarks"
+   "label": "Remarks",
+   "permlevel": 1
   },
   {
-   "depends_on": "eval:doc.case_report==\"Amber\"",
+   "depends_on": "eval:doc.case_report==\"Dilemma\"",
    "fieldname": "remarks_amber",
    "fieldtype": "Small Text",
-   "label": "Remarks"
+   "label": "Remarks",
+   "permlevel": 1
   },
   {
    "depends_on": "eval:doc.case_report==\"Interim\"",
    "fieldname": "remarks_interim",
    "fieldtype": "Small Text",
-   "label": "Remarks"
+   "label": "Remarks",
+   "permlevel": 1
   },
   {
+   "fetch_from": "customer.hr_name",
    "fieldname": "hr_name",
    "fieldtype": "Data",
-   "label": "HR Name"
+   "hidden": 1,
+   "label": "HR Name",
+   "read_only": 1
   },
   {
+   "fetch_from": "customer.designation",
    "fieldname": "hr_designation",
    "fieldtype": "Data",
-   "label": "HR Designation"
+   "hidden": 1,
+   "label": "HR Designation",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.case_report == \"Pending\"",
    "fieldname": "check_report_status_4",
    "fieldtype": "HTML",
+   "hidden": 1,
    "label": "check_report_status",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"http://192.168.0.111/files/pending.png\" width=\"300\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/pending.png\" width=\"300\">"
+  },
+  {
+   "fieldname": "no_of_cases",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "No of cases"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-02-06 12:27:41.671356",
+ "modified": "2021-03-05 11:13:07.957094",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",
@@ -324,5 +343,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "case_name",
  "track_changes": 1
 }

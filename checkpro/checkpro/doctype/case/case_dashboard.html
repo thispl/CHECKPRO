@@ -1,9 +1,10 @@
 
 {% if verify_data %}
-<h5> {{ __("Report Panel") }} </h5>
+
+<h5> {{ __("Checks") }} </h5>
 {% for(const [key, value] of Object.entries(verify_data)) { %}
-<a class="check-link" target="_blank" data-type="{{ value }}">
-    {%= value %} </a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="check-link" target="_blank" doctype="{{ value[0] }}" check_id= "{{ value[1]}}">
+    {%= value[0] %} &nbsp; - &nbsp;&nbsp;{%= value[1] %}</a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <br> 
 {% } %}
 {% } else { %}

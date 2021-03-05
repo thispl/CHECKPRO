@@ -1,0 +1,364 @@
+{
+ "actions": [],
+ "autoname": "Criminal Check 1-.###",
+ "creation": "2021-02-24 15:48:01.419754",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tatdays",
+  "customer",
+  "customer_shortcode",
+  "entry_status",
+  "execution_status",
+  "report_status",
+  "observation",
+  "column_break_8",
+  "check_package",
+  "batch",
+  "proof_attachment",
+  "attachment_description",
+  "date_of_entry",
+  "case_information_section",
+  "case_id",
+  "name1",
+  "date_of_birth",
+  "gender",
+  "age",
+  "column_break_20",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_25",
+  "epi_name",
+  "epi_number",
+  "column_break_28",
+  "vpd_name",
+  "vpd_number",
+  "column_break_31",
+  "name_line_status",
+  "number_line_status",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "column_break_37",
+  "date_of_initiation",
+  "date_of_completion"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tatdays",
+   "fieldtype": "Data",
+   "label": "CE TAT(days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_shortcode",
+   "fieldtype": "Data",
+   "label": "Customer Shortcode",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Pending for QC\"",
+   "fieldname": "execution_status",
+   "fieldtype": "Select",
+   "label": "Execution Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop"
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "report_status",
+   "fieldtype": "Select",
+   "label": "Report Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\"",
+   "options": "\nPending\nGreen\nRed\nAmber\nInterim"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "label": "Observation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\""
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "proof_attachment",
+   "fieldtype": "Attach",
+   "label": "Proof Attachment",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "attachment_description",
+   "fieldtype": "Data",
+   "label": "Attachment Description",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\""
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Pending for Verification\""
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "label": "Age",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "epi_name",
+   "fieldtype": "Data",
+   "label": "EPI Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\"",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "epi_number",
+   "fieldtype": "Int",
+   "label": "EPI Number",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\"",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vpd_name",
+   "fieldtype": "Data",
+   "label": "VPD Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "vpd_number",
+   "fieldtype": "Int",
+   "label": "VPD Number",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for QC\"||doc.workflow_state ==\"Pending for Approval\""
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "name_line_status",
+   "fieldtype": "Select",
+   "label": "Name Line Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\"",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "number_line_status",
+   "fieldtype": "Select",
+   "label": "Number Line Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for QC\"",
+   "options": "\nPositive\nNegative",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_37",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_initiation",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1
+  }
+ ],
+ "links": [],
+ "modified": "2021-02-24 18:41:23.317734",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Criminal Check 1",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "VPI user",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

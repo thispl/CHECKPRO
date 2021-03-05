@@ -1,13 +1,19 @@
-{% if data %}
-<h5> {{ __("Links") }} </h5>
-<a class="case-link" data-type="Case">Case</a>
-<br>
-<h5> {{ __("Checks Under this Batch") }} </h5>
-{% for(const [key, value] of Object.entries(data)) { %}
 
-<a class="check-link" data-type="{{ value.checks }}">
-    {%= value.checks %} </a> ({%= value.units %})
+<h5> {{ __("Links") }} </h5>
+
+<a class="case-link"  data-type="Case" >
+
+ Case ({{data[1]}})</a> 
+ <!-- {%= value %} cases="{{ value[2]}}"-->
+{% if data %}
+
+
+<h5> {{ __("Checks Under this Batch") }} </h5>
+{% for(const [key, value] of Object.entries(data[0])) { %}
+
+    {%= value[0] %}  ({%= value[1] %})
 <br>
+
 {% } %}
 {% } else { %}
 <p style="margin-top: 30px;"> No Checks have been added. </p>
