@@ -322,7 +322,11 @@
  ],
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2021-03-05 19:24:50.619247",
+=======
+ "modified": "2021-03-05 11:13:07.957094",
+>>>>>>> b905aa19a3840fc71aca9c7a679b29f3eba6f7fc
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",
