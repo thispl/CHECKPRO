@@ -8,57 +8,59 @@ from frappe.model.document import Document
 
 class Case(Document):
     def validate(self):
-        if not self.checks_created:
-            cp = frappe.get_doc("Check Package",self.check_package)
-            cp_checks = cp.checks_list
-            for cp_check in cp_checks:
-                frappe.errprint(cp_check)
-                for unit in range(int(cp_check.units)):
-                    # create_entry_check = frappe.new_doc(cp_check.checks)
-                    # create_entry_check.flags.ignore_permissions  = True
-                    # create_entry_check.update({
-                    #     "ce_tat": cp_check.ce_tat,
-                    #     "customer" : self.customer,
-                    #     "check_package" : self.check_package,
-                    #     "batch" : self.batch,
-                    #     "case_id" : self.name,
-                    #     "case_name" : self.case_name,
-                    #     "date_of_birth" : self.date_of_birth,
-                    #     "case_gender" : self.case_gender,
-                    #     "father_name" :self.father_name,
-                    #     "email_id" : self.email_id,
-                    #     "client_employee_code" : self.client_employee_code
-                    # }).save()
-                    # entry_check = frappe.get_value(cp_check.checks,{'case_id':self.name},['name'])
-                    # frappe.errprint(entry_check)
-                    check =frappe.get_value("Checks",cp_check.checks,["ce_tat"])
-                    sh =frappe.get_value("Customer",self.customer,["short_code"])
-                    create_verify_check = frappe.new_doc(cp_check.checks)
-                    create_verify_check.flags.ignore_permissions  = True
-                    frappe.errprint(create_verify_check)
-                    create_verify_check.update({
-                        "ce_tatdays": check,
-                        "customer" : self.customer,
-                        "customer_shortcode": sh,
-                        "check_package" : self.check_package,
-                        "batch" : self.batch,
-                        "case_id" : self.name,
-                        "name1" : self.case_name,
-                        "date_of_birth" : self.date_of_birth,
+        # if not self.checks_created:
+        cp = frappe.get_doc("Check Package",self.check_package)
+        cp_checks = cp.checks_list
+        # check_package = frappe.get_doc('Check Package',{'name' : check_package })
+        # ch =[]
+        for c in cp.checks_list:
+            checks = frappe.get_all(c.check_name,{"case_id":self.name},['entry_status','name'])
+            if not checks:
+                for cp_check in cp_checks:
+                    # frappe.errprint(cp_check)
+                    for unit in range(int(cp_check.units)):
+                        check =frappe.get_value("Checks",cp_check.check_name,["ce_tat"])
+                        sh =frappe.get_value("Customer",self.customer,["short_code"])
+                        create_verify_check = frappe.new_doc(cp_check.check_name)
+                        create_verify_check.ce_tatdays= check,
+                        create_verify_check.customer=self.customer,
+                        create_verify_check.customer_shortcode=sh,
+                        create_verify_check.check_package=self.check_package,
+                        create_verify_check.batch=self.batch,
+                        create_verify_check.case_id=self.name,
+                        create_verify_check.name1=self.case_name,
+                        create_verify_check.date_of_birth=self.date_of_birth,
+                        create_verify_check.age=self.age,
+                        create_verify_check.gender=self.case_gender,
+                        create_verify_check.father_name=self.father_name,
+                        create_verify_check.email_id=self.email_id,
+                        create_verify_check.address=self.address,
+                        create_verify_check.client_employee_code=self.client_employee_code,
+                        create_verify_check.contact_number=self.contact
+                        create_verify_check.flags.ignore_mandatory==True
+                        create_verify_check.save(ignore_permissions=True)
+            else:
+                for ch in checks:
+                    checks = frappe.get_doc(c.check_name,{"name":ch.name})
+                    checks.update({
+                        "name1":self.case_name,
+                        "date_of_birth":self.date_of_birth,
+                        "gender":self.case_gender,
                         "age":self.age,
-                        "gender" : self.case_gender,
-                        "father_name" :self.father_name,
-                        "email_id" : self.email_id,
-                        "client_employee_code" : self.client_employee_code,
-                        "contact_number":self.contact
-                        # "entry_id": entry_check
-                    }).save()
-            self.checks_created = 1
+                        "father_name":self.father_name,
+                        "contact_number":self.contact,
+                        "address":self.address,
+                        "email_id":self.email_id,
+                        "client_employee_code":self.client_employee_code,
+                    })
+                    checks.save(ignore_permissions=True)
+                    frappe.db.commit()
+        
 
 @frappe.whitelist()
 def get_checks(check_package):
     check_list = {}
-    checks = frappe.get_all('Checks List',{'parent':check_package},['checks'])
+    checks = frappe.get_all('Checks List',{'parent':check_package},['check_name'])
     return checks
 
 @frappe.whitelist()
@@ -72,8 +74,8 @@ def check_status(name,check_package):
     check_package = frappe.get_doc('Check Package',{'name' : check_package })
     ch =[]
     for c in check_package.checks_list:
-        frappe.errprint(c.checks)
-        checks = frappe.get_all(c.checks,{"case_id":name},['entry_status','report_status','execution_status','name'])
+        
+        checks = frappe.get_all(c.check_name,{"case_id":name},['entry_status','report_status','verification_status','name'])
         # ch=frappe.get_doc("Case",name)
         # frappe.errprint(checks)
         
@@ -85,7 +87,7 @@ def check_status(name,check_package):
                 "checks":sep[0],
                 "check_id":cs["name"],
                 "check_status":cs["entry_status"],
-                "execution_status":cs["execution_status"],
+                "verification_status":cs["verification_status"],
                 "report_status":cs["report_status"],
                 "units":"1"
             })

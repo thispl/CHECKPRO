@@ -1,5 +1,16 @@
 {
- "cards": [],
+ "cards": [
+  {
+   "hidden": 0,
+   "label": "Case Detail Report",
+   "links": "[\n    {\n        \"dependencies\": [\n            \"Case\"\n        ],\n        \"doctype\": \"Case\",\n        \"label\": \"Completed Case Report\",\n        \"name\": \"Completed Case Report\",\n        \"type\": \"report\"\n        \n    },\n    {\n        \"dependencies\": [\n            \"Case\"\n        ],\n        \"doctype\": \"Case\",\n        \"label\": \"Pending Case Report\",\n        \"name\": \"Pending Case Report\",\n        \"type\": \"report\"\n        \n    },\n    {\n        \"dependencies\": [\n            \"Case\"\n        ],\n        \"doctype\": \"Case\",\n        \"label\": \"Hold Case Report\",\n        \"name\": \"Hold Case Report\",\n        \"type\": \"report\"\n        \n    },\n    {\n        \"dependencies\": [\n            \"Case\"\n        ],\n        \"doctype\": \"Case\",\n        \"label\": \"Insufficient Case Report\",\n        \"name\": \"Insufficient Case Report\",\n        \"type\": \"report\"\n        \n    },\n    {\n        \"dependencies\": [\n            \"Case\"\n        ],\n        \"doctype\": \"Case\",\n        \"label\": \"Drop Case Report\",\n        \"name\": \"Drop Case Report\",\n        \"type\": \"report\"\n        \n    }\n]"
+  },
+  {
+   "hidden": 0,
+   "label": "Checks",
+   "links": "[\n        {\n    \"label\": \"Test check\",\n    \"name\": \"Test check\",\n    \"type\": \"doctype\"\n        }\n    \n                            ,{\n                            \"label\": \"Test check_1\",\n                            \"name\": \"Test check_1\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Criminal Check 1\",\n                            \"name\": \"Criminal Check 1\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Test check_2\",\n                            \"name\": \"Test check_2\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Test check_ds\",\n                            \"name\": \"Test check_ds\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Education DKB1\",\n                            \"name\": \"Education DKB1\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Test45\",\n                            \"name\": \"Test45\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Test55\",\n                            \"name\": \"Test55\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Testtt\",\n                            \"name\": \"Testtt\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Testtt1\",\n                            \"name\": \"Testtt1\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Testtt1456\",\n                            \"name\": \"Testtt1456\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Name check\",\n                            \"name\": \"Name check\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Admin\",\n                            \"name\": \"Admin\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Check34\",\n                            \"name\": \"Check34\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"TestSaru12\",\n                            \"name\": \"TestSaru12\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"TestSaru1289\",\n                            \"name\": \"TestSaru1289\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Education checkk23\",\n                            \"name\": \"Education checkk23\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"testui\",\n                            \"name\": \"testui\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"testuiio\",\n                            \"name\": \"testuiio\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"test0\",\n                            \"name\": \"test0\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"check10\",\n                            \"name\": \"check10\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"check saru\",\n                            \"name\": \"check saru\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"check saru12\",\n                            \"name\": \"check saru12\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"Testtt45\",\n                            \"name\": \"Testtt45\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"check saru345\",\n                            \"name\": \"check saru345\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"test112\",\n                            \"name\": \"test112\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"test11256\",\n                            \"name\": \"test11256\",\n                            \"type\": \"doctype\"\n                                }\n                            \n                            ,{\n                            \"label\": \"tes3\",\n                            \"name\": \"tes3\",\n                            \"type\": \"doctype\"\n                                }\n                            ]"
+  }
+ ],
  "category": "Modules",
  "charts": [],
  "creation": "2021-01-20 17:10:24.236146",
@@ -12,8 +23,8 @@
  "idx": 0,
  "is_standard": 1,
  "label": "checkPRO",
- "modified": "2021-01-30 16:09:23.658772",
- "modified_by": "executive@gmail.com",
+ "modified": "2021-03-05 15:01:16.784574",
+ "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "checkPRO",
  "onboarding": "checkPRO",
@@ -22,45 +33,33 @@
  "pin_to_top": 1,
  "shortcuts": [
   {
-   "doc_view": "List",
+   "label": "Checks",
+   "link_to": "Checks",
+   "type": "DocType"
+  },
+  {
    "label": "Checks List",
    "link_to": "Checks List",
    "type": "DocType"
   },
   {
-   "doc_view": "List",
    "label": "Check Package",
    "link_to": "Check Package",
    "type": "DocType"
   },
   {
-   "doc_view": "List",
    "label": "Batch",
    "link_to": "Batch",
    "type": "DocType"
   },
   {
-   "doc_view": "List",
    "label": "Case",
    "link_to": "Case",
    "type": "DocType"
   },
   {
-   "doc_view": "",
    "label": "Add Cases",
    "link_to": "Add Cases",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "Dashboard",
-   "label": "Dashboard",
-   "link_to": "checkPRO",
-   "type": "Dashboard"
-  },
-  {
-   "doc_view": "List",
-   "label": "Checks",
-   "link_to": "Checks",
    "type": "DocType"
   }
  ]

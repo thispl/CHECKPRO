@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "autoname": "format:{customer_short_code}-{Batch}{###}",
  "creation": "2020-05-16 11:47:34.161556",
@@ -9,8 +10,13 @@
   "customer",
   "customer_short_code",
   "check_package",
+  "check_list",
   "column_break_2",
-  "no_of_cases"
+  "no_of_cases",
+  "expected_start_date",
+  "expected_end_date",
+  "section_break_8",
+  "checkwise_report"
  ],
  "fields": [
   {
@@ -18,14 +24,16 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "check_package",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Check Package",
-   "options": "Check Package"
+   "options": "Check Package",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_2",
@@ -34,7 +42,8 @@
   {
    "fieldname": "no_of_cases",
    "fieldtype": "Int",
-   "label": "No of Cases"
+   "label": "No of Cases",
+   "reqd": 1
   },
   {
    "fetch_from": "customer.short_code",
@@ -42,10 +51,42 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Customer Short Code"
+  },
+  {
+   "default": "Today",
+   "fieldname": "expected_start_date",
+   "fieldtype": "Date",
+   "label": "Expected Start Date",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_end_date",
+   "fieldtype": "Date",
+   "label": "Expected End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "checkwise_report",
+   "fieldtype": "Table",
+   "label": "Checkwise Report",
+   "options": "Checkwise Report"
+  },
+  {
+   "fieldname": "check_list",
+   "fieldtype": "Table",
+   "label": "Check List",
+   "options": "List of checks",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2021-01-21 12:20:55.921506",
+ "modified": "2021-03-04 15:13:27.144442",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Batch",

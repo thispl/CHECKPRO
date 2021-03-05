@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "creation": "2021-02-09 18:27:13.388642",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "check_sp"
+ ],
+ "fields": [
+  {
+   "fieldname": "check_sp",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check SP"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2021-02-09 19:24:18.575465",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "check SP",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

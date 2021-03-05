@@ -5,7 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "checks",
+  "check_name",
   "check_id",
   "ca_tat",
   "ace_tat",
@@ -13,17 +13,10 @@
   "column_break_5",
   "units",
   "check_price",
-  "check_selling_price",
+  "check_sp",
   "tcsp"
  ],
  "fields": [
-  {
-   "fieldname": "checks",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Checks",
-   "options": "All Checks"
-  },
   {
    "fieldname": "check_id",
    "fieldtype": "Data",
@@ -44,11 +37,11 @@
    "permlevel": 1
   },
   {
+   "fetch_from": "check_name.ce_tat",
    "fieldname": "ce_tat",
    "fieldtype": "Int",
-   "label": "CE TAT",
-   "permlevel": 1,
-   "read_only": 1
+   "in_list_view": 1,
+   "label": "CE TAT"
   },
   {
    "fieldname": "column_break_5",
@@ -59,21 +52,15 @@
    "fieldname": "units",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Units"
+   "label": "Units",
+   "reqd": 1
   },
   {
+   "fetch_from": "check_name.check_price",
    "fieldname": "check_price",
    "fieldtype": "Currency",
-   "label": "Check Price",
-   "permlevel": 1,
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:parent.pricing_model==\"Units\"",
-   "fieldname": "check_selling_price",
-   "fieldtype": "Currency",
-   "label": "Check Selling Price",
-   "permlevel": 1
+   "in_list_view": 1,
+   "label": "Check Price"
   },
   {
    "depends_on": "eval:parent.pricing_model==\"Units\"",
@@ -82,11 +69,25 @@
    "label": "Total Check Selling Price",
    "permlevel": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "check_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Check Name",
+   "options": "All Checks",
+   "reqd": 1
+  },
+  {
+   "fieldname": "check_sp",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Check SP"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2021-01-21 11:14:13.850315",
+ "modified": "2021-02-20 10:47:10.985784",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checks List",

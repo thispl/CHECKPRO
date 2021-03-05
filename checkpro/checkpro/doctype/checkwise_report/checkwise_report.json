@@ -7,11 +7,10 @@
  "field_order": [
   "checks",
   "check_id",
+  "open",
   "column_break_2",
   "check_status",
-  "execution_status",
-  "description",
-  "units",
+  "verification_status",
   "report_status"
  ],
  "fields": [
@@ -33,23 +32,8 @@
    "fieldname": "check_status",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Check Status",
+   "label": "Entry Status",
    "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "description",
-   "fieldtype": "Check",
-   "hidden": 1,
-   "label": "Description"
-  },
-  {
-   "columns": 2,
-   "fieldname": "units",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Units",
    "read_only": 1
   },
   {
@@ -58,29 +42,35 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Report Status",
-   "options": "Pending\nGreen\nRed\nAmber\nInterim",
+   "options": "Pending\nPositive\nNegative\nDilemma\nInterim",
    "read_only": 1,
    "search_index": 1
   },
   {
-   "columns": 2,
-   "fieldname": "execution_status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Execution Status",
-   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
-   "read_only": 1
-  },
-  {
    "fieldname": "check_id",
    "fieldtype": "Data",
-   "label": "Check Id",
+   "in_list_view": 1,
+   "label": "Check Id"
+  },
+  {
+   "fieldname": "open",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Open"
+  },
+  {
+   "columns": 2,
+   "fieldname": "verification_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Verification Status",
+   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
    "read_only": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2021-02-06 12:04:54.123412",
+ "modified": "2021-03-05 10:52:00.970781",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checkwise Report",
