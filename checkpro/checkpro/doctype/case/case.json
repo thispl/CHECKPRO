@@ -1,23 +1,27 @@
 {
  "actions": [],
- "autoname": "Case-.###",
+ "allow_import": 1,
+ "autoname": "format:CS-{######}",
  "creation": "2020-05-16 16:37:52.388181",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "customer_short_code",
   "check_package",
   "batch",
   "entry_status",
-  "date_of_initiating",
+  "case_status",
+  "client_attachment",
   "column_break_3",
   "tat",
-  "end_date",
   "hr_name",
   "hr_designation",
   "ca_status",
   "case_report",
+  "billing_status",
+  "billing_initiated_date",
   "remarks_green",
   "remarks_red",
   "remarks_amber",
@@ -35,16 +39,85 @@
   "email_id",
   "father_name",
   "without_consern",
+  "annexture_required",
   "column_break_11",
   "age",
   "address",
   "client_employee_code",
   "contact",
+  "create_so",
+  "section_break_39",
+  "checkwise_status",
+  "tat_monitor_tab",
+  "date_of_initiating",
+  "end_date",
+  "insufficiency_reported",
+  "insufficiency_closed",
+  "insufficiency_days",
+  "case_completion_date",
+  "holidays",
+  "dropped_date",
+  "column_break_40",
+  "package_tat",
+  "actual_tat",
+  "tat_variation",
+  "tat_monitor",
   "section_break_22",
+  "allocated_to",
+  "entered_by_section",
+  "entered_by",
+  "entry_designation",
+  "column_break_39",
+  "entry_name",
+  "entry_allocation_date",
+  "column_break_42",
+  "employee_no",
+  "entry_completion_date",
+  "entry_qc_section",
+  "entered_by_qc",
+  "designation_qc",
+  "column_break_47",
+  "qc_name",
+  "entry_completed_date",
+  "column_break_50",
+  "qc_employee_code",
+  "date_of_entry_qc_completed",
+  "execution_by_section",
+  "execution_by",
+  "exe_designation",
+  "column_break_74",
+  "exe_name",
+  "date_of_execution_allocation",
+  "column_break_77",
+  "employee_code_exe",
+  "date_of_execution_completed",
+  "final_qc_details_section",
+  "final_qc_by",
+  "final_qc_designation",
+  "column_break_63",
+  "final_qc_name",
+  "execution_completed_date",
+  "column_break_66",
+  "final_qc_employee_code",
+  "final_qc_completed_date",
+  "section_break_68",
+  "verified_by",
+  "designation",
+  "column_break_38",
+  "verified_by_qc",
+  "designation_ver",
+  "annexures_section",
+  "case_annexure",
+  "section_break_38",
   "checkwise_report",
   "description",
   "amended_from",
-  "no_of_cases"
+  "no_of_cases",
+  "dropped",
+  "section_break_108",
+  "reason_of_drop",
+  "column_break_110",
+  "drop_marked_by"
  ],
  "fields": [
   {
@@ -54,7 +127,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Client",
+   "options": "Customer",
    "read_only": 1
   },
   {
@@ -67,27 +140,26 @@
    "read_only": 1
   },
   {
-   "default": "Draft",
+   "default": "YTS",
    "fieldname": "entry_status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Entry Status",
-   "options": "Draft\nPending\nCompleted\nInsufficient\nHold\nDrop",
-   "read_only": 1
+   "options": "\nYTS\nDraft\nPending\nCompleted\nInsufficient\nHold\nDrop\nNot Applicable"
   },
   {
    "fieldname": "date_of_initiating",
    "fieldtype": "Date",
-   "label": "Date of Initiating"
+   "label": "Date of Initiation"
   },
   {
    "default": "Pending",
    "fieldname": "case_report",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Case Execution Report",
-   "options": "Pending\nPositive\nNegative\nDilemma\nInterim",
+   "label": "Case Report",
+   "options": "\nPending\nNot Applicable\nPositive\nNegative\nDilemma\nInterim",
    "permlevel": 1,
    "read_only": 1
   },
@@ -108,7 +180,7 @@
    "fieldname": "ca_status",
    "fieldtype": "Select",
    "label": "Case Execution Status",
-   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "options": "\nPending\nNot Applicable\nCompleted\nInsufficient\nHold\nDrop\nNot Applicable",
    "permlevel": 1,
    "read_only": 1
   },
@@ -122,11 +194,12 @@
    "read_only": 1
   },
   {
+   "fetch_from": "batch.expected_end_date",
    "fieldname": "end_date",
    "fieldtype": "Date",
-   "hidden": 1,
-   "label": "End Date",
-   "permlevel": 2
+   "label": "Expected End Date",
+   "permlevel": 2,
+   "read_only": 1
   },
   {
    "fieldname": "case_information_section",
@@ -137,7 +210,7 @@
    "fieldname": "case_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Name"
+   "label": "Employee Name"
   },
   {
    "fieldname": "case_gender",
@@ -178,15 +251,9 @@
    "label": "Client Employee Code"
   },
   {
-   "fieldname": "contact",
-   "fieldtype": "Data",
-   "label": "Contact No.",
-   "length": 10,
-   "options": "Phone"
-  },
-  {
    "fieldname": "section_break_22",
-   "fieldtype": "Section Break"
+   "fieldtype": "Tab Break",
+   "label": "Allocation"
   },
   {
    "default": "0",
@@ -229,7 +296,7 @@
    "fieldtype": "HTML",
    "hidden": 1,
    "label": "Check Report Status",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Positive.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"/files/Positive.png\" width=\"250\">"
   },
   {
    "depends_on": "eval:doc.case_report == \"Red\"",
@@ -237,7 +304,7 @@
    "fieldtype": "HTML",
    "hidden": 1,
    "label": "Check Report Status_1",
-   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://checkpro.teamproit.com/files/Negative.png\" width=\"250\">"
+   "options": "<br><br><img class=\"center\" height=\"250\" src=\"https://bvs.teamproit.com/files/Negative.png\" width=\"250\">"
   },
   {
    "depends_on": "eval:doc.case_report == \"Amber\"",
@@ -290,20 +357,16 @@
    "permlevel": 1
   },
   {
-   "fetch_from": "customer.hr_name",
    "fieldname": "hr_name",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "HR Name",
-   "read_only": 1
+   "label": "HR Name"
   },
   {
-   "fetch_from": "customer.designation",
    "fieldname": "hr_designation",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "HR Designation",
-   "read_only": 1
+   "label": "HR Designation"
   },
   {
    "depends_on": "eval:doc.case_report == \"Pending\"",
@@ -318,18 +381,431 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "No of cases"
+  },
+  {
+   "fieldname": "client_attachment",
+   "fieldtype": "Attach",
+   "hidden": 1,
+   "label": "Client Attachment"
+  },
+  {
+   "fieldname": "entered_by",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Entered By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_38",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entered_by_qc",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Entered By QC",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_designation",
+   "fieldtype": "Data",
+   "label": "Entry Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "designation_qc",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Verified By(D)",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation(D)"
+  },
+  {
+   "fieldname": "verified_by_qc",
+   "fieldtype": "Link",
+   "label": "Verified By QC(D)",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_ver",
+   "fieldtype": "Data",
+   "label": "Designation(D)"
+  },
+  {
+   "fieldname": "annexures_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "case_annexure",
+   "fieldtype": "Table",
+   "label": "Case Annexure",
+   "options": "Case Annexure"
+  },
+  {
+   "fieldname": "entry_allocation_date",
+   "fieldtype": "Date",
+   "label": "Entry Allocation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_39",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_42",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_no",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_qc_section",
+   "fieldtype": "Section Break",
+   "label": "Entry QC"
+  },
+  {
+   "fieldname": "entry_completed_date",
+   "fieldtype": "Data",
+   "label": "Entry QC Allocation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_47",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qc_employee_code",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_qc_details_section",
+   "fieldtype": "Section Break",
+   "label": "Final QC"
+  },
+  {
+   "fieldname": "final_qc_by",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Final QC By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_completed_date",
+   "fieldtype": "Date",
+   "label": "Final QC Allocation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_63",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_qc_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_66",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_employee_code",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_68",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tat_monitor_tab",
+   "fieldtype": "Tab Break",
+   "label": "TAT Monitor"
+  },
+  {
+   "fieldname": "case_completion_date",
+   "fieldtype": "Date",
+   "label": "Case Completion Date"
+  },
+  {
+   "fieldname": "package_tat",
+   "fieldtype": "Int",
+   "label": "Package TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_40",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_tat",
+   "fieldtype": "Int",
+   "label": "Actual TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_variation",
+   "fieldtype": "Int",
+   "label": "TAT Variation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_monitor",
+   "fieldtype": "Select",
+   "label": "TAT Monitor",
+   "options": "\nIn TAT\nOut TAT"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "case_status",
+   "fieldtype": "Select",
+   "label": "Case Status",
+   "options": "\nDraft\nEntry Completed\nEntry-QC\nEntry-Insuff\nExecution\nExecution-Insuff\nFinal-QC\nGenerate Report\nCase Report Completed\nCase Completed\nDrop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checkwise_status",
+   "fieldtype": "Table",
+   "label": "Checkwise Status",
+   "options": "Checkwise Status"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status",
+   "options": "\nPending\nTo be Billed\nBilled\nUnbilled\nDrop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entered_by_section",
+   "fieldtype": "Section Break",
+   "label": "Entered By"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Data",
+   "label": "Contact No."
+  },
+  {
+   "default": "0",
+   "fieldname": "annexture_required",
+   "fieldtype": "Check",
+   "label": "Annexture Required",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_by",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Execution By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_by_section",
+   "fieldtype": "Section Break",
+   "label": "Execution By"
+  },
+  {
+   "fieldname": "billing_initiated_date",
+   "fieldtype": "Date",
+   "label": "Billing Initiated Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_completion_date",
+   "fieldtype": "Date",
+   "label": "Entry Completed Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_execution_allocation",
+   "fieldtype": "Date",
+   "label": "Execution Allocation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_execution_completed",
+   "fieldtype": "Date",
+   "label": "Execution Completed Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_entry_qc_completed",
+   "fieldtype": "Date",
+   "label": "Entry QC Completed Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_qc_completed_date",
+   "fieldtype": "Date",
+   "label": "Final QC Completed Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "insufficiency_reported",
+   "fieldtype": "Date",
+   "label": "Insufficiency Reported",
+   "read_only": 1
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Int",
+   "label": "Holidays",
+   "read_only": 1
+  },
+  {
+   "fieldname": "insufficiency_closed",
+   "fieldtype": "Date",
+   "label": "Insufficiency Closed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "insufficiency_days",
+   "fieldtype": "Int",
+   "label": "Insufficiency Days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_74",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_77",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "exe_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "exe_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_code_exe",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "create_so",
+   "fieldtype": "Button",
+   "label": "Create SO"
+  },
+  {
+   "fieldname": "dropped_date",
+   "fieldtype": "Date",
+   "label": "Dropped Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_39",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "customer.short_code",
+   "fieldname": "customer_short_code",
+   "fieldtype": "Data",
+   "label": "Customer Short Code"
+  },
+  {
+   "fieldname": "allocated_to",
+   "fieldtype": "Link",
+   "label": "Allocated To",
+   "options": "User"
+  },
+  {
+   "default": "0",
+   "fieldname": "dropped",
+   "fieldtype": "Check",
+   "label": "Dropped"
+  },
+  {
+   "fieldname": "section_break_108",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "reason_of_drop",
+   "fieldtype": "Small Text",
+   "label": "Reason of Drop"
+  },
+  {
+   "fieldname": "column_break_110",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "drop_marked_by",
+   "fieldtype": "Link",
+   "label": "Drop Marked By",
+   "options": "User",
+   "read_only": 1
   }
  ],
- "is_submittable": 1,
  "links": [],
-<<<<<<< HEAD
- "modified": "2021-03-05 19:24:50.619247",
-=======
- "modified": "2021-03-05 11:13:07.957094",
->>>>>>> b905aa19a3840fc71aca9c7a679b29f3eba6f7fc
+ "modified": "2024-01-08 20:10:14.779533",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -347,6 +823,7 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "case_name",
  "track_changes": 1
 }

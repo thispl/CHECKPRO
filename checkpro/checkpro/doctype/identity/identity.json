@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "Identity -.###",
  "creation": "2020-06-06 10:22:19.353464",
  "doctype": "DocType",
@@ -75,7 +76,8 @@
   "address_4",
   "additional_information_6",
   "section_break_70",
-  "check_executive"
+  "check_executive",
+  "annexture_required"
  ],
  "fields": [
   {
@@ -447,12 +449,21 @@
    "fieldtype": "Data",
    "label": "Check Executive",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "annexture_required",
+   "fieldtype": "Check",
+   "label": "Annexture Required",
+   "read_only": 1
   }
  ],
- "modified": "2020-09-23 11:22:54.282924",
+ "links": [],
+ "modified": "2023-09-23 12:08:47.829925",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Identity",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -495,5 +506,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

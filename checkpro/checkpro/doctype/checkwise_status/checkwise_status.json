@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-24 11:03:50.410049",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "checks",
+  "check_id",
+  "checks_status",
+  "check_report"
+ ],
+ "fields": [
+  {
+   "fieldname": "checks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Checks",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Id",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checks_status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_report",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Check Report",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-12-12 11:29:24.466957",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Checkwise Status",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

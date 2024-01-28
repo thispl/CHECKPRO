@@ -1,0 +1,1302 @@
+{
+ "actions": [],
+ "autoname": "Employment-.###",
+ "creation": "2021-03-25 16:34:10.534297",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tatdays",
+  "client",
+  "employee_name",
+  "employee_code",
+  "client_shortcode",
+  "entry_status",
+  "report_status",
+  "observation",
+  "column_break_7",
+  "check_type",
+  "check_package",
+  "batch",
+  "verification_status",
+  "annexure",
+  "case_id",
+  "billing_status",
+  "case_information_section",
+  "name1",
+  "date_of_birth",
+  "gender",
+  "age",
+  "column_break_20",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "address",
+  "section_break_26",
+  "epi_employer_name",
+  "epi_employer_contact",
+  "epi_employee_code",
+  "epi_employment_type",
+  "epi_designation",
+  "epi_period_of_employment",
+  "epi_date_of_joining",
+  "epi_date_of_relieving",
+  "epi_relieving_status",
+  "epi_reason_for_leaving",
+  "epi_ctc_drawn",
+  "epi_character_and_conduct",
+  "epi_behavior_with_colleagues",
+  "epi_reporting_persons_name",
+  "epi_reporting_persons_designation",
+  "epi_gaps_in_employment",
+  "epi_employer_address",
+  "column_break_50",
+  "vpi_employer_name",
+  "vpi_employer_contact",
+  "vpi_employee_code",
+  "vpi_employment_type",
+  "vpi_designation",
+  "vpi_period_of_employment",
+  "vpi_date_of_joining",
+  "vpi_date_of_relieving",
+  "vpi_relieving_status",
+  "vpi_reason_for_leaving",
+  "vpi_ctc_drawn",
+  "vpi_character_and_conduct",
+  "vpi_behavior_with_colleagues",
+  "vpi_reporting_persons_name",
+  "vpi_reporting_persons_designation",
+  "vpi_gaps_in_employment",
+  "vpi_employer_address",
+  "annexture_required",
+  "column_break_74",
+  "employer_name_line_status",
+  "employer_contact_line_status",
+  "employee_code_line_status",
+  "employment_type_line_status",
+  "designation_line_status",
+  "period_of_employment_line_status",
+  "date_of_joining_line_status",
+  "date_of_relieving_line_status",
+  "relieving_status_line_status",
+  "reason_for_leaving_line_status",
+  "ctc_drawn_line_status",
+  "character_and_conduct_line_status",
+  "behavior_with_colleagues_line_status",
+  "reporting_persons_name_line_status",
+  "reporting_persons_designation_line_status",
+  "gaps_in_employment_line_status",
+  "employer_address_line_status",
+  "proof_section",
+  "proof_attachment",
+  "column_break_98",
+  "attachment_description",
+  "given_by_section",
+  "given_by",
+  "col",
+  "given_by_designation",
+  "given_by_contact_no",
+  "section_break_98",
+  "remarks",
+  "column_break_100",
+  "attachment",
+  "tat_monitor_tab",
+  "check_creation_date",
+  "insufficiency_date",
+  "insuff_cleared_on",
+  "check_completion_date",
+  "column_break_103",
+  "tat_monitor",
+  "package_tat",
+  "actual_tat",
+  "tat_variation",
+  "allowcation_tab",
+  "entry_details_section",
+  "entered_by",
+  "entry_designation",
+  "column_break_110",
+  "entry_name",
+  "entry_allocation_date",
+  "column_break_113",
+  "employee_no",
+  "date_of_entry_completion",
+  "entry_qc_section",
+  "entered_by_qc",
+  "designation_qc",
+  "column_break_104",
+  "qc_name",
+  "entry_completed_date",
+  "column_break_121",
+  "qc_employee_code",
+  "date_of_qc_completion",
+  "execution_details_section",
+  "execution_by",
+  "execution_designation",
+  "column_break_126",
+  "execution_name",
+  "execution_allocation_date",
+  "column_break_128",
+  "execution_code",
+  "date_of_execution_completion",
+  "final_qc_details_section",
+  "final_qc_by",
+  "final_qc_designation",
+  "column_break_133",
+  "final_qc_name",
+  "execution_completed_date",
+  "column_break_136",
+  "final_qc_employee_code",
+  "date_of_final_qc_completion",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "section_break_134",
+  "verified_by_qc",
+  "designation_ver",
+  "column_break_109",
+  "start_date",
+  "date_of_completion",
+  "start_date_1",
+  "date_of_completion1",
+  "section_break_112",
+  "approved_by",
+  "approved_designation",
+  "na",
+  "insuff",
+  "drop",
+  "marked_insufficient_reason_section",
+  "detailsof_insufficiency",
+  "column_break_23",
+  "insufficient_remarks",
+  "section_break_31",
+  "mark_na_on",
+  "column_break_22",
+  "remarks2",
+  "drop_section_section",
+  "remarks3",
+  "column_break_179",
+  "drop_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tatdays",
+   "fieldtype": "Data",
+   "label": "CE TAT(days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Client",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_code",
+   "fieldtype": "Data",
+   "label": "Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_shortcode",
+   "fieldtype": "Data",
+   "label": "Client Shortcode",
+   "read_only": 1
+  },
+  {
+   "default": "YTS",
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "options": "\nYTS\nPending\nCompleted\nInsufficient\nHold\nDrop\nNot Applicable"
+  },
+  {
+   "default": "YTS",
+   "fieldname": "report_status",
+   "fieldtype": "Select",
+   "label": "Check Report",
+   "options": "YTS\nPending\nNegative\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+  },
+  {
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Observation"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "proof_attachment",
+   "fieldtype": "Attach",
+   "label": "Proof Attachment"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "attachment_description",
+   "fieldtype": "Data",
+   "label": "Attachment Description"
+  },
+  {
+   "default": "YTS",
+   "fieldname": "verification_status",
+   "fieldtype": "Select",
+   "label": "Verification Status",
+   "options": "\nYTS\nNot Applicable\nPending\nCompleted\nInsufficient\nHold\nDrop"
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_employer_name",
+   "fieldtype": "Data",
+   "label": "EPI :Employer Name",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_employer_address",
+   "fieldtype": "Small Text",
+   "label": "EPI :Employer Address",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_employer_contact",
+   "fieldtype": "Data",
+   "label": "EPI :Employer Contact",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
+   "options": "Phone"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_employee_code",
+   "fieldtype": "Data",
+   "label": "EPI :Employee Code",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_employment_type",
+   "fieldtype": "Select",
+   "label": "EPI :Employment Type",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
+   "options": "\nPermanent\nTemporary\nContract\nOthers"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_designation",
+   "fieldtype": "Data",
+   "label": "EPI :Designation",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_period_of_employment",
+   "fieldtype": "Data",
+   "label": "EPI :Period of Employment(Year. Month)",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_date_of_joining",
+   "fieldtype": "Date",
+   "label": "EPI :Date of Joining"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_date_of_relieving",
+   "fieldtype": "Date",
+   "label": "EPI :Date of Relieving"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_relieving_status",
+   "fieldtype": "Select",
+   "label": "EPI :Relieving Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
+   "options": "\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_reason_for_leaving",
+   "fieldtype": "Data",
+   "label": "EPI :Reason for Leaving",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_ctc_drawn",
+   "fieldtype": "Float",
+   "label": "EPI :CTC Drawn - Per Year ( in Lakhs)",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
+   "precision": "2"
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state!=\"Draft\"\n",
+   "fieldname": "epi_character_and_conduct",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Character and Conduct",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff==0\n"
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state!=\"Draft\"\n",
+   "fieldname": "epi_behavior_with_colleagues",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Behavior with Colleagues",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff==0\n"
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state!=\"Draft\"\n",
+   "fieldname": "epi_reporting_persons_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Reporting Person's Name",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff==0\n"
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state!=\"Draft\"\n",
+   "fieldname": "epi_reporting_persons_designation",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Reporting Person's Designation",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff==0\n"
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state!=\"Draft\"\n",
+   "fieldname": "epi_gaps_in_employment",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Gaps in Employment",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff==0\n"
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_employer_name",
+   "fieldtype": "Data",
+   "label": "VPI:Employer Name",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_employer_address",
+   "fieldtype": "Small Text",
+   "label": "VPI:Employer Address",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_employer_contact",
+   "fieldtype": "Data",
+   "label": "VPI :Employer Contact",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "Phone",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_employee_code",
+   "fieldtype": "Data",
+   "label": "VPI:Employee Code",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_employment_type",
+   "fieldtype": "Select",
+   "label": "VPI:Employment Type",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPermanent\nTemporary\nContract\nOthers",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_designation",
+   "fieldtype": "Data",
+   "label": "VPI:Designation",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_period_of_employment",
+   "fieldtype": "Data",
+   "label": "VPI:Period of Employment(Year. Month)",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1,
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_date_of_joining",
+   "fieldtype": "Date",
+   "label": "VPI:Date of Joining",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_date_of_relieving",
+   "fieldtype": "Date",
+   "label": "VPI:Date of Relieving",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff==0\n",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_relieving_status",
+   "fieldtype": "Select",
+   "label": "VPI:Relieving Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_reason_for_leaving",
+   "fieldtype": "Data",
+   "label": "VPI:Reason for Leaving",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_ctc_drawn",
+   "fieldtype": "Float",
+   "label": "VPI:CTC Drawn - Per Year ( in Lakhs)",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1,
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_character_and_conduct",
+   "fieldtype": "Data",
+   "label": "VPI:Character and Conduct",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_behavior_with_colleagues",
+   "fieldtype": "Data",
+   "label": "VPI:Behavior with Colleagues",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_reporting_persons_name",
+   "fieldtype": "Data",
+   "label": "VPI:Reporting Person's Name",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_reporting_persons_designation",
+   "fieldtype": "Data",
+   "label": "VPI:Reporting Person's Designation",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_gaps_in_employment",
+   "fieldtype": "Data",
+   "label": "VPI:Gaps in Employment",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_74",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "employer_name_line_status",
+   "fieldtype": "Select",
+   "label": "Employer Name:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "employer_address_line_status",
+   "fieldtype": "Select",
+   "label": "Employer Address:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "employer_contact_line_status",
+   "fieldtype": "Select",
+   "label": "Employer Contact:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "employee_code_line_status",
+   "fieldtype": "Select",
+   "label": "Employee Code:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "employment_type_line_status",
+   "fieldtype": "Select",
+   "label": "Employment Type:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "designation_line_status",
+   "fieldtype": "Select",
+   "label": "Designation:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "period_of_employment_line_status",
+   "fieldtype": "Select",
+   "label": "Period of Employment(Year. Month):Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "date_of_joining_line_status",
+   "fieldtype": "Select",
+   "label": "Date of Joining:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "date_of_relieving_line_status",
+   "fieldtype": "Select",
+   "label": "Date of Relieving:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "relieving_status_line_status",
+   "fieldtype": "Select",
+   "label": "Relieving Status:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "reason_for_leaving_line_status",
+   "fieldtype": "Select",
+   "label": "Reason for Leaving:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "ctc_drawn_line_status",
+   "fieldtype": "Select",
+   "label": "CTC Drawn - Per Year ( in Lakhs):Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "character_and_conduct_line_status",
+   "fieldtype": "Select",
+   "label": "Character and Conduct:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "behavior_with_colleagues_line_status",
+   "fieldtype": "Select",
+   "label": "Behavior with Colleagues:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "reporting_persons_name_line_status",
+   "fieldtype": "Select",
+   "label": "Reporting Person's Name:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "reporting_persons_designation_line_status",
+   "fieldtype": "Select",
+   "label": "Reporting Person's Designation:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "gaps_in_employment_line_status",
+   "fieldtype": "Select",
+   "label": "Gaps in Employment:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_98",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": " General Remarks"
+  },
+  {
+   "fieldname": "column_break_100",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "fieldname": "entry_details_section",
+   "fieldtype": "Section Break",
+   "label": "Entry Details"
+  },
+  {
+   "fieldname": "entered_by",
+   "fieldtype": "Link",
+   "label": "Entered By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_104",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Executive",
+   "fieldname": "entry_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_109",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_112",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "approved_designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "annexure",
+   "fieldtype": "Attach",
+   "label": "Annexure"
+  },
+  {
+   "fieldname": "allowcation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Allocation"
+  },
+  {
+   "fieldname": "entered_by_qc",
+   "fieldtype": "Link",
+   "label": "Entered By QC",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_qc",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by_qc",
+   "fieldtype": "Link",
+   "label": "Verified By QC",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_ver",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "start_date_1",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "date_of_completion1",
+   "fieldtype": "Date",
+   "label": "Date of Completion"
+  },
+  {
+   "fieldname": "tat_monitor_tab",
+   "fieldtype": "Tab Break",
+   "label": "TAT Monitor"
+  },
+  {
+   "fieldname": "check_creation_date",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_completion_date",
+   "fieldtype": "Date",
+   "label": "Check Completion Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_103",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_tat",
+   "fieldtype": "Int",
+   "label": "Actual TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_variation",
+   "fieldtype": "Int",
+   "label": "TAT Variation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_110",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_113",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_no",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_qc_section",
+   "fieldtype": "Section Break",
+   "label": "Entry QC Details"
+  },
+  {
+   "fieldname": "entry_completed_date",
+   "fieldtype": "Date",
+   "label": "Date of QC Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_121",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qc_employee_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_details_section",
+   "fieldtype": "Section Break",
+   "label": "\u00a0Execution Details"
+  },
+  {
+   "fieldname": "execution_by",
+   "fieldtype": "Link",
+   "label": "Execution By",
+   "options": "User"
+  },
+  {
+   "fieldname": "execution_allocation_date",
+   "fieldtype": "Date",
+   "label": "Date of Execution Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_134",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_128",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_details_section",
+   "fieldtype": "Section Break",
+   "label": "Final QC Details"
+  },
+  {
+   "fieldname": "final_qc_by",
+   "fieldtype": "Link",
+   "label": "Final QC By",
+   "options": "User"
+  },
+  {
+   "fieldname": "execution_completed_date",
+   "fieldtype": "Date",
+   "label": "Date of Final QC Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_133",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_qc_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_136",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_employee_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_126",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "entry_allocation_date",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status",
+   "options": "Pending\nUnbilled\nBilled"
+  },
+  {
+   "depends_on": "eval:doc.na==1",
+   "fieldname": "mark_na_on",
+   "fieldtype": "Date",
+   "label": "Mark (NA) On"
+  },
+  {
+   "depends_on": "eval:doc.na==1",
+   "fieldname": "remarks2",
+   "fieldtype": "Small Text",
+   "label": "Not Applicable Remarks"
+  },
+  {
+   "default": "0",
+   "fieldname": "na",
+   "fieldtype": "Check",
+   "label": "NA"
+  },
+  {
+   "fieldname": "check_type",
+   "fieldtype": "Data",
+   "label": "Check Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_monitor",
+   "fieldtype": "Select",
+   "label": "TAT Monitor",
+   "options": "\nIn TAT\nOut TAT"
+  },
+  {
+   "fieldname": "package_tat",
+   "fieldtype": "Int",
+   "label": "Package TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_31",
+   "fieldtype": "Section Break",
+   "label": "Marked Not Applicable - Reason"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "marked_insufficient_reason_section",
+   "fieldtype": "Section Break",
+   "label": "Marked Insufficient Reason"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "detailsof_insufficiency",
+   "fieldtype": "Select",
+   "label": "Details Of Insufficiency",
+   "options": "\nEntry\nExecution"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "insufficiency_date",
+   "fieldtype": "Date",
+   "label": "Insufficiency Reported",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "insuff",
+   "fieldtype": "Check",
+   "label": "Insuff"
+  },
+  {
+   "default": "0",
+   "fieldname": "annexture_required",
+   "fieldtype": "Check",
+   "label": "Annexture Required",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.insuff!=1",
+   "fieldname": "insuff_cleared_on",
+   "fieldtype": "Date",
+   "label": "Insufficiency Closed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "proof_section",
+   "fieldtype": "Section Break",
+   "label": "Proof"
+  },
+  {
+   "fieldname": "column_break_98",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "given_by_section",
+   "fieldtype": "Section Break",
+   "label": "Given By "
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "given_by",
+   "fieldtype": "Data",
+   "label": "Given By"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "given_by_designation",
+   "fieldtype": "Data",
+   "label": "Given By Designation"
+  },
+  {
+   "fieldname": "col",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "given_by_contact_no",
+   "fieldtype": "Data",
+   "label": "Given By Contact No"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "insufficient_remarks",
+   "fieldtype": "Small Text",
+   "label": "Insufficient Remarks"
+  },
+  {
+   "fieldname": "drop_section_section",
+   "fieldtype": "Section Break",
+   "label": "Drop Section"
+  },
+  {
+   "depends_on": "eval:doc.drop==1",
+   "fieldname": "remarks3",
+   "fieldtype": "Small Text",
+   "label": "Drop Remarks"
+  },
+  {
+   "fieldname": "column_break_179",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.drop==1",
+   "fieldname": "drop_date",
+   "fieldtype": "Date",
+   "label": "Drop Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "drop",
+   "fieldtype": "Check",
+   "label": "Drop"
+  },
+  {
+   "fieldname": "date_of_entry_completion",
+   "fieldtype": "Date",
+   "label": "Date of Entry Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_qc_completion",
+   "fieldtype": "Date",
+   "label": "Date of QC Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_execution_completion",
+   "fieldtype": "Date",
+   "label": "Date of Execution Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_final_qc_completion",
+   "fieldtype": "Date",
+   "label": "Date of Final QC Completion",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-12-08 19:29:19.204043",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Employment",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_name",
+ "track_changes": 1,
+ "track_seen": 1
+}

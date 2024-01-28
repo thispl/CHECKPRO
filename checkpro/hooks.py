@@ -90,13 +90,19 @@ app_license = "MIT"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"checkpro.tasks.all"
 # 	],
-# 	"daily": [
-# 		"checkpro.tasks.daily"
-# 	],
+	"daily": [
+		# "checkpro.tasks.daily"
+        # "checkpro.checkpro.doctype.case.case.tat_variation",
+        # "checkpro.checkpro.doctype.case.case.tat.calculation",
+        "checkpro.checkpro.doctype.case.case.tat_monitor",
+        "teampro.custom.update_batch_age",
+        "teampro.custom.update_check_age",
+
+	],
 # 	"hourly": [
 # 		"checkpro.tasks.hourly"
 # 	],
@@ -106,7 +112,7 @@ app_license = "MIT"
 # 	"monthly": [
 # 		"checkpro.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

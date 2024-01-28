@@ -1,0 +1,543 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Identity Ration Card-.###",
+ "creation": "2022-04-28 15:18:32.483654",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tatdays",
+  "customer",
+  "customer_shortcode",
+  "entry_status",
+  "report_status",
+  "observation",
+  "column_break_7",
+  "check_package",
+  "batch",
+  "proof_attachment",
+  "attachment_description",
+  "date_of_entry",
+  "verification_status",
+  "case_information_section",
+  "case_id",
+  "name1",
+  "date_of_birth",
+  "gender",
+  "age",
+  "column_break_20",
+  "father_name",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "address",
+  "section_break_26",
+  "epi_id_number",
+  "epi_id_holder_name",
+  "epi_father_name",
+  "epi_date_of_birth",
+  "epi_address",
+  "column_break_32",
+  "vpi_id_number",
+  "vpi_id_holder_name",
+  "vpi_father_name",
+  "vpi_date_of_birth",
+  "vpi_address",
+  "column_break_38",
+  "id_number_line_status",
+  "id_holder_name_line_status",
+  "father_name_line_status",
+  "date_of_birth_line_status",
+  "address_line_status",
+  "section_break_44",
+  "remarks",
+  "column_break_46",
+  "attachment",
+  "entry_details_section",
+  "entered_by",
+  "column_break_50",
+  "entry_designation",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "column_break_55",
+  "start_date",
+  "date_of_completion",
+  "section_break_58",
+  "approved_by",
+  "column_break_60",
+  "approved_designation"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tatdays",
+   "fieldtype": "Data",
+   "label": "CE TAT(days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_shortcode",
+   "fieldtype": "Data",
+   "label": "Customer Shortcode",
+   "mandatory_depends_on": "// eval:!doc.__islocal",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fieldname": "report_status",
+   "fieldtype": "Select",
+   "label": "Report Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "options": "\nPending\nPositive\nNegative\nDilemma\nInterim",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "label": "Observation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fieldname": "proof_attachment",
+   "fieldtype": "Attach",
+   "label": "Proof Attachment",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fieldname": "attachment_description",
+   "fieldtype": "Data",
+   "label": "Attachment Description",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_of_entry",
+   "fieldtype": "Date",
+   "label": "Date of Entry",
+   "mandatory_depends_on": "eval:!doc.__islocal",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "default": "Pending",
+   "depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Pending for Verification\"||doc.workflow_state ==\"Approved\"",
+   "fieldname": "verification_status",
+   "fieldtype": "Select",
+   "label": "Verification Status",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "options": "\nPending\nCompleted\nInsufficient\nHold\nDrop",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "epi_id_number",
+   "fieldtype": "Int",
+   "label": "EPI :ID Number",
+   "mandatory_depends_on": "eval:!doc.__islocal && doc.workflow_state ==\"Draft\""
+  },
+  {
+   "fieldname": "epi_id_holder_name",
+   "fieldtype": "Data",
+   "label": "EPI :ID Holder Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\""
+  },
+  {
+   "fieldname": "epi_father_name",
+   "fieldtype": "Data",
+   "label": "EPI :Father Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\""
+  },
+  {
+   "fieldname": "epi_date_of_birth",
+   "fieldtype": "Date",
+   "label": "EPI :Date of Birth",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\""
+  },
+  {
+   "fieldname": "epi_address",
+   "fieldtype": "Small Text",
+   "label": "EPI :Address",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\""
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "vpi_id_number",
+   "fieldtype": "Int",
+   "label": "VPI:ID Number",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "vpi_id_holder_name",
+   "fieldtype": "Data",
+   "label": "VPI:ID Holder Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "vpi_father_name",
+   "fieldtype": "Data",
+   "label": "VPI:Father Name",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "vpi_date_of_birth",
+   "fieldtype": "Date",
+   "label": "VPI:Date of Birth",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "vpi_address",
+   "fieldtype": "Small Text",
+   "label": "VPI:Address",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "id_number_line_status",
+   "fieldtype": "Select",
+   "label": "ID Number:Line Status",
+   "options": "\nPositive\nNegative\nDilemma",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "id_holder_name_line_status",
+   "fieldtype": "Select",
+   "label": "ID Holder Name:Line Status",
+   "options": "\nPositive\nNegative\nDilemma",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "father_name_line_status",
+   "fieldtype": "Select",
+   "label": "Father Name:Line Status",
+   "options": "\nPositive\nNegative\nDilemma",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "date_of_birth_line_status",
+   "fieldtype": "Select",
+   "label": "Date of Birth:Line Status",
+   "options": "\nPositive\nNegative\nDilemma",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!='Draft'",
+   "fieldname": "address_line_status",
+   "fieldtype": "Select",
+   "label": "Address:Line Status",
+   "options": "\nPositive\nNegative\nDilemma",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "section_break_44",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_46",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "fieldname": "entry_details_section",
+   "fieldtype": "Section Break",
+   "label": "Entry Details",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fetch_from": "entered_by.user_id",
+   "fieldname": "entered_by",
+   "fieldtype": "Link",
+   "label": "Entered By",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\"",
+   "options": "Employee",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "entered_by.designation",
+   "fieldname": "entry_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\"",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fetch_from": "verified_by.user_id",
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "options": "Employee",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fetch_from": "verified_by.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_55",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "section_break_58",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fetch_from": "approved_by.user_id",
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "Employee",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "doc.workflow_state ==\"Pending for Approval\"",
+   "fieldname": "column_break_60",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
+   "fetch_from": "approved_by.designation",
+   "fieldname": "approved_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Approved\""
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-17 10:50:22.198061",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Identity Ration Card",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "VPI user",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

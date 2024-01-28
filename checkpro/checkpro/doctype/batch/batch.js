@@ -2,6 +2,56 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Batch", {
+	validate(frm){
+		if(frm.doc.__islocal){
+		frappe.call({
+			"method": "checkpro.checkpro.doctype.batch.batch.calculate_end_date",
+			args: {
+				"check_package": frm.doc.check_package,
+				"posting_date":frm.doc.expected_start_date
+				},
+			callback: function (r) {
+				frm.set_value("expected_end_date",r.message)
+			}
+			
+		})
+	}
+	},
+	refresh: function(frm) {
+		if (!frm.is_new()) {
+			frm.trigger('make_dashboard');
+		}
+		// frm.disable_save()
+		$('*[data-fieldname="pending_for_billing"]').find('.grid-remove-all-rows').hide();  
+		frm.fields_dict["pending_for_billing"].grid.add_custom_button(__('Create SO'),
+		function () {
+			frm.clear_table("pending_for_billing");
+				$.each(frm.doc.pending_for_billing, function (i, d) {
+					if(frm.doc.pending_for_billing && d.case_id && d.batch){
+					if (d.__checked == 1) {
+						frappe.call({
+							method:'teampro.custom.create_so',
+							args:{
+								'doctype':"Pending for Billing",
+								'case_id':d.case_id,
+								'batch':d.batch
+								
+							},
+							callback(r){
+								if(r.message){
+									frappe.msgprint("Sales Order Created"+" "+"-<b> "+ r.message+"</b>");
+									frm.refresh_field('pending_for_billing')
+									frm.get_field("pending_for_billing").grid.grid_rows[d.idx - 1].remove();
+								}
+							}
+						})
+					}
+				frm.save()
+				}
+			
+			})
+		}).css({'color':'white','background-color':"#009E60","margin-left": "10px", "margin-right": "10px"});
+	},
 	after_save:function(frm){
 		// frm.doc.table_visible=1
 		frappe.call({
@@ -9,21 +59,29 @@ frappe.ui.form.on("Batch", {
 			args: {
 				"batch":frm.doc.name,
 				"no_of_case":frm.doc.no_of_cases,
-				"expected_start_date":frm.doc.expected_start_date
+				"expected_start_date":frm.doc.expected_start_date,
+				"check_package":frm.doc.check_package
+				// "customer":frm.doc.customer,
+				// "no_of_cases":frm.doc.no_of_cases,
+				// "name":frm.doc.name,
+				// "expected_start_date":frm.doc.expected_start_date,
+				// "expected_end_date":frm.doc.expected_end_date,
+				// "case":frm.doc.case,
+				// "pending":frm.doc.pending,
+				// "comp":frm.doc.comp,
+				// "insuff":frm.doc.insuff,
+				// "Project_name":frm.doc.project_name
+				
+
+
 			},
 			callback: function (r) {
 				if (!r.exc && r.message) {
-					console.log(r.message)
+					console.log(r)
 				}
 			}
-			
 	})
 },
-	refresh: (frm) => {
-		if (!frm.is_new()) {
-			frm.trigger('make_dashboard');
-		}
-	},
 	customer: function (frm) {
 		frappe.call({
 			"method": "frappe.client.get_list",
@@ -37,7 +95,8 @@ frappe.ui.form.on("Batch", {
 					frm.set_query("check_package", function () {
 						return {
 							"filters": {
-								"customer": frm.doc.customer
+								"customer": frm.doc.customer ,
+								"status" : "Active"
 							}
 						};
 					});
@@ -54,7 +113,7 @@ frappe.ui.form.on("Batch", {
 			frappe.call({
 				method: "checkpro.checkpro.doctype.batch.batch.get_checks",
 				async: false,
-				args: {
+				args: {	
 					check_package: frm.doc.check_package,
 				},
 				callback: function (r) {
@@ -100,30 +159,161 @@ frappe.ui.form.on("Batch", {
 		}
 	},
 	onload: function (frm) {
+
 		if (frm.doc.check_package) {
 			// if((frm.doc.checkwise_report).length==0){
 			frappe.call({
-				"method": "checkpro.checkpro.doctype.batch.batch.check_status",
+				method: "checkpro.checkpro.doctype.batch.batch.check_status",
 				args: {
 					"name": frm.doc.name,
 					"check_package": frm.doc.check_package
 				},
 				callback: function (r) {
+					var s = [];
+					var es = [];
+					var rs = [];
 					frm.clear_table("checkwise_report");
 					$.each(r.message, function (i, d) {
-						// console.log(d)
-						var row = frappe.model.add_child(frm.doc, "Checkwise Report", "checkwise_report")
-						row.checks = d.checks
-						row.units = d.units
-						row.check_status = d.check_status
-						row.verification_status = d.verification_status
-						row.report_status = d.report_status
-						row.check_id = d.check_id
+						frm.add_child('checkwise_report',{
+							'checks' : d.checks,
+							'unit' : d.unit,
+							'check_status' : d.check_status,
+							'verification_status' : d.verification_status,
+							'report_status' : d.report_status,
+							'check_id' : d.check_id
+						})
+						frm.refresh_field('checkwise_report')
+					// 	// console.log(d)
+
+						// var row = frappe.model.add_child(frm.doc, "Checkwise Report", "checkwise_report")
+						// row.checks = d.checks
+						// row.units = d.units
+						// row.check_status = d.check_status
+						// row.verification_status = d.c
+						// row.report_status = d.report_status
+						// row.check_id = d.check_id
+						s.push(d.check_status)
+						es.push(d.verification_status)
+						rs.push(d.report_status)
 					})
 				}
 			})
+			frappe.call({
+				"method": "checkpro.checkpro.doctype.batch.batch.case_status",
+				args: {
+					"name": frm.doc.name,
+					"check_package": frm.doc.check_package
+				},
+				callback: function (r) {
+					var s = [];
+					var es = [];
+					var bs = [];
+
+					frm.clear_table("casewise_status")
+					$.each(r.message, function (i, d) {
+						var row = frappe.model.add_child(frm.doc, "Casewise Status", "casewise_status")
+						row.case_status = d.case_status
+						row.case_id = d.case_id
+
+						s.push(d.case_status)
+						es.push(d.tat_monitor)
+						bs.push(d.billing_status)
+						
+					})
+					frm.refresh_field("casewise_status")
+					if (s.includes("Draft")) {
+						frm.set_value("batch_status", "Open")
+					}
+					else if (s.includes("Entry-QC")) {
+						frm.set_value("batch_status", "Open")
+					}
+					else if (s.includes("Execution")) {
+						frm.set_value("batch_status", "Open")
+					}
+					else if (s.includes("Final-QC")) {
+						frm.set_value("batch_status", "Open")
+					}
+					else if (es.includes("In TAT")) {
+						frm.set_value("batch_status", "Open")
+					}
+					else if (s.includes("Draft with Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (s.includes("Entry-QC with Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (s.includes("Execution with Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (s.includes("Final-QC with Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (es.includes("In TAT")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (s.includes("Draft")) {
+						frm.set_value("batch_status", "Overdue")
+					}
+					else if (s.includes("Entry-QC")) {
+						frm.set_value("batch_status", "Overdue")
+					}
+					else if (s.includes("Execution")) {
+						frm.set_value("batch_status", "Overdue")
+					}
+					else if (s.includes("Final-QC")) {
+						frm.set_value("batch_status", "Overdue")
+					}
+					else if (es.includes("Out TAT")) {
+						frm.set_value("batch_status", "Overdue")
+					}
+					else if (s.includes("Draft with Insuff")) {
+						frm.set_value("batch_status", "Overdue with Insuff")
+					}
+					else if (s.includes("Entry-QC with Insuff")) {
+						frm.set_value("batch_status", "Overdue with Insuff")
+					}
+					else if (s.includes("Execution with Insuff")) {
+						frm.set_value("batch_status", "Overdue with Insuff")
+					}
+					else if (s.includes("Final-QC with Insuff")) {
+						frm.set_value("batch_status", "Overdue with Insuff")
+					}
+					else if (es.includes("Out TAT")) {
+						frm.set_value("batch_status", "Overdue with Insuff")
+					}
+					else if (s.includes("Completed")) {
+						frm.set_value("batch_status", "Complected")
+					}
+					else if (bs.includes("Billed")) {
+						frm.set_value("batch_status", "Complected")
+					}
+					else if (s.includes("Completed with Insuff")) {
+						frm.set_value("batch_status", "Completed with Insuff")
+					}
+					else if (bs.includes("Billed")) {
+						frm.set_value("batch_status", "Completed with Insuff")
+					}
+					else if (bs.includes("Partially Billed")) {
+						frm.set_value("batch_status", "Completed with Insuff")
+					}
+					
+					
+					
+					// else if (s.every(e => e == "Pending for Execution")) {
+					// 	frm.set_value("case_status", "Generate Report with Execution")
+					// }
+				
+					
+				}
+
+			})
 		}
+		
 	},
+	
+	
+	
+	
 	check_package(frm){
 		frappe.call({
 			"method":"checkpro.checkpro.doctype.batch.batch.get_check_list",
@@ -140,20 +330,8 @@ frappe.ui.form.on("Batch", {
 				refresh_field("check_list")
 			}
 		})
-		frappe.call({
-			"method": "checkpro.checkpro.doctype.batch.batch.get_end_date",
-			args: {
-				"name": frm.doc.name,
-				"check_package": frm.doc.check_package,
-				"expected_start_date":frm.doc.expected_start_date
-				},
-			callback: function (r) {
-				console.log(r.message)
-				frm.set_value("expected_end_date",r.message)
-			}
-			
-	})
-	}
+		
+	},
 	// check_package: function (frm) {
 	// 	frappe.call({
 	// 		"method": "frappe.client.get",

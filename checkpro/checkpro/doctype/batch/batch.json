@@ -1,22 +1,51 @@
 {
- "_liked_by": "[\"Administrator\"]",
+ "_comments": "[]",
+ "_liked_by": "[]",
  "actions": [],
- "autoname": "format:{customer_short_code}-{Batch}{###}",
+ "autoname": "format:BT-{DD}{MM}{YY}-{#####}",
  "creation": "2020-05-16 11:47:34.161556",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "batch_details_section",
   "customer",
-  "customer_short_code",
-  "check_package",
-  "check_list",
-  "column_break_2",
-  "no_of_cases",
   "expected_start_date",
+  "check_package",
+  "check_package_name",
+  "customer_short_code",
+  "abbr",
+  "total_sp",
+  "column_break_2",
+  "posting_date",
+  "no_of_cases",
   "expected_end_date",
+  "order_value",
+  "no_of_checks",
+  "section_break_15",
+  "customers_purchase_order",
+  "customer_purchase_order_date",
+  "column_break_18",
+  "delivery_manager",
+  "delivery_manager_name",
+  "delivery_manager_user",
+  "section_break_13",
+  "check_list",
+  "column_break_13",
+  "billing_status",
   "section_break_8",
-  "checkwise_report"
+  "project_summary_section",
+  "case",
+  "column_break_12",
+  "pending",
+  "column_break_14",
+  "comp",
+  "column_break_16",
+  "insuff",
+  "section_break_18",
+  "casewise_status",
+  "checkwise_report",
+  "amended_from"
  ],
  "fields": [
   {
@@ -24,22 +53,22 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer",
-   "options": "Client",
+   "options": "Customer",
    "reqd": 1
   },
   {
+   "depends_on": "expected_start_date",
    "fieldname": "check_package",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Check Package",
-   "options": "Check Package",
-   "reqd": 1
+   "options": "Check Package"
   },
   {
    "fieldname": "column_break_2",
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "project_name.no_of_cases",
    "fieldname": "no_of_cases",
    "fieldtype": "Int",
    "label": "No of Cases",
@@ -56,15 +85,14 @@
    "default": "Today",
    "fieldname": "expected_start_date",
    "fieldtype": "Date",
-   "label": "Expected Start Date",
-   "read_only": 1,
-   "reqd": 1
+   "in_list_view": 1,
+   "label": "Expected Start Date"
   },
   {
    "fieldname": "expected_end_date",
    "fieldtype": "Date",
-   "label": "Expected End Date",
-   "read_only": 1
+   "in_list_view": 1,
+   "label": "Expected End Date"
   },
   {
    "fieldname": "section_break_8",
@@ -83,29 +111,224 @@
    "label": "Check List",
    "options": "List of checks",
    "read_only": 1
+  },
+  {
+   "fieldname": "project_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Case Summary"
+  },
+  {
+   "fieldname": "case",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "#Case"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pending",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "#Pending"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insuff",
+   "fieldtype": "Data",
+   "label": "#Insuff"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "no_of_checks",
+   "fieldtype": "Int",
+   "label": "No of Checks",
+   "read_only": 1
+  },
+  {
+   "depends_on": "no_of_cases",
+   "fieldname": "order_value",
+   "fieldtype": "Data",
+   "label": "Order Value"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Unbilled",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status ",
+   "options": "Unbilled\nBilled"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "abbr",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Abbr"
+  },
+  {
+   "fieldname": "batch_details_section",
+   "fieldtype": "Section Break",
+   "label": "Batch Details"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "check_package.total_sp",
+   "fieldname": "total_sp",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Total SP",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Batch",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "check_package.name1",
+   "fieldname": "check_package_name",
+   "fieldtype": "Data",
+   "label": "Check Package Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "casewise_status",
+   "fieldtype": "Table",
+   "label": "Casewise Status",
+   "options": "Casewise Status"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customers_purchase_order",
+   "fieldtype": "Data",
+   "label": "Customer's Purchase Order"
+  },
+  {
+   "depends_on": "customers_purchase_order",
+   "fieldname": "customer_purchase_order_date",
+   "fieldtype": "Date",
+   "label": "Customer Purchase Order Date"
+  },
+  {
+   "default": "TI00099",
+   "fieldname": "delivery_manager",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Delivery Manager",
+   "options": "Employee"
+  },
+  {
+   "depends_on": "delivery_manager",
+   "fetch_from": "delivery_manager.employee_name",
+   "fieldname": "delivery_manager_name",
+   "fieldtype": "Data",
+   "label": "Delivery Manager Name"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "delivery_manager",
+   "fetch_from": "delivery_manager.user_id",
+   "fieldname": "delivery_manager_user",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Delivery Manager User",
+   "options": "User"
+  },
+  {
+   "fieldname": "comp",
+   "fieldtype": "Data",
+   "label": "#comp"
   }
  ],
- "links": [],
- "modified": "2021-03-05 19:24:50.272183",
+ "links": [
+  {
+   "link_doctype": "Case",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Address Check",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Employment",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Criminal",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Education Checks",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Identity Aadhar",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Court",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Reference Check",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Family",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Social Media",
+   "link_fieldname": "batch"
+  },
+  {
+   "link_doctype": "Project",
+   "link_fieldname": "project_name"
+  }
+ ],
+ "modified": "2023-11-28 16:40:37.451771",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Batch",
+ "naming_rule": "Expression",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

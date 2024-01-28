@@ -2,6 +2,22 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Check Package', {
+//     refresh(frm){
+//     if(frm.doc.checks_list){
+//     frappe.call({
+//         method:'teampro.custom.update_check_list',
+//         args:{
+//             'doctype':"Checks List",
+            
+//         },
+//         callback(r){
+//             if(r.message){
+//                 frm.refresh_field('checks_list')
+//             }
+//         }
+//     })
+// }
+// },
     pricing_model:function(frm, cdt, cdn){
         if(frm.doc.pricing_model=="Lumpsum"){
             var df = frappe.meta.get_docfield("Checks List","check_sp", cur_frm.doc.name);
@@ -118,19 +134,5 @@ frappe.ui.form.on('Check Package', {
 
 // 	}
 })
-// frappe.ui.form.on("Checks List", "checks_list", function(frm) {
-//     console.log("hi")
-//     if ('grid' in cur_frm.fields_dict.checks_list) {
-//         var grid =  cur_frm.fields_dict.checks_list.grid;         
-//         var interval = setInterval(function () {
-//             if ('cur_grid' in grid.frm) {
-//                 if(cur_frm.doc.typ != "Check Based"){
-//                     grid.frm.cur_grid.fields_dict.check_sp.$wrapper.hide();
-//                 }else{
-//                     grid.frm.cur_grid.fields_dict.check_sp.$wrapper.show();
-//                 }
-//                 clearInterval(interval)
-//             };
-//         })
-//     };    
-// })
+
+

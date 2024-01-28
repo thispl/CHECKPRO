@@ -9,6 +9,10 @@ from frappe.model.document import Document
 class CheckPackage(Document):
     pass
     # def validate(self):
+    #     check_package = frappe.get_all("Check Package",{"name":self.chec})
+    #     frappe.errprint(check_package)
+
+    # def validate(self):
     #     check_package = frappe.get_all("Check Package",{"name":self.check_package})
     #     for ch in check_package:
     #         check = frappe.get_doc("Check Package",ch)

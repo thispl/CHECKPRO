@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-23 21:07:55.987614",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "case_id",
+  "customer",
+  "check_package",
+  "batch",
+  "employee_name",
+  "date_of_birth",
+  "case_report",
+  "total_sp"
+ ],
+ "fields": [
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Link",
+   "label": "Case ID",
+   "options": "Case"
+  },
+  {
+   "fetch_from": "case_id.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "case_id.check_package",
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "label": "Check Package"
+  },
+  {
+   "fetch_from": "case_id.batch",
+   "fieldname": "batch",
+   "fieldtype": "Link",
+   "label": "Batch",
+   "options": "Batch"
+  },
+  {
+   "fetch_from": "case_id.case_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": "case_id.date_of_birth",
+   "fieldname": "date_of_birth",
+   "fieldtype": "Data",
+   "label": "Date of Birth"
+  },
+  {
+   "fetch_from": "case_id.case_report",
+   "fieldname": "case_report",
+   "fieldtype": "Data",
+   "label": "Case Report"
+  },
+  {
+   "fetch_from": "batch.total_sp",
+   "fieldname": "total_sp",
+   "fieldtype": "Data",
+   "label": "Total SP"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-25 09:41:04.186647",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Pending for Billing",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

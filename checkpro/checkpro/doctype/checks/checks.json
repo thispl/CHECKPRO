@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "check_name",
+  "check_short_code",
   "check_price",
   "column_break_2",
   "ce_tat",
@@ -58,13 +59,19 @@
    "label": "Currency",
    "options": "Currency",
    "reqd": 1
+  },
+  {
+   "fieldname": "check_short_code",
+   "fieldtype": "Data",
+   "label": "Check Short Code"
   }
  ],
  "links": [],
- "modified": "2021-02-24 15:46:48.733972",
+ "modified": "2023-07-26 10:49:34.447992",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checks",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -82,5 +89,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

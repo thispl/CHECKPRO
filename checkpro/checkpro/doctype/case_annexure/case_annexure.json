@@ -1,0 +1,31 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-27 12:25:39.865595",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "annexure"
+ ],
+ "fields": [
+  {
+   "fieldname": "annexure",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Annexure"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-27 12:25:39.865595",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Case Annexure",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

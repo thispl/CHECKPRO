@@ -1,18 +1,23 @@
 {
  "actions": [],
- "autoname": "format:{customer_short_code}-{CP}{###}",
+ "allow_rename": 1,
+ "autoname": "format:CP_{short_code}_{####}",
  "creation": "2020-05-11 17:55:14.089510",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "name1",
   "pricing_model",
   "column_break_3",
+  "short_code",
   "customer_short_code",
   "package_tat",
   "total_sp",
   "total",
+  "status",
+  "annexture_required",
   "section_break_6",
   "checks_list",
   "section_break_10",
@@ -25,11 +30,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer",
-<<<<<<< HEAD
-   "options": "Client",
-=======
    "options": "Customer",
->>>>>>> b905aa19a3840fc71aca9c7a679b29f3eba6f7fc
    "reqd": 1
   },
   {
@@ -48,7 +49,6 @@
    "fetch_from": "customer.short_code",
    "fieldname": "customer_short_code",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Customer Short Code",
    "permlevel": 1
   },
@@ -84,34 +84,66 @@
    "label": "Description"
   },
   {
-   "depends_on": "eval:doc.pricing_model ==\"Check Based\"",
+   "depends_on": "pricing_model",
    "fieldname": "total_sp",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Total SP (Rs.)",
-   "read_only": 1
+   "mandatory_depends_on": "eval:doc.pricing_model ==\"Lumpsum\"",
+   "read_only_depends_on": "eval:doc.pricing_model==\"Check Based\""
   },
   {
    "depends_on": "eval:doc.pricing_model ==\"Lumpsum\"",
    "fieldname": "total",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Total SP (Rs.)",
-   "mandatory_depends_on": "eval:doc.pricing_model ==\"Lumpsum\""
+   "mandatory_depends_on": "// eval:doc.pricing_model ==\"Lumpsum\""
   },
   {
    "fieldname": "section_break_10",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "annexture_required",
+   "fieldtype": "Check",
+   "label": "Annexure Required"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nInactive"
+  },
+  {
+   "fetch_from": "customer.short_code",
+   "fieldname": "short_code",
+   "fieldtype": "Data",
+   "label": "Short_code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": " Check Package Name"
   }
  ],
- "links": [],
-<<<<<<< HEAD
- "modified": "2021-03-05 19:24:48.845325",
-=======
- "modified": "2021-02-20 11:02:02.356474",
->>>>>>> b905aa19a3840fc71aca9c7a679b29f3eba6f7fc
+ "links": [
+  {
+   "link_doctype": "Batch",
+   "link_fieldname": "check_package_name"
+  }
+ ],
+ "modified": "2023-11-03 16:50:52.546263",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Package",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -130,5 +162,7 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
+ "title_field": "name1",
  "track_changes": 1
 }

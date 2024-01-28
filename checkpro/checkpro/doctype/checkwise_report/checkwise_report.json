@@ -11,7 +11,8 @@
   "column_break_2",
   "check_status",
   "verification_status",
-  "report_status"
+  "report_status",
+  "unit"
  ],
  "fields": [
   {
@@ -33,16 +34,17 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Entry Status",
-   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "options": "YTS\nPending\nCompleted\nInsufficient\nHold\nDrop\nNot Applicable",
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "columns": 2,
    "fieldname": "report_status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Report Status",
-   "options": "Pending\nPositive\nNegative\nDilemma\nInterim",
+   "options": "YTS\nNot Applicable\nPending\nPositive\nNegative\nDilemma\nInterim\nAlert",
    "read_only": 1,
    "search_index": 1
   },
@@ -59,18 +61,24 @@
    "label": "Open"
   },
   {
+   "allow_on_submit": 1,
    "columns": 2,
    "fieldname": "verification_status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Verification Status",
-   "options": "Pending\nCompleted\nInsufficient\nHold\nDrop",
+   "options": "YTS\nNot Applicable\nPending\nCompleted\nInsufficient\nHold\nDrop",
    "read_only": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Int",
+   "label": "Unit"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2021-03-05 10:52:00.970781",
+ "modified": "2023-07-22 17:16:20.841407",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Checkwise Report",
@@ -79,5 +87,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

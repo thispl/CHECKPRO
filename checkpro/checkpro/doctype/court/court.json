@@ -1,0 +1,1135 @@
+{
+ "actions": [],
+ "autoname": "Court-.###",
+ "creation": "2021-03-25 17:00:21.620200",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ce_tatdays",
+  "client",
+  "client_shortcode",
+  "employee_name",
+  "employee_code",
+  "entry_status",
+  "assigned_by",
+  "report_status",
+  "observation",
+  "annexure",
+  "annexure1",
+  "column_break_7",
+  "check_type",
+  "check_package",
+  "batch",
+  "verification_status",
+  "father_name",
+  "billing_status",
+  "case_information_section",
+  "case_id",
+  "name1",
+  "date_of_birth",
+  "gender",
+  "age",
+  "column_break_20",
+  "contact_number",
+  "email_id",
+  "client_employee_code",
+  "section_break_26",
+  "epi_social_behaviour",
+  "epi_civil__magistrate_session_court",
+  "epi_high_court",
+  "epi_civil_judgement_search",
+  "epi_year_of_residential",
+  "address",
+  "epi_sourse",
+  "column_break_36",
+  "vpi_civil__magistrate_session_court",
+  "vpi_high_court",
+  "vpi_civil_judgement_search",
+  "vpi_year_of_residential",
+  "vpi_address",
+  "vpi_sourse",
+  "annexture_required",
+  "column_break_46",
+  "social_behaviour_line_status",
+  "civil__magistrate_session_court_line_status",
+  "high_court_line_status",
+  "civil_judgement_search_line_status",
+  "year_of_residential_line_status",
+  "address_line_status",
+  "sourse_line_status",
+  "proof_section",
+  "proof_attachment",
+  "column_break_57",
+  "attachment_description",
+  "givebn_by_section",
+  "given_by",
+  "given_by_status",
+  "column_break_61",
+  "given_by_designation",
+  "given_by_contact_no",
+  "section_break_56",
+  "remarks",
+  "column_break_58",
+  "attachment",
+  "tat_monitor_tab",
+  "check_creation_date",
+  "insufficiency_date",
+  "insuff_cleared_on",
+  "insufficiency_days",
+  "check_completion_date",
+  "holidays",
+  "dropped_date",
+  "column_break_62",
+  "tat_monitor",
+  "package_tat",
+  "actual_tat",
+  "tat_variation",
+  "insufficiency_reported_on",
+  "alolowcation_tab",
+  "entry_details_section",
+  "entered_by",
+  "entry_designation",
+  "column_break_72",
+  "entry_name",
+  "entry_alloation_date",
+  "col123",
+  "employee_no",
+  "date_of_entry_completion",
+  "entry_qc_section",
+  "entered_by_qc",
+  "designation_qc",
+  "column_break_77",
+  "qc_name",
+  "entry_completed_date",
+  "col15",
+  "qc_employee_code",
+  "date_of_qc_completion",
+  "execution_details_section",
+  "execution_by",
+  "execution_designation",
+  "column_break_88",
+  "execution_name",
+  "execution_allocation_date",
+  "column_break_91",
+  "execution_code",
+  "date_of_execution_completion",
+  "final_qc_details_section",
+  "final_qc_by",
+  "final_qc_designation",
+  "column_break_93",
+  "final_qc_name",
+  "execution_completed_date",
+  "column_break_96",
+  "final_qc_employee_code",
+  "date_of_final_qc_completion",
+  "verification_details_section",
+  "verified_by",
+  "designation",
+  "section_break_93",
+  "verified_by_qc",
+  "designation_ver",
+  "start_date1",
+  "column_break_67",
+  "start_date",
+  "date_of_completion",
+  "date_of_completion1",
+  "section_break_70",
+  "approved_by",
+  "column_break_82",
+  "approved_designation",
+  "section_break_120",
+  "na",
+  "insuff",
+  "drop",
+  "marked_insufficient_reason_section",
+  "detailsof_insufficiency",
+  "column_break_25",
+  "insufficient_remarks",
+  "section_break_125",
+  "mark_na_on",
+  "column_break_134",
+  "remarks2",
+  "drop_section",
+  "remarks3",
+  "column_break_138",
+  "drop_date",
+  "insuff_closed"
+ ],
+ "fields": [
+  {
+   "fieldname": "ce_tatdays",
+   "fieldtype": "Data",
+   "label": "CE TAT(days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_standard_filter": 1,
+   "label": "Client",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_shortcode",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Client Shortcode",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_code",
+   "fieldtype": "Data",
+   "label": "Employee Code",
+   "read_only": 1
+  },
+  {
+   "default": "YTS",
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "options": "\nYTS\nPending\nCompleted\nInsufficient\nHold\nDrop"
+  },
+  {
+   "default": "YTS",
+   "fieldname": "report_status",
+   "fieldtype": "Select",
+   "label": "Check Report ",
+   "options": "YTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+  },
+  {
+   "fieldname": "observation",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Observation",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_package",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Check Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "proof_attachment",
+   "fieldtype": "Attach",
+   "label": "Proof Attachment",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "attachment_description",
+   "fieldtype": "Data",
+   "label": "Attachment Description",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "default": "YTS",
+   "fieldname": "verification_status",
+   "fieldtype": "Select",
+   "label": "Verification Status",
+   "options": "\nYTS\nPending\nCompleted\nInsufficient\nHold\nDrop"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "given_by",
+   "fieldtype": "Data",
+   "label": "Given By"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Father Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_information_section",
+   "fieldtype": "Section Break",
+   "label": "Case Information"
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_employee_code",
+   "fieldtype": "Data",
+   "label": "Client Employee Code",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "EPI :Address",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0"
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_social_behaviour",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :Social Behaviour",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0"
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_civil__magistrate_session_court",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "EPI :Civil/ Magistrate/ Session court (If Yes, the reason)",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\""
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_high_court",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "EPI :High Court (If yes, the reason)",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0\r\n"
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_civil_judgement_search",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "EPI :Civil Judgement Search",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_year_of_residential",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "EPI :Year of Residential - Years",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0"
+  },
+  {
+   "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
+   "fieldname": "epi_sourse",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "EPI :Sourse",
+   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0\r\n"
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_civil__magistrate_session_court",
+   "fieldtype": "Small Text",
+   "label": "VPI:Civil/ Magistrate/ Session court (If Yes, the reason)",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_high_court",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "VPI:High Court (If yes, the reason)",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n// ",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_civil_judgement_search",
+   "fieldtype": "Data",
+   "label": "VPI:Civil Judgement Search",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_year_of_residential",
+   "fieldtype": "Int",
+   "label": "VPI:Year of Residential - Years",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_address",
+   "fieldtype": "Small Text",
+   "label": "VPI:Address",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_sourse",
+   "fieldtype": "Small Text",
+   "label": "VPI:Sourse",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_46",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "// eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "social_behaviour_line_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Social Behaviour:Line Status",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "civil__magistrate_session_court_line_status",
+   "fieldtype": "Select",
+   "label": "Civil/ Magistrate/ Session court (If Yes, the reason):Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "high_court_line_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "High Court(If yes, the reason):Line Status",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "civil_judgement_search_line_status",
+   "fieldtype": "Select",
+   "label": "Civil Judgement Search:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "year_of_residential_line_status",
+   "fieldtype": "Select",
+   "label": "Year of Residential - Years:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "address_line_status",
+   "fieldtype": "Select",
+   "label": "Address:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "sourse_line_status",
+   "fieldtype": "Select",
+   "label": "Sourse:Line Status",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff == 0\n",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_56",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "General Remarks"
+  },
+  {
+   "fieldname": "column_break_58",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "fieldname": "entry_details_section",
+   "fieldtype": "Section Break",
+   "label": "Entry Details",
+   "read_only_depends_on": "eval:doc.workflow_state!=\"Draft\""
+  },
+  {
+   "fieldname": "entered_by",
+   "fieldtype": "Link",
+   "label": "Entered By",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Draft\"",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_62",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_details_section",
+   "fieldtype": "Section Break",
+   "label": "Verification Details",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_67",
+   "fieldtype": "Column Break",
+   "permlevel": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "mandatory_depends_on": "eval:!doc.__islocal&&doc.workflow_state ==\"Pending for Verification\"",
+   "permlevel": 1,
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "date_of_completion",
+   "fieldtype": "Date",
+   "label": "Date of Completion",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_70",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "bcs1@groupteampro.com",
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "column_break_72",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only_depends_on": "eval:doc.workflow_state ==\"Approved\""
+  },
+  {
+   "fieldname": "annexure",
+   "fieldtype": "Attach",
+   "label": "Annexure"
+  },
+  {
+   "fieldname": "annexure1",
+   "fieldtype": "Attach",
+   "label": "Annexure"
+  },
+  {
+   "fieldname": "assigned_by",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Assigned By",
+   "options": "User"
+  },
+  {
+   "fieldname": "entered_by_qc",
+   "fieldtype": "Link",
+   "label": "Entered By QC",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_qc",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by_qc",
+   "fieldtype": "Link",
+   "label": "Verified By QC",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_ver",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "start_date1",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "date_of_completion1",
+   "fieldtype": "Date",
+   "label": "Date of Completion1"
+  },
+  {
+   "fieldname": "alolowcation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Allocation"
+  },
+  {
+   "fieldname": "tat_monitor_tab",
+   "fieldtype": "Tab Break",
+   "label": "TAT Monitor"
+  },
+  {
+   "fieldname": "check_creation_date",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_completion_date",
+   "fieldtype": "Date",
+   "label": "Check Completion Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_tat",
+   "fieldtype": "Int",
+   "label": "Actual TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_variation",
+   "fieldtype": "Int",
+   "label": "TAT Variation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_alloation_date",
+   "fieldtype": "Date",
+   "label": "Date of Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_no",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_82",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_qc_section",
+   "fieldtype": "Section Break",
+   "label": "Entry QC Details"
+  },
+  {
+   "fieldname": "entry_completed_date",
+   "fieldtype": "Date",
+   "label": "Date of QC Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_77",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qc_employee_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_details_section",
+   "fieldtype": "Section Break",
+   "label": "\u00a0Execution Details"
+  },
+  {
+   "fieldname": "execution_by",
+   "fieldtype": "Link",
+   "label": "Execution By",
+   "options": "User"
+  },
+  {
+   "fieldname": "execution_allocation_date",
+   "fieldtype": "Date",
+   "label": "Date of Execution Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_88",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "execution_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_91",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "execution_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_93",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "final_qc_details_section",
+   "fieldtype": "Section Break",
+   "label": "Final QC Details"
+  },
+  {
+   "fieldname": "final_qc_by",
+   "fieldtype": "Link",
+   "label": "Final QC By",
+   "options": "User"
+  },
+  {
+   "fieldname": "execution_completed_date",
+   "fieldtype": "Data",
+   "label": "Date of Final QC Initiation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_93",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_qc_designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_96",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_qc_employee_code",
+   "fieldtype": "Link",
+   "label": "Employee Code",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status",
+   "options": "Pending\nUnbilled\nBilled"
+  },
+  {
+   "fieldname": "check_type",
+   "fieldtype": "Data",
+   "label": "Check Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_monitor",
+   "fieldtype": "Select",
+   "label": "TAT Monitor",
+   "options": "\nIn TAT\nOut TAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "package_tat",
+   "fieldtype": "Int",
+   "label": "Package TAT",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.na==1",
+   "fieldname": "mark_na_on",
+   "fieldtype": "Date",
+   "label": "Mark (NA) On"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.na==1",
+   "fieldname": "remarks2",
+   "fieldtype": "Small Text",
+   "label": "Not Applicable Remarks"
+  },
+  {
+   "fieldname": "section_break_120",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "na",
+   "fieldtype": "Check",
+   "label": "NA"
+  },
+  {
+   "fieldname": "marked_insufficient_reason_section",
+   "fieldtype": "Section Break",
+   "label": "Marked Insufficient Reason"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "detailsof_insufficiency",
+   "fieldtype": "Select",
+   "label": "Details Of Insufficiency",
+   "options": "\nEntry\nExecution"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "insufficiency_date",
+   "fieldtype": "Date",
+   "label": "Insufficiency Reported",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "insuff",
+   "fieldtype": "Check",
+   "label": "Insuff"
+  },
+  {
+   "default": "0",
+   "fieldname": "annexture_required",
+   "fieldtype": "Check",
+   "label": "Annexture Required",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.insuff!=1",
+   "fieldname": "insuff_cleared_on",
+   "fieldtype": "Date",
+   "label": "Insufficiency Closed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_125",
+   "fieldtype": "Section Break",
+   "label": "Marked Not Applicable - Reason"
+  },
+  {
+   "fieldname": "proof_section",
+   "fieldtype": "Section Break",
+   "label": "Proof"
+  },
+  {
+   "fieldname": "column_break_57",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "givebn_by_section",
+   "fieldtype": "Section Break",
+   "label": "Given By"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "given_by_designation",
+   "fieldtype": "Data",
+   "label": "Given By Designation"
+  },
+  {
+   "fieldname": "column_break_61",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "given_by_contact_no",
+   "fieldtype": "Data",
+   "label": "Given By Contact No"
+  },
+  {
+   "depends_on": "eval:doc.insuff==1",
+   "fieldname": "insufficient_remarks",
+   "fieldtype": "Small Text",
+   "label": "Insufficient Remarks"
+  },
+  {
+   "fieldname": "column_break_134",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "drop",
+   "fieldtype": "Check",
+   "label": "Drop"
+  },
+  {
+   "depends_on": "eval:doc.drop==1",
+   "fieldname": "remarks3",
+   "fieldtype": "Data",
+   "label": "Drop Remarks"
+  },
+  {
+   "fieldname": "column_break_138",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.drop==1",
+   "fieldname": "drop_date",
+   "fieldtype": "Date",
+   "label": "Drop Date"
+  },
+  {
+   "fieldname": "drop_section",
+   "fieldtype": "Section Break",
+   "label": "Drop Section"
+  },
+  {
+   "fieldname": "col123",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "col15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "given_by_status",
+   "fieldtype": "Select",
+   "label": "Given By Status",
+   "options": "\nPositive\nNegative\nDilemma\nNA"
+  },
+  {
+   "fieldname": "insufficiency_reported_on",
+   "fieldtype": "Datetime",
+   "hidden": 1,
+   "label": "Insufficiency Reported On"
+  },
+  {
+   "fieldname": "date_of_entry_completion",
+   "fieldtype": "Date",
+   "label": "Date of Entry Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_qc_completion",
+   "fieldtype": "Date",
+   "label": "Date of QC Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_execution_completion",
+   "fieldtype": "Date",
+   "label": "Date of Execution Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_final_qc_completion",
+   "fieldtype": "Date",
+   "label": "Date of Final QC Completion",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.insuff_cleared_on",
+   "fieldname": "insufficiency_days",
+   "fieldtype": "Int",
+   "label": "Insufficiency Days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Int",
+   "label": "Holidays",
+   "read_only": 1
+  },
+  {
+   "fieldname": "insuff_closed",
+   "fieldtype": "Date",
+   "hidden": 1
+  },
+  {
+   "fieldname": "dropped_date",
+   "fieldtype": "Date",
+   "label": "Dropped Date",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-11-11 13:33:23.574380",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Court",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "VPI user",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Check Executive",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Approver",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_name",
+ "track_changes": 1,
+ "track_seen": 1
+}
