@@ -1,5 +1,15 @@
 frappe.listview_settings["Family"] = {
+    // get_indicator: function (doc) {
+	// 	if (doc.custom_tat_status=='Regular') {
+	// 		return [__(doc.custom_tat_status), "dark grey", "custom_tat_status,=," + doc.custom_tat_status];
+	// 	} else if (doc.custom_tat_status=='Critical') {
+	// 		return [__(doc.custom_tat_status), "orange", "custom_tat_status,=," + doc.custom_tat_status];
+	// 	} else if (doc.custom_tat_status == "Most Critical") {
+	// 		return [__(doc.custom_tat_status), "red", "custom_tat_status,=," + doc.custom_tat_status];
+	// 	}
+	// },
     onload: function(listview) {
+        
         listview.page.add_action_item(__("Next Action"), () => {
             let d = new frappe.ui.Dialog({
                 title: 'Next Action',

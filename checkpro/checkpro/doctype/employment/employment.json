@@ -41,7 +41,9 @@
   "epi_designation",
   "epi_period_of_employment",
   "epi_date_of_joining",
+  "epi_doj",
   "epi_date_of_relieving",
+  "epi_dor",
   "epi_relieving_status",
   "epi_reason_for_leaving",
   "epi_ctc_drawn",
@@ -59,7 +61,9 @@
   "vpi_designation",
   "vpi_period_of_employment",
   "vpi_date_of_joining",
+  "vpi_doj",
   "vpi_date_of_relieving",
+  "vpi_dor",
   "vpi_relieving_status",
   "vpi_reason_for_leaving",
   "vpi_ctc_drawn",
@@ -111,6 +115,7 @@
   "package_tat",
   "actual_tat",
   "tat_variation",
+  "tat_completion_date",
   "allowcation_tab",
   "entry_details_section",
   "entered_by",
@@ -176,7 +181,10 @@
   "drop_section_section",
   "remarks3",
   "column_break_179",
-  "drop_date"
+  "drop_date",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -224,7 +232,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report",
-   "options": "YTS\nPending\nNegative\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+   "options": "YTS\nPending\nNegative\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -251,7 +259,6 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "proof_attachment",
    "fieldtype": "Attach",
    "label": "Proof Attachment"
@@ -383,7 +390,7 @@
    "fieldtype": "Select",
    "label": "EPI :Employment Type",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
-   "options": "\nPermanent\nTemporary\nContract\nOthers"
+   "options": "\nPermanent\nTemporary\nContract\nOthers\nNA"
   },
   {
    "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
@@ -401,16 +408,17 @@
    "precision": "2"
   },
   {
-   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "depends_on": "eval:doc.workflow_state==\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "epi_date_of_joining",
    "fieldtype": "Date",
    "label": "EPI :Date of Joining"
   },
   {
-   "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "depends_on": "eval:doc.workflow_state==\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "epi_date_of_relieving",
    "fieldtype": "Date",
-   "label": "EPI :Date of Relieving"
+   "label": "EPI :Date of Relieving",
+   "mandatory_depends_on": "eval:doc.epi_relieving_status=='Relieved'"
   },
   {
    "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
@@ -418,7 +426,7 @@
    "fieldtype": "Select",
    "label": "EPI :Relieving Status",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Entry Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1\n",
-   "options": "\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period"
+   "options": "\nYTR\nRelieved\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period"
   },
   {
    "depends_on": "eval:doc.workflow_state!=\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
@@ -518,7 +526,7 @@
    "fieldtype": "Select",
    "label": "VPI:Employment Type",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
-   "options": "\nPermanent\nTemporary\nContract\nOthers",
+   "options": "\nPermanent\nTemporary\nContract\nOthers\nNA",
    "permlevel": 1
   },
   {
@@ -551,7 +559,7 @@
    "fieldname": "vpi_date_of_relieving",
    "fieldtype": "Date",
    "label": "VPI:Date of Relieving",
-   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff==0\n",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff==0\neval:doc.vpi_relieving_status=='Relieved'\n\n",
    "permlevel": 1
   },
   {
@@ -560,7 +568,7 @@
    "fieldtype": "Select",
    "label": "VPI:Relieving Status",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
-   "options": "\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period",
+   "options": "\nYTR\nRelieved\nNA\nProperly as per Procedure\nAbsconded\nInitimated without Notice Period",
    "permlevel": 1
   },
   {
@@ -584,6 +592,7 @@
    "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "vpi_character_and_conduct",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "VPI:Character and Conduct",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
    "permlevel": 1
@@ -592,6 +601,7 @@
    "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "vpi_behavior_with_colleagues",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "VPI:Behavior with Colleagues",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
    "permlevel": 1
@@ -737,8 +747,9 @@
    "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "character_and_conduct_line_status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Character and Conduct:Line Status",
-   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
    "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
@@ -746,8 +757,9 @@
    "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "behavior_with_colleagues_line_status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Behavior with Colleagues:Line Status",
-   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
+   "mandatory_depends_on": "// eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1",
    "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
@@ -1223,7 +1235,8 @@
    "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
    "fieldname": "given_by_contact_no",
    "fieldtype": "Data",
-   "label": "Given By Contact No"
+   "label": "Given By Contact No",
+   "length": 40
   },
   {
    "depends_on": "eval:doc.insuff==1",
@@ -1281,11 +1294,62 @@
    "fieldtype": "Date",
    "label": "Date of Final QC Completion",
    "read_only": 1
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_doj",
+   "fieldtype": "Data",
+   "label": "EPI:Date of Joining"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Draft\"&&doc.na!=1&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "epi_dor",
+   "fieldtype": "Data",
+   "label": "EPI:Date of Relieving",
+   "mandatory_depends_on": "eval:doc.epi_relieving_status=='Relieved' && !doc.epi_date_of_relieving"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_doj",
+   "fieldtype": "Data",
+   "label": "VPI:Date of Joining",
+   "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff!=1&&doc.na!=1&&doc.drop!=1&&!doc.vpi_date_of_joining"
+  },
+  {
+   "depends_on": "eval:doc.na==0&&doc.workflow_state!=\"Entry Pending\"&&doc.workflow_state!=\"Entry Completed\"&&doc.workflow_state!=\"Entry QC Pending\"&&doc.workflow_state!=\"Entry QC Completed\"&&doc.workflow_state!=\"Draft\"&&doc.report_status!=\"Not Applicable\"\n",
+   "fieldname": "vpi_dor",
+   "fieldtype": "Data",
+   "label": "VPI:Date of Relieving",
+   "mandatory_depends_on": "eval:doc.vpi_relieving_status=='Relieved'&& !doc.vpi_date_of_relieving"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-08 19:29:19.204043",
+ "modified": "2025-03-26 11:51:34.276594",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Employment",

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-05-11 16:44:15.893842",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -26,7 +27,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Variable Type",
-   "options": "\nText\nNumber\nDescription\nSelect\nDate\nSection\nColumn\nLink\nTable",
+   "options": "\nText\nNumber\nDescription\nSelect\nDate\nSection\nColumn\nLink\nTable\nPhone\nEmail\nAttach",
    "reqd": 1
   },
   {
@@ -41,7 +42,8 @@
   }
  ],
  "istable": 1,
- "modified": "2020-09-23 11:22:51.947270",
+ "links": [],
+ "modified": "2025-01-03 13:38:13.308946",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Variables",
@@ -50,5 +52,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

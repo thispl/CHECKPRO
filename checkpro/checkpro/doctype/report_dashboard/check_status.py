@@ -126,28 +126,20 @@ def get_data(args):
 		social = 0
 		for k in query:
 			if k.checks == "Education Checks" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				education = k.count
 			if k.checks == "Employment" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				employment = k.count
 			if k.checks == "Address Check" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				address = k.count
 			if k.checks == "Court" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				court = k.count
 			if k.checks == "Reference Check" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				reference = k.count
 			if k.checks == "Identity Aadhar" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				identity = k.count
 			if k.checks == "Family" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				family = k.count
 			if k.checks == "Social Media" and k.verification_status == "YTS":
-				frappe.errprint(k.count)
 				social = k.count
 		
 		row += [education,employment,address,court,reference,identity,family,social]

@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-01 11:26:04.907165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "check_type",
+  "status",
+  "mandatory_fields"
+ ],
+ "fields": [
+  {
+   "fieldname": "check_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Check Type",
+   "options": "All Checks"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nDraft\nEntry Completed\nEntry QC Pending\nEntry QC Completed\nExecution Pending\nExecution Completed\nFinal QC Pending\nFinal QC Completed\nReport Completed\nInsufficient Data\nNot Applicable\nDrop"
+  },
+  {
+   "fieldname": "mandatory_fields",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Mandatory fields"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-02-01 11:29:38.382037",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Checkpro Settings child",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

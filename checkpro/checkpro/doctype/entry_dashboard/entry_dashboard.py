@@ -14,7 +14,6 @@ def case_count(entry_list):
 	# for b in batch:
 	# 	b1 = frappe.get_doc("Batch",b)
 	# return b1.name,b1.check_package,b1.customer
-	# frappe.errprint(entry_list)
 	case_draft = frappe.db.count('Case', {'batch':entry_list,'entry_status': 'Draft'})
 	case_pending = frappe.db.count('Case', {'batch':entry_list,'entry_status': 'Pending'})
 	case_insuff = frappe.db.count('Case', {'batch':entry_list,'entry_status': 'Insufficient'})

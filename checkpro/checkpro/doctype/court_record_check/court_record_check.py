@@ -11,7 +11,6 @@ class CourtRecordCheck(Document):
 
 @frappe.whitelist()
 def set_epi(name,case_id):
-	frappe.errprint("called")
 	vpd = frappe.get_doc("Verify Court Record Check",{"case_id":case_id})
 	epi = frappe.get_doc("Court Record Check",{"name":name})
 	vpd.update({

@@ -1,6 +1,4 @@
 {
- "_comments": "[]",
- "_liked_by": "[]",
  "actions": [],
  "autoname": "format:BT-{DD}{MM}{YY}-{#####}",
  "creation": "2020-05-16 11:47:34.161556",
@@ -16,12 +14,15 @@
   "customer_short_code",
   "abbr",
   "total_sp",
+  "customer_mail_ids",
   "column_break_2",
   "posting_date",
   "no_of_cases",
   "expected_end_date",
   "order_value",
   "no_of_checks",
+  "per_comp",
+  "batch_manager",
   "section_break_15",
   "customers_purchase_order",
   "customer_purchase_order_date",
@@ -33,7 +34,6 @@
   "check_list",
   "column_break_13",
   "billing_status",
-  "section_break_8",
   "project_summary_section",
   "case",
   "column_break_12",
@@ -93,10 +93,6 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Expected End Date"
-  },
-  {
-   "fieldname": "section_break_8",
-   "fieldtype": "Section Break"
   },
   {
    "depends_on": "eval:!doc.__islocal",
@@ -272,55 +268,81 @@
    "fieldname": "comp",
    "fieldtype": "Data",
    "label": "#comp"
+  },
+  {
+   "fieldname": "per_comp",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "% Completion"
+  },
+  {
+   "fetch_from": "check_package.customer_mail_ids",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_mail_ids",
+   "fieldtype": "Small Text",
+   "label": "Customer Mail IDs"
+  },
+  {
+   "fieldname": "batch_manager",
+   "fieldtype": "Link",
+   "label": "Batch Manager",
+   "options": "User",
+   "reqd": 1
   }
  ],
  "links": [
   {
+   "hidden": 1,
    "link_doctype": "Case",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Address Check",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Employment",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Criminal",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Education Checks",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Identity Aadhar",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Court",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Reference Check",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Family",
    "link_fieldname": "batch"
   },
   {
+   "hidden": 1,
    "link_doctype": "Social Media",
    "link_fieldname": "batch"
-  },
-  {
-   "link_doctype": "Project",
-   "link_fieldname": "project_name"
   }
  ],
- "modified": "2023-11-28 16:40:37.451771",
+ "modified": "2025-01-04 11:53:19.245456",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Batch",

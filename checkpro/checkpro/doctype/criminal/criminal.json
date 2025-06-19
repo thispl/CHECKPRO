@@ -6,6 +6,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "supplier",
+  "column_break_cfjg",
+  "supplier_id",
+  "section_break_rhe7",
   "ce_tatdays",
   "client",
   "client_shortcode",
@@ -38,6 +42,7 @@
   "epi_state",
   "epi_record_found",
   "epi_record_description_if_found",
+  "record_description_found_epi",
   "epi_number_of_years_searched",
   "epi_name_of_police_station",
   "epi_official_name",
@@ -51,7 +56,9 @@
   "vpi_state",
   "vpi_record_found",
   "vpi_record_description_if_found",
+  "record_description_found_vpi",
   "vpi_number_of_years_searched",
+  "no_of_years_searched",
   "vpi_name_of_police_station",
   "vpi_official_name",
   "vpi_official_designation",
@@ -99,6 +106,7 @@
   "actual_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
   "allocation_tab",
   "entry_details_section",
   "entered_by",
@@ -166,7 +174,10 @@
   "remarks3",
   "column_break_151",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -212,7 +223,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report",
-   "options": "\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -369,11 +380,13 @@
    "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\""
   },
   {
-   "depends_on": "eval:doc.na == 0 || doc.workflow_state!='Draft'",
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
    "fieldname": "epi_record_description_if_found",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "EPI :Record Description if Found",
-   "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\""
+   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.na == 0 || doc.workflow_state!='Draft'",
@@ -476,8 +489,8 @@
    "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
    "fieldname": "vpi_record_description_if_found",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "VPI:Record Description if Found",
-   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
    "permlevel": 1
   },
   {
@@ -485,8 +498,8 @@
    "description": "(example:2000-2004)",
    "fieldname": "vpi_number_of_years_searched",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "VPI:Number of Years Searched ",
-   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
    "permlevel": 1
   },
   {
@@ -498,17 +511,21 @@
    "permlevel": 1
   },
   {
+   "default": "Name not Disclosed",
    "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
    "fieldname": "vpi_official_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "VPI:Official Name",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
    "permlevel": 1
   },
   {
+   "default": "Station Officer",
    "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
    "fieldname": "vpi_official_designation",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "VPI:Official Designation",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
    "permlevel": 1
@@ -543,7 +560,7 @@
    "fieldtype": "Select",
    "label": "Address:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -552,7 +569,7 @@
    "fieldtype": "Select",
    "label": "Pincode:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -561,7 +578,7 @@
    "fieldtype": "Select",
    "label": "District:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -570,7 +587,7 @@
    "fieldtype": "Select",
    "label": "State:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -580,7 +597,7 @@
    "hidden": 1,
    "label": "Record Found:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -589,7 +606,7 @@
    "fieldtype": "Select",
    "label": "Record Description if Found:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -598,7 +615,7 @@
    "fieldtype": "Select",
    "label": "Number of Years Searched:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -607,7 +624,7 @@
    "fieldtype": "Select",
    "label": "Name of Police Station:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -616,7 +633,7 @@
    "fieldtype": "Select",
    "label": "Official Name:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -625,7 +642,7 @@
    "fieldtype": "Select",
    "label": "Official Designation:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -634,7 +651,7 @@
    "fieldtype": "Select",
    "label": "Verifier Contact Number:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -643,7 +660,7 @@
    "fieldtype": "Select",
    "label": "Verifier Mail ID:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -1197,11 +1214,84 @@
    "fieldtype": "Date",
    "label": "Dropped Date",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\" && doc.workflow_state!=\"Entry Completed\" && doc.workflow_state!=\"Entry QC Pending\"",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "read_only": 1,
+   "read_only_depends_on": "eval:frappe.user.has_role(\"BCS Supplier\")"
+  },
+  {
+   "fieldname": "column_break_cfjg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_id",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Supplier ID",
+   "length": 80,
+   "options": "User"
+  },
+  {
+   "fieldname": "section_break_rhe7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "no_of_years_searched",
+   "fieldtype": "Select",
+   "label": "VPI:Number of Years Searched ",
+   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
+   "options": "\n3 Years\n5 Years\n7 Years\n10\u00a0Years\nNA"
+  },
+  {
+   "default": "NA",
+   "fieldname": "record_description_found_epi",
+   "fieldtype": "Select",
+   "label": "EPI :Record Description if Found",
+   "options": "\nNo Record Found\nRecord Found\nNA"
+  },
+  {
+   "default": "NA",
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "record_description_found_vpi",
+   "fieldtype": "Select",
+   "label": "VPI:Record Description if Found",
+   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Completed\"&&doc.insuff==0",
+   "options": "\nNo Record Found\nRecord Found\nNA"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-11 13:35:30.940427",
+ "modified": "2025-06-19 12:42:13.078688",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Criminal",

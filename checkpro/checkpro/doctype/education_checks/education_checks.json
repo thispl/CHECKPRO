@@ -41,6 +41,7 @@
   "epi_affiliated_university_name",
   "epi_course",
   "epi_course_start",
+  "course_period",
   "epi_course_end",
   "epi_registration_number",
   "epi_graduated",
@@ -55,6 +56,7 @@
   "vpi_affiliated_university_name",
   "vpi_course",
   "vpi_course_start",
+  "vpi_course_period",
   "vpi_course_end",
   "vpi_registration_number",
   "vpi_graduated",
@@ -104,6 +106,7 @@
   "actual_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
   "allowcation_tab",
   "entry_details_section",
   "entered_by",
@@ -171,7 +174,10 @@
   "remarks3",
   "column_break_152",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -208,7 +214,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report",
-   "options": "\nYTS\nPending\nPositive\nNegative\nDilemma\nInterim\nNot Applicable"
+   "options": "\nYTS\nPending\nPositive\nNegative\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "depends_on": "eval:doc.workflow_state==\"Pending for Verification\"||doc.workflow_state ==\"Pending for Approval\"||doc.workflow_state ==\"Approved\"",
@@ -376,8 +382,7 @@
    "depends_on": "eval:doc.na == 0 || doc.workflow_state!='Draft'",
    "fieldname": "epi_course_start",
    "fieldtype": "Data",
-   "label": "EPI :Course Period",
-   "mandatory_depends_on": "eval:doc.workflow_state ==\"Entry Execution Pending\""
+   "label": "EPI :Course Period"
   },
   {
    "fieldname": "epi_course_end",
@@ -476,7 +481,6 @@
    "fieldname": "vpi_course_start",
    "fieldtype": "Data",
    "label": "VPI:Course Period",
-   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Pending\"\r\n",
    "permlevel": 1
   },
   {
@@ -634,7 +638,7 @@
    "fieldtype": "Select",
    "label": "Graduation Year:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Pending\"\r\n",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -1224,11 +1228,51 @@
    "fieldtype": "Date",
    "label": "Dropped Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.na == 0 || doc.workflow_state!='Draft'",
+   "fieldname": "course_period",
+   "fieldtype": "Select",
+   "label": "EPI:Course Period",
+   "mandatory_depends_on": "eval:doc.workflow_state ==\"Entry Execution Pending\"",
+   "options": "\n1 Year\n2 Years\n3 Years\n4 Years\n5 Years\nNA"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
+   "fieldname": "vpi_course_period",
+   "fieldtype": "Select",
+   "label": "VPI:Course Period",
+   "mandatory_depends_on": "eval:doc.workflow_state ==\"Execution Pending\"\r\n",
+   "options": "\n1 Year\n2 Years\n3 Years\n4 Years\n5 Years\nNA"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-11 13:27:32.303979",
+ "modified": "2025-03-03 18:55:19.534719",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Education Checks",

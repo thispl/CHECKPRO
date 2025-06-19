@@ -1,0 +1,277 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "MARK-ATT-.MM.-.YYYY.-.#####",
+ "creation": "2024-07-22 19:55:36.399344",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "department",
+  "column_break_dmuf",
+  "date",
+  "company",
+  "designation",
+  "att_status",
+  "section_break_y45l",
+  "custom_check_in",
+  "custom_in_time",
+  "column_break_oxnb",
+  "custom_check_out",
+  "custom_out_time",
+  "custom_total_working_hours",
+  "amended_from",
+  "location_details_section",
+  "custom_checkin_location",
+  "column_break_xhaj",
+  "custom_lati",
+  "custom_longi",
+  "custom_address",
+  "custom_district",
+  "custom_state",
+  "custom_pin_code",
+  "column_break_knmi",
+  "custom_checkout_location",
+  "column_break_1ijt",
+  "custom_lat",
+  "custom_lng",
+  "custom_checkout_address",
+  "custom_checkout_district",
+  "custom_checkout_state",
+  "custom_checkout_pin_code"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Data",
+   "label": "Department"
+  },
+  {
+   "fieldname": "column_break_dmuf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fetch_from": "employee.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "section_break_y45l",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_oxnb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Mark Attendance",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "location_details_section",
+   "fieldtype": "Section Break",
+   "label": "Location Details"
+  },
+  {
+   "fieldname": "column_break_xhaj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_knmi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "custom_address",
+   "fieldtype": "Small Text",
+   "label": "Address",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_district",
+   "fieldtype": "Data",
+   "label": "District",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_state",
+   "fieldtype": "Data",
+   "label": "State",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_total_working_hours",
+   "fieldtype": "Data",
+   "label": "Working hours",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.custom_in_time",
+   "fieldname": "custom_check_in",
+   "fieldtype": "Button",
+   "label": "Check IN"
+  },
+  {
+   "fieldname": "custom_in_time",
+   "fieldtype": "Datetime",
+   "label": "In Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_check_out",
+   "fieldtype": "Button",
+   "label": "Check OUT"
+  },
+  {
+   "fieldname": "custom_out_time",
+   "fieldtype": "Datetime",
+   "label": "Out Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_checkin_location",
+   "fieldtype": "Geolocation",
+   "label": "Checkin Location"
+  },
+  {
+   "fieldname": "custom_lati",
+   "fieldtype": "Read Only",
+   "label": "Latitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_longi",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_pin_code",
+   "fieldtype": "Int",
+   "label": "Pin Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_checkout_location",
+   "fieldtype": "Geolocation",
+   "label": "Checkout Location"
+  },
+  {
+   "fieldname": "custom_lat",
+   "fieldtype": "Read Only",
+   "label": "Check Out Latitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_lng",
+   "fieldtype": "Read Only",
+   "label": "Check Out Longitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_checkout_address",
+   "fieldtype": "Small Text",
+   "label": "Address",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_checkout_district",
+   "fieldtype": "Data",
+   "label": "District",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_checkout_state",
+   "fieldtype": "Data",
+   "label": "State",
+   "read_only": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "custom_checkout_pin_code",
+   "fieldtype": "Int",
+   "label": "Pin Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1ijt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "att_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nWorking\nOT\nWork From Home\nHoliday",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-07-29 11:39:07.696186",
+ "modified_by": "Administrator",
+ "module": "Checkpro",
+ "name": "Mark Attendance",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

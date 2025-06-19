@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "format:CS-{######}",
+ "autoname": "field:case_id",
  "creation": "2020-05-16 16:37:52.388181",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "case_id",
   "customer",
   "customer_short_code",
   "check_package",
@@ -14,6 +15,7 @@
   "entry_status",
   "case_status",
   "client_attachment",
+  "billed_date",
   "column_break_3",
   "tat",
   "hr_name",
@@ -32,6 +34,8 @@
   "check_report_status_1",
   "check_report_status_2",
   "check_report_status_3",
+  "mode_of_submission",
+  "proof_of_submission",
   "case_information_section",
   "case_name",
   "case_gender",
@@ -64,6 +68,16 @@
   "tat_monitor",
   "section_break_22",
   "allocated_to",
+  "column_break_yns6",
+  "allocated_to_batch_manager",
+  "section_break_zggw",
+  "date_of_entry_completion",
+  "date_of_final_qc_completion",
+  "column_break_ydtv",
+  "date_of_entry_qc_completion",
+  "date_of_generate_report",
+  "column_break_ppqh",
+  "date_of_execution_completion",
   "entered_by_section",
   "entered_by",
   "entry_designation",
@@ -159,7 +173,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Case Report",
-   "options": "\nPending\nNot Applicable\nPositive\nNegative\nDilemma\nInterim",
+   "options": "\nPending\nNot Applicable\nPositive\nNegative\nDilemma\nInterim\nDrop",
    "permlevel": 1,
    "read_only": 1
   },
@@ -612,7 +626,7 @@
    "fieldname": "case_status",
    "fieldtype": "Select",
    "label": "Case Status",
-   "options": "\nDraft\nEntry Completed\nEntry-QC\nEntry-Insuff\nExecution\nExecution-Insuff\nFinal-QC\nGenerate Report\nCase Report Completed\nCase Completed\nDrop",
+   "options": "\nDraft\nEntry Completed\nEntry-QC\nEntry-Insuff\nExecution\nExecution-Insuff\nFinal-QC\nGenerate Report\nCase Report Completed\nCase Completed\nTo be Billed\nSO Created\nBilled\nDrop",
    "read_only": 1
   },
   {
@@ -625,6 +639,7 @@
    "default": "Pending",
    "fieldname": "billing_status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Billing Status",
    "options": "\nPending\nTo be Billed\nBilled\nUnbilled\nDrop",
    "read_only": 1
@@ -770,7 +785,7 @@
   {
    "fieldname": "allocated_to",
    "fieldtype": "Link",
-   "label": "Allocated To",
+   "label": "Entry Allocated To",
    "options": "User"
   },
   {
@@ -795,17 +810,97 @@
   {
    "fieldname": "drop_marked_by",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Drop Marked By",
    "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_zggw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date_of_entry_completion",
+   "fieldtype": "Datetime",
+   "label": "Date of Entry Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ydtv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_execution_completion",
+   "fieldtype": "Datetime",
+   "label": "Date of Execution Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_final_qc_completion",
+   "fieldtype": "Datetime",
+   "label": "Date of Final QC Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_of_entry_qc_completion",
+   "fieldtype": "Datetime",
+   "label": "Date of Entry QC Completion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ppqh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_generate_report",
+   "fieldtype": "Datetime",
+   "label": "Date of Generate Report",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_yns6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.case_status=='Generate Report' || doc.case_status=='Case Completed' || doc.case_status=='To be Billed' || doc.case_status=='SO Created'",
+   "fieldname": "allocated_to_batch_manager",
+   "fieldtype": "Link",
+   "label": "Allocated to Batch Manager",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mode_of_submission",
+   "fieldtype": "Select",
+   "label": "Mode of Submission",
+   "options": "\nMail\nClient Cloud\nTEAMPRO Cloud\nPublic Cloud\nPhysical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "proof_of_submission",
+   "fieldtype": "Attach",
+   "label": "Proof of Submission",
+   "read_only": 1
+  },
+  {
+   "fieldname": "case_id",
+   "fieldtype": "Data",
+   "label": "Case Id",
+   "unique": 1
+  },
+  {
+   "fieldname": "billed_date",
+   "fieldtype": "Date",
+   "label": "Billed date",
    "read_only": 1
   }
  ],
  "links": [],
- "modified": "2024-01-08 20:10:14.779533",
+ "modified": "2025-05-20 16:32:44.715826",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",
- "naming_rule": "Expression",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

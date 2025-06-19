@@ -33,7 +33,14 @@ class IdentityAadhar(Document):
 				self.execution_designation = emp[0]
 				self.execution_name = emp[1]
 				self.execution_code = emp[2]
-				
+		
+		if self.custom_execution_initiated_by:
+			emp=frappe.db.get_value("Employee",{"user_id":self.custom_execution_initiated_by},['designation', 'employee_name', 'employee'])
+			if emp:
+				self.custom_designation_exec = emp[0]
+				self.custom_name_exe = emp[1]
+				self.custom_employee_code_exe  = emp[2]
+
 		if self.final_qc_by:
 			emp=frappe.db.get_value("Employee",{"user_id":self.final_qc_by},['designation', 'employee_name', 'employee'])
 			if emp:
@@ -53,3 +60,17 @@ class IdentityAadhar(Document):
 	# 		frappe.throw("Check Report should be either Positive, Negative or Dilemma")
 	# 	if self.workflow_state == "Final QC Pending" and self.report_status =="Pending":
 	# 		frappe.throw("Check Report should be either Positive, Negative or Dilemma")
+
+@frappe.whitelist()
+def aadhar_check_mail(id):
+	mail_doc = frappe.get_doc("Identity Aadhar",id)
+	attendee = mail_doc.allocated_to
+	# for i in mail_doc:
+	frappe.sendmail(
+	recipients=[attendee],
+	subject=( 'Insuff clearance' ),
+	message="""
+		<p> Insufficient Data is cleared for the check : <b>%s</b> of the case :  <b>%s</b> </p> <br>
+		Thanks & Regards,<br>TEAM ERP<br>"This email has been automatically generated. Please do not reply"
+		""" %(mail_doc.name,mail_doc.case_id)
+	)

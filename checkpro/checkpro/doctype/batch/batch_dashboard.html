@@ -1,20 +1,13 @@
+<h5>{{ __("Links") }}</h5>
 
-<h5> {{ __("Links") }} </h5>
+<a class="case-link" data-type="Case">Case ({{ data[1] }})</a>
 
-<a class="case-link"  data-type="Case" >
-
- Case ({{data[1]}})</a>  
- {%= value %} cases="{{ value[2]}}"
- {% if data %}
-
-
-<h5> {{ __("Checks Under this Batch") }} </h5>
-{% for(const [key, value] of Object.entries(data[0])) { %}
-
-    {%= value[0] %}  ({%= value[1] %})
-<br>
-
-{% } %}
-{% } else { %}
-<p style="margin-top: 30px;"> No Checks have been added. </p>
-{% } %}
+{% if data %}
+    <h5>{{ __("Checks Under this Batch") }}</h5>
+    {% for (const [key, value] of Object.entries(data[0])) { %}
+        <a class="transaction-item-link" onclick="window.open('https://erp.teamproit.com/app/{{value[0].toLowerCase().replace(/\s/g, '-')}}/view/list?batch={{name}}');return false;" href="#">{{ value[0] }} ({{ value[1] }})</a>
+        <br>
+    {% } %}
+{% else %}
+    <p style="margin-top: 30px;">{{ __("No Checks have been added.") }}</p>
+{% endif %}

@@ -11,7 +11,6 @@ class ExecutionCompletedDashboard(Document):
 @frappe.whitelist()
 def completed_count():
 	empcount = frappe.db.count("Verify Employment Check",{"execution_status":"Completed"})
-	frappe.errprint(empcount)
 	edcount = frappe.db.count("Verify Education Check",{"execution_status":"Completed"})
 	addcount = frappe.db.count("Verify Address Check",{"execution_status":"Completed"})
 	idcount = frappe.db.count("Verify ID Check",{"execution_status":"Completed"})

@@ -10,6 +10,7 @@
   "customer",
   "name1",
   "pricing_model",
+  "customer_mail_ids",
   "column_break_3",
   "short_code",
   "customer_short_code",
@@ -131,6 +132,11 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": " Check Package Name"
+  },
+  {
+   "fieldname": "customer_mail_ids",
+   "fieldtype": "Small Text",
+   "label": "Customer Mail IDs"
   }
  ],
  "links": [
@@ -139,7 +145,7 @@
    "link_fieldname": "check_package_name"
   }
  ],
- "modified": "2023-11-03 16:50:52.546263",
+ "modified": "2024-03-01 18:20:09.383512",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Check Package",

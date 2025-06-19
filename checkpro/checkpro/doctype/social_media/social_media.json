@@ -77,6 +77,7 @@
   "package_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
   "allowcation_tab",
   "entry_details_section",
   "entered_by",
@@ -130,6 +131,7 @@
   "dropped",
   "marked_insufficient_reason_section",
   "detailsof_insufficiency",
+  "insufficiency_reported_by",
   "column_break_34",
   "insufficient_remarks",
   "section_break_31",
@@ -141,7 +143,10 @@
   "drop_marked_by",
   "column_break_117",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -188,7 +193,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report",
-   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -939,11 +944,42 @@
    "fieldtype": "Link",
    "label": "Drop Marked By",
    "options": "User"
+  },
+  {
+   "fieldname": "insufficiency_reported_by",
+   "fieldtype": "Link",
+   "label": "Insufficiency Reported By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-08 19:24:38.348011",
+ "modified": "2025-03-03 18:18:39.402468",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Social Media",

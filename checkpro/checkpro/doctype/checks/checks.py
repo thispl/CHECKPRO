@@ -11,11 +11,9 @@ import json
 class Checks(Document):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     def validate(self):
         vcheck = frappe.db.exists("DocType",self.check_name)
-        # frappe.errprint("hello")
         if vcheck:
             frappe.throw(self.check_name + ' ' + "already exists.")
         else:
-            # frappe.errprint("hi")
             ac=frappe.new_doc("All Checks")
             ac.check_name=self.check_name
             ac.check_price=self.check_price
@@ -550,7 +548,6 @@ class Checks(Document):
             if(vadd_check.name):
                 ds = frappe.get_doc("Desk Page","checkPRO")
                 for i in ds.cards:
-                    # frappe.errprint(i.label)
                     if i.label == "Checks":
                         links="""
                             ,{

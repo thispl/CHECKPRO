@@ -110,6 +110,8 @@
   "actual_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
+  "test",
   "allocation_tab",
   "entry_details_section",
   "entered_by",
@@ -169,7 +171,6 @@
   "detailsof_insufficiency",
   "column_break_151",
   "insufficient_remarks",
-  "section_break_138",
   "marked_not_applicable_reason_section",
   "mark_na_on",
   "column_break_143",
@@ -178,7 +179,10 @@
   "remarks3",
   "column_break_152",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -218,7 +222,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report ",
-   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -567,7 +571,7 @@
    "fieldtype": "Select",
    "label": "Mothers Occupation:Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Completed\"&&doc.insuff!=1&&doc.na!=1&&doc.dropped!=1",
-   "options": "\nPositive\nNegative\nDilemma",
+   "options": "\nPositive\nNegative\nDilemma\nNA",
    "permlevel": 1
   },
   {
@@ -1064,10 +1068,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "section_break_138",
-   "fieldtype": "Section Break"
-  },
-  {
    "default": "0",
    "fieldname": "na",
    "fieldtype": "Check",
@@ -1255,11 +1255,42 @@
    "fieldtype": "Date",
    "label": "Dropped Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "test",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Test"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-08 19:42:13.051277",
+ "modified": "2025-03-03 18:18:36.510650",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Family",

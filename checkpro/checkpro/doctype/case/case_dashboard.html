@@ -4,7 +4,7 @@
 <h5> {{ __("Checks") }} </h5>
 {% for(const [key, value] of Object.entries(verify_data)) { %}
 <a class="transaction-item-link" onclick="window.open('https://erp.teamproit.com/app/{{value[0]}}/{{value[1]}}');return false;" href="#">    
-    {%= value[0] %} &nbsp; - &nbsp;&nbsp;{%= value[1] %}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {%= value[1] %}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  </a>
     <br> 
 {% } %}

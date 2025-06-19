@@ -12,14 +12,41 @@ frappe.ui.form.on("Batch", {
 				},
 			callback: function (r) {
 				frm.set_value("expected_end_date",r.message)
+				frm.set_value('batch_start_date',frm.doc.expected_start_date)
+				frm.set_value('custom_tat_completion_date',r.message)
 			}
 			
 		})
 	}
+	if(!frm.doc.batch_start_date){
+		frm.set_value('batch_start_date',frm.doc.expected_start_date)
+	}
+	if(!frm.doc.custom_tat_completion_date){
+		frm.set_value('custom_tat_completion_date',frm.doc.expected_end_date)
+	}
+	},
+	batch_status(frm){
+		if(frm.doc.batch_status=='Completed'){
+			frm.set_value('case_completion_date',frappe.utils.nowdate())
+		}
 	},
 	refresh: function(frm) {
 		if (!frm.is_new()) {
 			frm.trigger('make_dashboard');
+			frappe.call({
+				method:'checkpro.checkpro.doctype.batch.batch.update_per_comp',
+				args:{
+					'name':frm.doc.name
+					
+				},
+				callback(r){
+					if(r.message){
+						frm.set_value('per_comp',r.message)
+					}
+				}
+				
+			})
+			frm.save()
 		}
 		// frm.disable_save()
 		$('*[data-fieldname="pending_for_billing"]').find('.grid-remove-all-rows').hide();  
@@ -53,20 +80,23 @@ frappe.ui.form.on("Batch", {
 		}).css({'color':'white','background-color':"#009E60","margin-left": "10px", "margin-right": "10px"});
 	},
 	after_save:function(frm){
-		// frm.doc.table_visible=1
+		frm.set_value('batch_start_date',frm.doc.expected_start_date)
+		frm.set_value('custom_tat_completion_date',frm.doc.expected_end_date)
+		console.log(frm.doc.name)
 		frappe.call({
-			"method": "checkpro.checkpro.doctype.batch.batch.get_cases",
+			"method": "checkpro.checkpro.doctype.batch.batch.update_status_case",
 			args: {
 				"batch":frm.doc.name,
 				"no_of_case":frm.doc.no_of_cases,
 				"expected_start_date":frm.doc.expected_start_date,
-				"check_package":frm.doc.check_package
+				"check_package":frm.doc.check_package,
 				// "customer":frm.doc.customer,
 				// "no_of_cases":frm.doc.no_of_cases,
 				// "name":frm.doc.name,
 				// "expected_start_date":frm.doc.expected_start_date,
-				// "expected_end_date":frm.doc.expected_end_date,
+				"expected_end_date":frm.doc.expected_end_date,
 				// "case":frm.doc.case,
+				"batch_manager":frm.doc.batch_manager,
 				// "pending":frm.doc.pending,
 				// "comp":frm.doc.comp,
 				// "insuff":frm.doc.insuff,
@@ -77,7 +107,8 @@ frappe.ui.form.on("Batch", {
 			},
 			callback: function (r) {
 				if (!r.exc && r.message) {
-					console.log(r)
+					// console.log(r)
+					frappe.msgprint("Cases are generated in the background, Kindly wait for few minutes and reload the page.");
 				}
 			}
 	})
@@ -109,6 +140,7 @@ frappe.ui.form.on("Batch", {
 	},
 	make_dashboard: function (frm) {
 		var checks = [];
+		var check_lower = []
 		if (frm.doc.check_package) {
 			frappe.call({
 				method: "checkpro.checkpro.doctype.batch.batch.get_checks",
@@ -119,7 +151,7 @@ frappe.ui.form.on("Batch", {
 				callback: function (r) {
 					if (!r.exc && r.message) {
 						$.each(r.message, function (i, d) {
-							checks.push([d.check_name,d.units])
+							checks.push([d.check_name,(d.units*frm.doc.no_of_cases)])
 							// console.log(checks)
 						})
 					}
@@ -130,7 +162,8 @@ frappe.ui.form.on("Batch", {
 			let section = frm.dashboard.add_section(
 
 				frappe.render_template('batch_dashboard', {
-					data: [checks,frm.doc.no_of_cases]
+					data: [checks,frm.doc.no_of_cases],
+					name : frm.doc.name
 					
 				})
 			);
@@ -159,7 +192,17 @@ frappe.ui.form.on("Batch", {
 		}
 	},
 	onload: function (frm) {
+		
+		// var connection3Count = frm.doc.connection_3 ? frm.doc.connection_3.length : 0;
+        // var connection2Count = frm.doc.connection2 ? frm.doc.connection2.length : 0;
+		// if (connection3Count == 0) {
+		// 	$("[data-doctype='Connection3']").hide();
+		// }
 
+		// // Hide connection 2 if count is 0
+		// if (connection2Count == 0) {
+		// 	$("[data-doctype='Connection2']").hide();
+		// }
 		if (frm.doc.check_package) {
 			// if((frm.doc.checkwise_report).length==0){
 			frappe.call({
@@ -224,6 +267,12 @@ frappe.ui.form.on("Batch", {
 					if (s.includes("Draft")) {
 						frm.set_value("batch_status", "Open")
 					}
+					else if (s.includes("Entry-Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
+					else if (s.includes("Execution-Insuff")) {
+						frm.set_value("batch_status", "Open with Insuff")
+					}
 					else if (s.includes("Entry-QC")) {
 						frm.set_value("batch_status", "Open")
 					}
@@ -233,69 +282,73 @@ frappe.ui.form.on("Batch", {
 					else if (s.includes("Final-QC")) {
 						frm.set_value("batch_status", "Open")
 					}
-					else if (es.includes("In TAT")) {
+					else if (s.includes("Entry Completed")) {
 						frm.set_value("batch_status", "Open")
 					}
-					else if (s.includes("Draft with Insuff")) {
-						frm.set_value("batch_status", "Open with Insuff")
+					else if (es.includes("Entry Completed")) {
+						frm.set_value("batch_status", "Open")
 					}
-					else if (s.includes("Entry-QC with Insuff")) {
-						frm.set_value("batch_status", "Open with Insuff")
+			
+					// else if (es.includes("In TAT")) {
+					// 	frm.set_value("batch_status", "Open with Insuff")
+					// }
+					// else if (s.includes("Draft")) {
+					// 	frm.set_value("batch_status", "Overdue")
+					// }
+					// else if (s.includes("Entry-QC")) {
+					// 	frm.set_value("batch_status", "Overdue")
+					// }
+					// else if (s.includes("Execution")) {
+					// 	frm.set_value("batch_status", "Overdue")
+					// }
+					// else if (s.includes("Final-QC")) {
+					// 	frm.set_value("batch_status", "Overdue")
+					// // }
+					// else if (es.includes("Out TAT")) {
+					// 	frm.set_value("batch_status", "Overdue")
+					// }
+					// else if (s.includes("Draft with Insuff")) {
+					// 	frm.set_value("batch_status", "Overdue with Insuff")
+					// }
+					// else if (s.includes("Entry-QC with Insuff")) {
+					// 	frm.set_value("batch_status", "Overdue with Insuff")
+					// }
+					// else if (s.includes("Execution with Insuff")) {
+					// 	frm.set_value("batch_status", "Overdue with Insuff")
+					// }
+					// else if (s.includes("Final-QC with Insuff")) {
+					// 	frm.set_value("batch_status", "Overdue with Insuff")
+					// }
+					// else if (es.includes("Out TAT")) {
+					// 	frm.set_value("batch_status", "Overdue with Insuff")
+					// }
+					else if (s.includes("Generate Report")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (s.includes("Execution with Insuff")) {
-						frm.set_value("batch_status", "Open with Insuff")
+					else if (bs.includes("Case Report Completed")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (s.includes("Final-QC with Insuff")) {
-						frm.set_value("batch_status", "Open with Insuff")
+					else if (bs.includes("Case Completed")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (es.includes("In TAT")) {
-						frm.set_value("batch_status", "Open with Insuff")
+					else if (bs.includes("To be Billed")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (s.includes("Draft")) {
-						frm.set_value("batch_status", "Overdue")
+					else if (bs.includes("SO Created")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (s.includes("Entry-QC")) {
-						frm.set_value("batch_status", "Overdue")
+					else if (bs.includes("Drop")) {
+						frm.set_value("batch_status", "Completed")
 					}
-					else if (s.includes("Execution")) {
-						frm.set_value("batch_status", "Overdue")
-					}
-					else if (s.includes("Final-QC")) {
-						frm.set_value("batch_status", "Overdue")
-					}
-					else if (es.includes("Out TAT")) {
-						frm.set_value("batch_status", "Overdue")
-					}
-					else if (s.includes("Draft with Insuff")) {
-						frm.set_value("batch_status", "Overdue with Insuff")
-					}
-					else if (s.includes("Entry-QC with Insuff")) {
-						frm.set_value("batch_status", "Overdue with Insuff")
-					}
-					else if (s.includes("Execution with Insuff")) {
-						frm.set_value("batch_status", "Overdue with Insuff")
-					}
-					else if (s.includes("Final-QC with Insuff")) {
-						frm.set_value("batch_status", "Overdue with Insuff")
-					}
-					else if (es.includes("Out TAT")) {
-						frm.set_value("batch_status", "Overdue with Insuff")
-					}
-					else if (s.includes("Completed")) {
-						frm.set_value("batch_status", "Complected")
-					}
-					else if (bs.includes("Billed")) {
-						frm.set_value("batch_status", "Complected")
-					}
-					else if (s.includes("Completed with Insuff")) {
-						frm.set_value("batch_status", "Completed with Insuff")
-					}
-					else if (bs.includes("Billed")) {
-						frm.set_value("batch_status", "Completed with Insuff")
-					}
-					else if (bs.includes("Partially Billed")) {
-						frm.set_value("batch_status", "Completed with Insuff")
-					}
+					// else if (s.includes("Completed with Insuff")) {
+					// 	frm.set_value("batch_status", "Completed with Insuff")
+					// }
+					// else if (bs.includes("Billed")) {
+					// 	frm.set_value("batch_status", "Completed with Insuff")
+					// }
+					// else if (bs.includes("Partially Billed")) {
+					// 	frm.set_value("batch_status", "Completed with Insuff")
+					// }
 					
 					
 					

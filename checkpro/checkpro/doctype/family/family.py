@@ -17,7 +17,7 @@ class Family(Document):
 				self.entry_designation = emp[0]
 				self.entry_name = emp[1]
 				self.employee_no = emp[2]
-				self.entry_allocation_date = frappe.utils.today()
+				# self.entry_allocation_date = frappe.utils.today()
 				
 		if self.entered_by_qc:
 			emp=frappe.db.get_value("Employee",{"user_id":self.entered_by_qc},['designation', 'employee_name', 'employee'])
@@ -33,6 +33,12 @@ class Family(Document):
 				self.execution_name = emp[1]
 				self.execution_code = emp[2]
 				
+		if self.custom_execution_initiated_by:
+			emp=frappe.db.get_value("Employee",{"user_id":self.custom_execution_initiated_by},['designation', 'employee_name', 'employee'])
+			if emp:
+				self.custom_designation_exec = emp[0]
+				self.custom_name_exe = emp[1]
+				self.custom_employee_code_exe  = emp[2]
 		if self.final_qc_by:
 			emp=frappe.db.get_value("Employee",{"user_id":self.final_qc_by},['designation', 'employee_name', 'employee'])
 			if emp:
@@ -40,3 +46,16 @@ class Family(Document):
 				self.final_qc_name = emp[1]
 				self.final_qc_employee_code = emp[2]
 	
+@frappe.whitelist()
+def family_check_mail(id):
+	mail_doc = frappe.get_doc("Family",id)
+	attendee = mail_doc.allocated_to
+	# for i in mail_doc:
+	frappe.sendmail(
+	recipients=[attendee],
+	subject=( 'Insuff clearance' ),
+	message="""
+		<p> Insufficient Data is cleared for the check : <b>%s</b> of the case :  <b>%s</b> </p> <br>
+		Thanks & Regards,<br>TEAM ERP<br>"This email has been automatically generated. Please do not reply"
+		""" %(mail_doc.name,mail_doc.case_id)
+	)

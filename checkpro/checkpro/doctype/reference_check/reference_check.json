@@ -20,7 +20,7 @@
   "billing_status",
   "case_information_section",
   "case_id",
-  "case_name",
+  "name1",
   "date_of_birth",
   "case_gender",
   "column_break_12",
@@ -105,6 +105,8 @@
   "actual_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
+  "test",
   "allocation_tab",
   "entry_details_section",
   "entered_by",
@@ -174,7 +176,10 @@
   "remarks3",
   "column_break_152",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -228,12 +233,6 @@
    "fieldname": "case_id",
    "fieldtype": "Data",
    "label": "Case ID",
-   "read_only": 1
-  },
-  {
-   "fieldname": "case_name",
-   "fieldtype": "Data",
-   "label": "Case Name",
    "read_only": 1
   },
   {
@@ -599,7 +598,7 @@
    "fieldtype": "Select",
    "label": "Education Details  Line Status",
    "mandatory_depends_on": "eval:doc.workflow_state==\"Execution Pending\"&&doc.insuff==0\n",
-   "options": "\nPositive\nNegative\nDilemma"
+   "options": "\nPositive\nNegative\nDilemma\nNA"
   },
   {
    "depends_on": "eval:doc.workflow_state==\"Execution Pending\"||doc.workflow_state==\"Execution Completed\"||doc.workflow_state==\"Final QC Pending\"||doc.workflow_state==\"Final QC Completed\"||doc.workflow_state==\"Report Completed\"\n",
@@ -1219,10 +1218,47 @@
    "fieldtype": "Date",
    "label": "Dropped Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "test",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Test"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2023-11-16 19:23:04.912246",
+ "modified": "2025-03-03 18:31:52.891368",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Reference Check",
@@ -1270,5 +1306,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "title_field": "name1",
  "track_changes": 1
 }

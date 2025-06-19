@@ -6,6 +6,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "supplier",
+  "column_break_ysvz",
+  "column_break_zm3l",
   "ce_tatdays",
   "client",
   "client_shortcode",
@@ -47,6 +50,7 @@
   "vpi_high_court",
   "vpi_civil_judgement_search",
   "vpi_year_of_residential",
+  "number_of_year_searched",
   "vpi_address",
   "vpi_sourse",
   "annexture_required",
@@ -86,6 +90,8 @@
   "actual_tat",
   "tat_variation",
   "insufficiency_reported_on",
+  "tat_completion_date",
+  "test",
   "alolowcation_tab",
   "entry_details_section",
   "entered_by",
@@ -154,7 +160,10 @@
   "remarks3",
   "column_break_138",
   "drop_date",
-  "insuff_closed"
+  "insuff_closed",
+  "reg_sec",
+  "nc_class_proposed",
+  "rejected_reason"
  ],
  "fields": [
   {
@@ -202,7 +211,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report ",
-   "options": "YTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable"
+   "options": "YTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -365,7 +374,7 @@
    "hidden": 1,
    "label": "EPI :Civil Judgement Search",
    "mandatory_depends_on": " eval:doc.workflow_state ==\"Entry Pending\"&&doc.insuff == 0",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
    "depends_on": "eval:doc.na == 0&&doc.workflow_state!='Draft'",
@@ -1065,11 +1074,64 @@
    "fieldtype": "Date",
    "label": "Dropped Date",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state!=\"Draft\" && doc.workflow_state!=\"Entry Completed\" && doc.workflow_state!=\"Entry QC Pending\"",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "read_only": 1,
+   "read_only_depends_on": " eval:frappe.user.has_role(\"BCS Supplier\")"
+  },
+  {
+   "fieldname": "column_break_ysvz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_zm3l",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tat_completion_date",
+   "fieldtype": "Date",
+   "label": "TAT Completion Date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "test",
+   "fieldtype": "Check",
+   "label": "Test"
+  },
+  {
+   "fieldname": "reg_sec",
+   "fieldtype": "Section Break",
+   "label": "Rejected Reason"
+  },
+  {
+   "fieldname": "nc_class_proposed",
+   "fieldtype": "Select",
+   "label": "NC Class Proposed",
+   "options": "\nMinor\nMajor\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejected Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "number_of_year_searched",
+   "fieldtype": "Select",
+   "label": "VPI:Number of Years Searched",
+   "options": "\n3 Years\n5 Years\n7 Years\n10 Years"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-11 13:33:23.574380",
+ "modified": "2025-03-17 12:37:00.283155",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Court",

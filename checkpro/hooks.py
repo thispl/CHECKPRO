@@ -98,9 +98,9 @@ scheduler_events = {
 		# "checkpro.tasks.daily"
         # "checkpro.checkpro.doctype.case.case.tat_variation",
         # "checkpro.checkpro.doctype.case.case.tat.calculation",
-        "checkpro.checkpro.doctype.case.case.tat_monitor",
-        "teampro.custom.update_batch_age",
-        "teampro.custom.update_check_age",
+        # "checkpro.checkpro.doctype.case.case.tat_monitor",
+        # "teampro.custom.update_batch_age",
+        # "teampro.custom.update_check_age",
 
 	],
 # 	"hourly": [
@@ -132,4 +132,21 @@ scheduler_events = {
 # override_doctype_dashboards = {
 # 	"Task": "checkpro.task.get_dashboard_data"
 # }
+# doc_events = {
+#     "Case":{
+#         "after_insert":["checkpro.custom.rename_case"]
+#     }
+# }
 
+doc_events = {
+    "Appointment":{
+        "after_insert":["checkpro.custom.update_doc_in_sfu"]
+    },
+    "Case":{
+        "on_update":["checkpro.custom.batch_status_update_in_batch","checkpro.checkpro.doctype.batch.batch.case_summary_in_batch","checkpro.custom.update_case_status_in_batch"]
+    },
+    "Energy Point And Non Conformity":{
+        "on_submit":["teampro.custom.update_score_in_epnc_review"],
+        "on_cancel":['teampro.custom.update_score_in_epnc_review']
+    }
+}

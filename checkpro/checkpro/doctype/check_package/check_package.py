@@ -10,7 +10,6 @@ class CheckPackage(Document):
     pass
     # def validate(self):
     #     check_package = frappe.get_all("Check Package",{"name":self.chec})
-    #     frappe.errprint(check_package)
 
     # def validate(self):
     #     check_package = frappe.get_all("Check Package",{"name":self.check_package})
