@@ -817,7 +817,7 @@ def submitted_bg_entry():
     if ind >= 1:   
         frappe.sendmail(
             # recipients=['divya.p@groupteampro.com'],
-            recipients=['sangeetha.s@groupteampro.com','mohana.m@groupteampro.com','chitra.g@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+            recipients=['sangeetha.s@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
             subject=_("KBL New Cases"),
             message="""
                 Dear Sir/Madam,<br>
@@ -830,7 +830,7 @@ def submitted_bg_entry():
     else:
         frappe.sendmail(
             # recipients=['divya.p@groupteampro.com'],
-            recipients=['sangeetha.s@groupteampro.com','mohana.m@groupteampro.com','chitra.g@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+            recipients=['sangeetha.s@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
             subject=_("KBL New Cases"),
             message="""
                 Dear Sir/Madam,<br>
