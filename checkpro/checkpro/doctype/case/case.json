@@ -23,6 +23,7 @@
   "ca_status",
   "case_report",
   "billing_status",
+  "employee_case",
   "billing_initiated_date",
   "remarks_green",
   "remarks_red",
@@ -131,7 +132,9 @@
   "section_break_108",
   "reason_of_drop",
   "column_break_110",
-  "drop_marked_by"
+  "drop_marked_by",
+  "tab_break_ork4",
+  "employee_case_details"
  ],
  "fields": [
   {
@@ -865,9 +868,9 @@
    "depends_on": "eval:doc.case_status=='Generate Report' || doc.case_status=='Case Completed' || doc.case_status=='To be Billed' || doc.case_status=='SO Created'",
    "fieldname": "allocated_to_batch_manager",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Allocated to Batch Manager",
-   "options": "User",
-   "read_only": 1
+   "options": "User"
   },
   {
    "fieldname": "mode_of_submission",
@@ -893,10 +896,26 @@
    "fieldtype": "Date",
    "label": "Billed date",
    "read_only": 1
+  },
+  {
+   "fieldname": "employee_case",
+   "fieldtype": "Link",
+   "label": "Employee Case",
+   "options": "Employee Case"
+  },
+  {
+   "fieldname": "tab_break_ork4",
+   "fieldtype": "Tab Break"
+  },
+  {
+   "fieldname": "employee_case_details",
+   "fieldtype": "Table",
+   "label": "Employee Case Details",
+   "options": "Employee Case Details"
   }
  ],
  "links": [],
- "modified": "2025-05-20 16:32:44.715826",
+ "modified": "2026-04-06 10:42:40.556397",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Case",

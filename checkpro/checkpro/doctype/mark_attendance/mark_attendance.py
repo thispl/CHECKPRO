@@ -1862,7 +1862,7 @@ def val_pass(passcode,email):
 @frappe.whitelist(allow_guest=True)
 def submission_mail(email,name):
     frappe.sendmail(
-        recipients=['anil.p@groupteampro.com'],
+        recipients=['annie.m@groupteampro.com'],
         subject=_("Proceed BGV"),
         message="""
             Dear Sir/madam,<br>Candidate %s with the Email ID %s has been applied for BGV. Kindly initate the BGV<br><br><br>
@@ -1873,7 +1873,7 @@ def submission_mail(email,name):
 @frappe.whitelist(allow_guest=True)
 def submission_mail2(email,name):
     frappe.sendmail(
-        recipients=['anil.p@groupteampro.com'],
+        recipients=['annie.m@groupteampro.com'],
         subject=_("Applied for BGV"),
         message="""
             Dear ,<br>Candidate %s with the Email ID %s has submitted the documents successfully. BGV initiated for the Candidate<br><br>
@@ -2326,7 +2326,7 @@ def closure_mail(subject,id,action_taken,live,et,at,revision,service,proof,alloc
             sender=allocated,
             # recipients='pavithra.s@groupteampro.com',
             recipients=spoc,
-            cc=[reports_to,allocated,'anil.p@groupteampro.com','dineshbabu.k@groupteampro.com'],
+            cc=[reports_to,allocated,'dineshbabu.k@groupteampro.com'],
             subject='Task : %s Pending Review : Forward for Review to Mark Completion or Re-Open' % id,
             message = """
             <b>Dear Patron,<br><br>Greeting !!!</b><br><br>
@@ -2559,7 +2559,7 @@ def closure_mail_client(client_email,subject,id,action_taken,live,et,at,revision
             sender=allocated,
             # recipients=client_email,
             recipients=client_email,
-            cc=[spoc,allocated,reports_to,'anil.p@groupteampro.com','dineshbabu.k@groupteampro.com'],
+            cc=[spoc,allocated,reports_to,'dineshbabu.k@groupteampro.com'],
             subject='Task : %s Client Review : Forward for Review to Mark Completion or Re-Open' % id,
             message = """
             <b>Dear Patron,<br><br>Greeting !!!</b><br><br>

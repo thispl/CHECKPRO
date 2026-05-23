@@ -38,7 +38,7 @@ frappe.ui.form.on('Case', {
         if(frm.doc.case_status=="Case Report Completed"){
             frm.add_custom_button(__("Create SO"), function () {
                 frappe.call({
-                    method:'checkpro.custom.create_so',
+                    method:'checkpro.checkpro_method.create_so',
                     args:{
                         'case_id':frm.doc.name  
                         
@@ -76,7 +76,18 @@ frappe.ui.form.on('Case', {
                         });
             frm.set_intro(__("This is a root account and cannot be edited."));
         }
-       
+    //    frm.add_custom_button("Test",function(){
+    //         frappe.call({
+	// 					method: "checkpro.checkpro.doctype.case.case.update_case_age_in_case",
+	// 					args: {
+	// 							"case": frm.doc.name,
+								
+	// 						},
+	// 					callback: function (r) {
+	// 						console.log("Hi")
+	// 					}
+	// 				})
+    //    })
         if (frm.doc.case_status != "Draft") {
             if (frm.doc.case_status != 'Drop'){
             frm.add_custom_button(__("Verify Check Report - New"), function () {
@@ -147,7 +158,7 @@ frappe.ui.form.on('Case', {
         })
     },
     onload: function (frm) {
-        if (frm.doc.check_package && (frm.doc.case_status!='To be Billed' && frm.doc.case_status!='SO Created')) {
+        if (frm.doc.check_package && (frm.doc.case_status!='To be Billed' && frm.doc.case_status!='SO Created' && frm.doc.case_status!='Billed')) {
             frappe.call({
                 "method": "checkpro.checkpro.doctype.case.case.check_status",
                 args: {

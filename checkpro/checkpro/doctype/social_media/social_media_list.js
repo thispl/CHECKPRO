@@ -52,7 +52,7 @@ frappe.listview_settings["Social Media"] = {
                     });
                     console.log(typeof (doc_name))
                     frappe.call({
-                        method: 'checkpro.custom.update_next_action_sm',
+                        method: 'checkpro.checkpro_method.update_next_action_sm',
                         args: {
                             'check_id': doc_name,
                             'allocated_to': values.allocated_to

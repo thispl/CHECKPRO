@@ -8,9 +8,22 @@ from frappe.utils import date_diff, add_months, today, add_days, nowdate,formatd
 from frappe.model.document import Document
 from datetime import datetime
 from teampro.custom import update_case_status
+from checkpro.custom import update_tat_completion_date_during_update
 # from teampro.custom import delete_documents
 
 class Case(Document):
+    def after_insert(self):
+        if self.employee_case:
+            if frappe.db.exists('Employee Case',{'name':self.employee_case}):
+                frappe.db.set_value('Employee Case',self.employee_case,'status',"Created") 
+    def before_insert(self):
+        if self.batch:
+            if frappe.db.exists('Batch',{'name':self.batch}):
+                check_pack=frappe.db.get_value('Batch',{'name':self.batch},['check_package'])
+                wc=frappe.db.get_value('Check Package',{'name':check_pack},['custom_with_concern'])
+                woc=frappe.db.get_value('Check Package',{'name':check_pack},['custom_without_concern'])
+                self.without_consern=woc
+                self.custom_with_concern=wc
     def on_trash(self):
         cp = frappe.get_doc("Check Package",self.check_package)
         cp_checks = cp.checks_list
@@ -21,6 +34,10 @@ class Case(Document):
                 check.delete()
 
     def validate(self):
+        if self.has_value_changed('insufficiency_closed'):
+            if self.insufficiency_closed:
+                update_tat_completion_date_during_update(self.name)
+
         if self.case_status not in ['Case Completed','To be Billed','SO Created','Billed']:
             # update_case_status(self.name)
             cp = frappe.get_doc("Check Package",self.check_package)
@@ -428,3 +445,87 @@ def update_per_comp(name):
         completion_percentage = (comp_case / total_cases) * 100
     return completion_percentage
 
+
+@frappe.whitelist()
+def update_case_age_in_case(case):
+    age=0
+    tat_var=0
+    tat_mon=''
+    tat_sts=''
+    if frappe.db.exists("Case",case):
+        doc=frappe.get_doc("Case",case)
+        if doc:
+            if doc.case_status not in ("Case Completed","Drop","Generate Report with Insuff",'',"Drop","Billed","To be Billed","SO Created"):
+                if doc.date_of_initiating:
+                    date=(date_diff(nowdate(),doc.date_of_initiating))+1
+                    sql_query = f"""
+                        SELECT COUNT(*)
+                        FROM `tabHoliday`
+                        WHERE parent = 'TEAMPRO 2023 - Checkpro'
+                        AND holiday_date BETWEEN '{doc.date_of_initiating}' AND '{nowdate()}'
+                    """
+                    count = frappe.db.sql(sql_query, as_list=True)[0][0]
+                    print(doc.insufficiency_days)
+                    if count==0:
+                        age=date-doc.insufficiency_days
+                    else:
+                        age = (date-(count+doc.insufficiency_days))
+                    if age > 15:
+                        cl = '#f50f0f'
+                    elif age >10:
+                        cl = '#EC864B'
+                    elif age >5:
+
+                        cl = '#449CF0'
+                    else:
+                        cl = '#000000'
+                    tat_var=doc.package_tat-age
+                    if tat_var>0:
+                        tat_mon='In TAT'
+                    else:
+                        tat_mon='Out TAT'
+                    if age<(0.4*doc.package_tat):
+                        tat_sts='Regular'
+                    elif age<(0.65*doc.package_tat):
+                        tat_sts='Critical'
+                    else:
+                        tat_sts='Most Critical'
+                    print(age)
+                    print(count)
+                    frappe.db.set_value("Case",doc.name,"actual_tat",age)
+                    frappe.db.set_value("Case",doc.name,"color",cl)
+                    frappe.db.set_value("Case",doc.name,"holidays",count)
+                    frappe.db.set_value("Case",doc.name,"tat_variation",tat_var)
+                    frappe.db.set_value("Case",doc.name,"tat_monitor",tat_mon)
+                    frappe.db.set_value("Case",doc.name,"custom_tat_status",tat_sts)
+                if doc.insufficiency_closed:
+                    from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
+                    holiday_list_name = 'TEAMPRO 2023 - Checkpro'
+                    start_date = doc.insufficiency_closed
+                    working_days = int(frappe.db.get_value("Check Package",{'name':doc.check_package},['package_tat']))
+                    current_date = start_date
+                    holiday = []
+                    while working_days > 0:
+                        if not is_holiday(holiday_list_name, current_date):
+                            holiday.append(current_date)
+                            working_days -= 1
+                        current_date = add_days(current_date, 1)
+                    sql_query = f"""
+                        SELECT COUNT(*) 
+                        FROM `tabHoliday` 
+                        WHERE parent = 'TEAMPRO 2023 - Checkpro' 
+                        AND holiday_date BETWEEN '{doc.insufficiency_closed}' AND '{holiday[-1]}'
+                    """
+                    count = frappe.db.sql(sql_query, as_list=True)[0][0]
+                    doc.end_date=holiday[-1]
+                    
+                    frappe.db.set_value("Case",doc.name,"end_date",holiday[-1])
+                    frappe.db.set_value("Case",doc.name,"holidays",count)
+
+
+
+
+@frappe.whitelist()
+def update_approved_by():
+    court = "Court-015"
+    frappe.db.set_value("Court", court, "approved_by", "")

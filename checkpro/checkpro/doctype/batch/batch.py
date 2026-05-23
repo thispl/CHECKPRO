@@ -297,7 +297,7 @@ def case_summary(batch_name):
     pending = 0
     cases = frappe.get_all("Case", filters={"batch": batch_name}, fields=["*"])
     for i in cases:
-        if i.case_status in ["Case Completed","To be Billed","SO Created","Drop"]:
+        if i.case_status in ["Case Completed","To be Billed","SO Created","Drop","Billed"]:
             completed += 1
         # elif i.case_status in ["Draft with Insuff", "Entry-QC with Insuff", "Execution with Insuff", "Final-QC with Insuff", "Completed with Insuff", "Generate Report with Insuff"]:
         elif i.case_status in ["Entry-Insuff","Execution-Insuff"]:
@@ -313,7 +313,7 @@ def case_summary_in_batch(doc,method):
     cases = frappe.get_all("Case", filters={"batch": doc.batch}, fields=["*"])
     for i in cases:
         # if i.case_status == "Case Completed":
-        if i.case_status in ["Case Completed","To be Billed","SO Created","Drop"]:
+        if i.case_status in ["Case Completed","To be Billed","SO Created","Drop","Billed"]:
             completed += 1
         # elif i.case_status in ["Draft with Insuff", "Entry-QC with Insuff", "Execution with Insuff", "Final-QC with Insuff", "Completed with Insuff", "Generate Report with Insuff"]:
         elif i.case_status in ["Entry-Insuff","Execution-Insuff"]:

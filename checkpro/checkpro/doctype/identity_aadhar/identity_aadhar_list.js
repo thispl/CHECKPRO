@@ -30,7 +30,7 @@ frappe.listview_settings["Identity Aadhar"] = {
                     });
                     console.log(typeof (doc_name))
                     frappe.call({
-                        method: 'checkpro.custom.update_next_action_id',
+                        method: 'checkpro.checkpro_method.update_next_action_id',
                         args: {
                             'check_id': doc_name,
                             'allocated_to': values.allocated_to

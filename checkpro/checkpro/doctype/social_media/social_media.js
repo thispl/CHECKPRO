@@ -3,7 +3,7 @@
 
 frappe.ui.form.on('Social Media', {
 	refresh(frm) {
-		if(frappe.session.user=='sangeetha.s@groupteampro.com' || frappe.session.user=='chitra.g@groupteampro.com'){
+		if(frappe.session.user=='sangeetha.s@groupteampro.com'){
 			frm.add_custom_button(__("Reject"), function () {
 				let d = new frappe.ui.Dialog({
 					title: 'Reason to Reject',
@@ -64,7 +64,7 @@ frappe.ui.form.on('Social Media', {
 			});
 			frappe.db.get_value("Batch",{'name':frm.doc.batch},['batch_manager'])
 			.then(r => {
-				if(frappe.session.user=='sangeetha.s@groupteampro.com' || frappe.session.user=='chitra.g@groupteampro.com' || frappe.session.user==r.message.batch_manager){
+				if(frappe.session.user=='sangeetha.s@groupteampro.com' || frappe.session.user==r.message.batch_manager){
 					if(frm.doc.custom_reopened==0){
 						frm.add_custom_button(__("Re-Open"), function () {
 							let d = new frappe.ui.Dialog({
@@ -667,7 +667,16 @@ if(frm.doc.workflow_state=="Insufficient Data"){
 						
 					},
 				callback: function (r) {
-					console.log("Hi")
+					frappe.call({
+						method: "checkpro.checkpro.doctype.case.case.update_case_age_in_case",
+						args: {
+								"case": frm.doc.case_id,
+								
+							},
+						callback: function (r) {
+							console.log("Hi")
+						}
+					})
 				}
 			})
 		},

@@ -85,7 +85,7 @@ frappe.listview_settings["Case"] = {
                     });
                     console.log(typeof (doc_name))
                     frappe.call({
-                        method: 'checkpro.custom.case_report_submitted',
+                        method: 'checkpro.checkpro_method.case_report_submitted',
                         args: {
                             'case_id': doc_name,
                             'mode_of_submission': values.mode_of_submission,
@@ -112,16 +112,12 @@ frappe.listview_settings["Case"] = {
             doc_name.push(Item.name);
         });
         frappe.call({
-            method:'checkpro.custom.create_so_case',
+            method:'checkpro.checkpro_method.create_so_case',
             args:{
                 'case_id':doc_name  
                 
             },
-            // callback(r){
-            //     if(r.message){
-            //         frappe.msgprint("Sales Order Created"+" "+"-<b> "+ r.message+"</b>");
-            //     }
-            // }
+          
         });
     });
 }

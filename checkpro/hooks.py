@@ -139,14 +139,14 @@ scheduler_events = {
 # }
 
 doc_events = {
-    "Appointment":{
-        "after_insert":["checkpro.custom.update_doc_in_sfu"]
-    },
+    # "Appointment":{
+    #     "after_insert":["checkpro.custom.update_doc_in_sfu"]
+    # },
     "Case":{
-        "on_update":["checkpro.custom.batch_status_update_in_batch","checkpro.checkpro.doctype.batch.batch.case_summary_in_batch","checkpro.custom.update_case_status_in_batch"]
+        "on_update":["teampro.teampro_hooks_method.batch_status_update_in_batch","checkpro.checkpro.doctype.batch.batch.case_summary_in_batch","teampro.teampro_hooks_method.update_case_status_in_batch"]
     },
     "Energy Point And Non Conformity":{
-        "on_submit":["teampro.custom.update_score_in_epnc_review"],
-        "on_cancel":['teampro.custom.update_score_in_epnc_review']
+        "on_submit":["teampro.teampro_hooks_method.update_score_in_epnc_review"],
+        "on_cancel":['teampro.teampro_hooks_method.update_score_in_epnc_review']
     }
 }

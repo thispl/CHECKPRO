@@ -223,7 +223,7 @@
    "fieldname": "report_status",
    "fieldtype": "Select",
    "label": "Check Report",
-   "options": "\nYTS\nPending\nPositive\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
+   "options": "\nYTS\nPending\nPositive\nNegative\nAlert\nDilemma\nInterim\nNot Applicable\nDrop"
   },
   {
    "fieldname": "observation",
@@ -1291,7 +1291,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-19 12:42:13.078688",
+ "modified": "2025-10-27 17:14:18.209547",
  "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "Criminal",

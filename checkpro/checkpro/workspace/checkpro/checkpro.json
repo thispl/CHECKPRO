@@ -208,8 +208,8 @@
    "type": "Link"
   }
  ],
- "modified": "2025-04-20 16:19:40.276229",
- "modified_by": "rohit.roche@acgc.com.sa",
+ "modified": "2026-03-10 13:01:27.797062",
+ "modified_by": "Administrator",
  "module": "Checkpro",
  "name": "CHECKPRO",
  "number_cards": [],
@@ -217,8 +217,12 @@
  "parent_page": "",
  "public": 1,
  "quick_lists": [],
- "roles": [],
- "sequence_id": 22.0,
+ "roles": [
+  {
+   "role": "Head"
+  }
+ ],
+ "sequence_id": 28.0,
  "shortcuts": [
   {
    "color": "Grey",

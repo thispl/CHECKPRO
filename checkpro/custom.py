@@ -6,6 +6,8 @@ from frappe.utils import cint
 from frappe.utils.data import date_diff, now_datetime, nowdate, today, add_days
 import datetime
 from io import BytesIO
+from openpyxl.styles import Border, Side
+from openpyxl.styles import Alignment, Border, Side
 import openpyxl
 from frappe import _
 from frappe import _
@@ -47,374 +49,6 @@ from datetime import date
 from six import BytesIO, string_types
 from frappe.utils import time_diff
 
-@frappe.whitelist()
-def create_so_case(case_id):
-    doc_name = json.loads(case_id)
-    customer = []
-    check_package = []
-    for c in doc_name:
-        case=frappe.get_doc("Case",c)
-        customer.append(case.customer)
-        check_package.append(case.check_package)
-    if all(cust == customer[0] for cust in customer) and all(check_pac == check_package[0] for check_pac in check_package):
-        so = frappe.new_doc("Sales Order")
-        so.company = "TEAMPRO HR & IT Services Pvt. Ltd."
-        so.customer = case.customer
-        so.service = "BCS"
-        so.order_type = "Sales"
-        so.delivery_date = today()  
-        so.transaction_date = today()
-        batch_delivery_manager = frappe.db.get_value("Batch",case.batch,['batch_manager']) 
-        so.delivery_manager = batch_delivery_manager
-        so.posa_notes=case.case_report
-        so.tc_name="Account Details - THIS"
-        for i in doc_name:
-            case=frappe.get_doc("Case",i)
-            if case.case_status =="To be Billed":
-                batch = frappe.db.get_value("Batch",case.batch,['customers_purchase_order'])
-                item = frappe.new_doc("Item")
-                item.item_code = i
-                item.item_name= case.case_name
-                item.item_group = "BCS Cases"
-                item.item_group_code= "BCS"
-                item.stock_uom = "Nos"
-                item.qty = "1"
-                item.gst_hsn_code = '998521'
-                item.is_stock_item = "0"
-                item.include_item_in_manufacturing = "0"
-                dict_list = []
-                dict_list.append(frappe._dict({"item_tax_template":"GST 18% - THIS","tax_category":"Tamil Nadu","valid_from": today()}))
-                dict_list.append(frappe._dict({"item_tax_template":"I - GST @ 18% - THIS","tax_category":"Inter State","valid_from": today()}))
-                for j in dict_list:
-                    item.append("taxes", {
-                        "item_tax_template":j.item_tax_template,
-                        "tax_category":j.tax_category,
-                        "valid_from": j.valid_from
-                        })
-                item.append("item_defaults", {
-                            "company": "TeamPRO HR & IT Services Pvt. Ltd.",
-                            "buying_cost_center":"Main - THIS",
-                            "selling_cost_center":"Main - THIS",
-                            "income_account":"Sales - THIS",
-                            "expense_account":"Cost of Goods Sold - THIS"
-                        })
-                item.insert()
-                item.save(ignore_permissions=True)
-
-                
-                # rate = frappe.db.get_value("Check Package", {"name":case.check_package},["total_sp"])
-                package_price=frappe.db.get_value("Check Package",{"name":case.check_package},["pricing_model"])
-                if package_price=="Lumpsum":
-                    rate = frappe.db.get_value("Check Package", {"name":case.check_package},["total_sp"])
-                elif package_price=="Check Based":
-                    frappe.log_error(message='i',title='errors')
-                    check_doc=frappe.get_doc("Check Package",{"name":case.check_package})
-                    list=[]
-                    rate = 0
-                    for k in case.checkwise_status:
-                        if k.checks_status=="Report Completed" and k.check_report !="Not Applicable":
-                            check_type=k.checks
-                            list.append(check_type)
-                    for p in check_doc.checks_list:
-                        if p.check_name in list:
-                            rate+=p.check_sp
-                    # for k in check_doc.checks_list:
-                    #     if k.check_name in list:
-                    #         rate+=k.check_sp
-                so.append('items', {
-                    'item_code': i,
-                    'item_name':case.case_name,
-                    'case_batch':case.batch,
-                    'qty':1,
-                    'posa_notes':case.case_report,
-                    'rate':rate
-                    })
-                case_status=case.case_status
-                billing_status = case.billing_status
-
-                frappe.db.set_value("Case",i,"case_status","SO Created")
-            
-            else:
-                frappe.msgprint("Case Status is not To be Billed for this Case-"+" "+i)
-        so.insert()
-        so.save(ignore_permissions=True)
-        frappe.msgprint("Sales Order Created"+" "+"-<b> "+so.name+"</b>")
-        # frappe.set_value("Case",i,"billing_status","Billed")
-        
-    else:
-        frappe.msgprint("All Cases are not belong to same Customer and same Check Package")
-
-@frappe.whitelist()
-def case_report_submitted(case_id,mode_of_submission,proof_of_submission):
-    doc_name = json.loads(case_id)
-    for i in doc_name:
-        case=frappe.get_doc("Case",i)
-        if case.case_status =="Case Completed":
-            frappe.set_value("Case",i,"mode_of_submission",mode_of_submission)
-            frappe.set_value("Case",i,"proof_of_submission",proof_of_submission)
-            frappe.set_value("Case",i,"case_status","To be Billed")
-            
-        else:
-            frappe.msgprint("Case Status is not Case Completed for this Case-"+" "+i)
-
-
-@frappe.whitelist()
-def delete():
-    frappe.db.sql("""delete from `tabScheduled Job Type` where name = "custom.statement_of_account" """,as_dict = True)
-    # frappe.db.sql("""delete from `tabEducation Checks` where name = "Education Checks-2187" """,as_dict = True)
-
-
-# @frappe.whitelist()
-# def update_query():
-            
-    # frappe.db.sql("""update `tabCase` set case_status = 'Case Completed' where name = 'Case-205'""")
-    # frappe.db.sql("""update `tabCase` set end_date = '2024-05-16' where name = 'CS-013495'""")
-    
-    # frappe.db.sql("""update `tabEducation Checks` set report_status = 'Not Applicable' where name = 'Education Checks-17161'""")
-    # frappe.db.sql("""update `tabAddress Check` set workflow_state = 'Report Completed' where name = 'Address Check-9724'""")
-    # frappe.db.sql("""update `tabAddress Check` set check_status = 'Report Completed' where name = 'Address Check-9724'""")
-    
-    # frappe.db.sql("""update `tabEmployment` set check_status = 'Draft',report_status='Pending' where name = 'Employment-3137 '""")
-    # frappe.db.sql("""update `tabEmployment` set check_status = 'Execution Pending' where name = 'Employment-2493 '""")
-    
-    # frappe.db.sql("""update `tabSocial Media` set workflow_state = 'Draft' where name = 'Social Media-214'""")
-    # frappe.db.sql("""update `tabSocial Media` set check_status = 'Draft' where name = 'Social Media-214'""")
-
-    # frappe.db.sql("""update `tabEducation Checks` set tat_monitor = 'In TAT' where name = 'Education Checks-9270'""")
-
-    # frappe.db.sql("""UPDATE `tabCase` SET case_status = 'Entry-Insuff' WHERE name ='CS-010548'""")
-
-    # frappe.db.sql("""update `tabEducation Checks` set check_status = 'Report Completed ' where name = 'Education Checks-18031'""")
-
-    # frappe.db.sql("""update `tabCandidate` set pending_for = 'Linedup' where name = 'CD19529'""")
-
-
-    
-    
-
-@frappe.whitelist()
-def create_so(case_id):
-    frappe.log_error('Check error','error')
-    case=frappe.get_doc("Case",case_id)
-    batch = frappe.db.get_value("Batch",case.batch,['customers_purchase_order'])
-    item = frappe.new_doc("Item")
-    item.item_code = case_id
-    item.item_name= case.case_name
-    item.item_group = "BCS Cases"
-    item.item_group_code= "BCS"
-    item.stock_uom = "Nos"
-    item.qty = "1"
-    item.gst_hsn_code = '998521'
-    item.is_stock_item = "0"
-    item.include_item_in_manufacturing = "0"
-    dict_list = []
-    dict_list.append(frappe._dict({"item_tax_template":"GST 18% - THIS","tax_category":"Tamil Nadu","valid_from": today()}))
-    dict_list.append(frappe._dict({"item_tax_template":"I - GST @ 18% - THIS","tax_category":"Inter State","valid_from": today()}))
-    for j in dict_list:
-        item.append("taxes", {
-            "item_tax_template":j.item_tax_template,
-            "tax_category":j.tax_category,
-            "valid_from": j.valid_from
-            })
-    item.append("item_defaults", {
-                "company": "TeamPRO HR & IT Services Pvt. Ltd.",
-                "buying_cost_center":"Main - THIS",
-                "selling_cost_center":"Main - THIS",
-                "income_account":"Sales - THIS",
-                "expense_account":"Cost of Goods Sold - THIS"
-            })
-    item.insert()
-    item.save(ignore_permissions=True)
-    frappe.log_error('check error','error')
-
-    so = frappe.new_doc("Sales Order")
-    so.company = "TEAMPRO HR & IT Services Pvt. Ltd."
-    so.customer = case.customer
-    so.service = "BCS"
-    so.order_type = "Sales"
-    so.delivery_date = today()  
-    so.transaction_date = today() 
-    so.po_no = batch
-    # so.delivery_manager = batch.delivery_manager
-    so.posa_notes:case.case_report
-    so.tc_name="Account Details - THIS"
-    rate = frappe.db.get_value("Check Package", {"name":case.check_package},["total_sp"])
-    
-    so.append('items', {
-        'item_code': case_id,
-        'item_name':case.case_name,
-        'case_batch':case.batch,
-        'qty':1,
-        'posa_notes':case.case_report,
-        'rate':rate,
-        })
-    case_status=case.case_status
-    billing_status = case.billing_status
-    
-    so.insert()
-    so.save(ignore_permissions=True)
-    frappe.msgprint("Sales Order Created"+" "+"-<b> "+so.name+"</b>")
-    frappe.set_value("Case",case_id,"billing_status","Billed")
-    frappe.set_value("Case",case_id,"case_status","Case Completed")
-    frappe.set_value("Case",case_id,"custom_case_update_status","Case Completed")
-    
-
-@frappe.whitelist()
-def update_case_status():
-    case = frappe.get_all("Case",{"batch":"BT-AMFL-2023-10-13-4655"},["name","case_status"])
-    for c in case:
-        if c.case_status=="Generate Report":
-            list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-            for i in list:
-                doc=frappe.get_all(i,{"case_id":c.name},["name","workflow_state"])
-                for j in doc:
-                    if j.workflow_state != "Report Completed":
-                        frappe.db.set_value(i,j.name,"workflow_state","Report Completed")
-            frappe.db.set_value("Case",c.name,"case_status","Case Report Completed")
-            frappe.db.set_value("Case",c.name,"custom_case_update_status","Case Report Completed")
-            frappe.db.set_value("Case",c.name,"case_completion_date","2023-11-06")
-            frappe.db.set_value("Case",c.name,"billing_Status","Billed")
-
-@frappe.whitelist()
-def update_case_billing_status():
-    case = frappe.get_all("Case",{"batch":"BT-AMFL-2023-10-13-4655"},["name","case_status"])
-    for c in case:
-        if c.case_status=="Case Report Completed":
-            frappe.db.set_value("Case",c.name,"billing_Status","Billed")
-
-
-@frappe.whitelist()
-def update_next_action_sm(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Social Media",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Social Media",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Social Media",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_fam(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Family",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Family",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Family",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_edu(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Education Checks",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Education Checks",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Education Checks",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_emp(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Employment",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Employment",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Employment",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_addrs(check_id,allocated_to,allocate_to_supplier,supplier=None):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Address Check",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Address Check",j)
-        if supplier is not None:
-            check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Supplier Pending','Execution Pending','Execution Completed','Final QC Pending']
-            if doc.workflow_state in check_status:
-                frappe.set_value("Address Check",j,"supplier",supplier)
-                frappe.set_value("Address Check",j,"custom_supplier_allocation_date",frappe.utils.nowdate())
-                indx=check_status.index(doc.workflow_state)
-                next_indx=check_status[indx+1]
-                frappe.set_value("Address Check",j,"workflow_state",next_indx)
-        else:
-            if doc.workflow_state == "Supplier Pending":
-                frappe.set_value("Address Check",j,"workflow_state","Execution Pending")
-                frappe.set_value("Address Check",j,"execution_allocation_date",frappe.utils.nowdate())
-            else:
-                check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Pending','Execution Completed','Final QC Pending']
-                if doc.workflow_state in check_status:
-                    indx=check_status.index(doc.workflow_state)
-                    next_indx=check_status[indx+1]
-                    frappe.set_value("Address Check",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_court(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Court",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Court",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Court",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_criminal(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Criminal",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Criminal",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Criminal",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_ref(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Reference Check",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Reference Check",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Reference Check",j,"workflow_state",next_indx)
-    
-@frappe.whitelist()
-def update_next_action_id(check_id,allocated_to):
-    doc_name = json.loads(check_id)
-    for j in doc_name:
-        frappe.set_value("Identity Aadhar",j,"allocated_to",allocated_to)
-        doc = frappe.get_doc("Identity Aadhar",j)
-        check_status=['Draft','Entry Completed','Entry QC Pending','Entry QC Completed','Execution Initiated','Execution Pending','Execution Completed','Final QC Pending']
-        if doc.workflow_state in check_status:
-            indx=check_status.index(doc.workflow_state)
-            next_indx=check_status[indx+1]
-            frappe.set_value("Identity Aadhar",j,"workflow_state",next_indx)
-    
-# @frappe.whitelist()
-# def update_case():
-    # addrs = frappe.db.get_all("Address Check",{"check_status":"Draft"},['*'])
-# 	for i in addrs:
-# 		if i.workflow_state:
-# 			frappe.db.set_value("Address Check",i.name,"check_status",i.workflow_state)
-    # frappe.db.sql("""update `tabCase` set case_status = 'Case Completed' where case_status = 'Completed'""")
-    # frappe.db.sql("""update `tabCase` set case_completion_date = '2024-01-22' where name = 'CS-006492'""")
-    # frappe.db.sql("""update `tabSocial Media` set check_status = 'Draft' where name = 'Social Media-132'""")
-    # frappe.db.sql("""update `tabSocial Media` set workflow_state = 'Draft' where name = 'Social Media-132'""")
-    
 
 @frappe.whitelist()
 def update_batch():
@@ -425,14 +59,6 @@ def update_batch():
         case = frappe.get_all("Case",{"batch":b.name},["name","case_status","end_date"])
         for c in case:
             if c.end_date:
-                # list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-                # for i in list:
-                # 	doc=frappe.get_all(i,{"case_id":c.name},["name","workflow_state"])
-                # 	for j in doc:
-                # 		if j.workflow_state != "Report Completed":
-                # 			frappe.db.set_value(i,j.name,"workflow_state","Report Completed")
-                # frappe.db.set_value("Case",c.name,"case_status","Case Completed")
-                # frappe.db.set_value("Case",c.name,"case_completion_date",c.end_date)
                 pass
             else:
                 print(c.name)
@@ -458,38 +84,6 @@ def update_case_check():
         frappe.db.sql("""update `tabCase` set billing_status = 'Billed' where name = %s""",(pp[0]))
         ind+=1
     print(ind)
-        
-
-
-    # @frappe.whitelist()
-# def update_batch_proposed_so():
-# 	batch = frappe.get_all("Batch",{'batch_status':"Proposed SO"},['*'])
-# 	ind=1
-# 	for b in batch:
-# 		ind+=1
-# 		case = frappe.get_all("Case",{"batch":b.name},["name","case_status","end_date"])
-# 		for c in case:
-# 			if c.end_date:
-# 				# list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-# 				# for i in list:
-# 				# 	doc=frappe.get_all(i,{"case_id":c.name},["name","workflow_state"])
-# 				# 	for j in doc:
-# 				# 		if j.workflow_state != "Report Completed":
-# 				# 			frappe.db.set_value(i,j.name,"workflow_state","Report Completed")
-# 				# frappe.db.set_value("Case",c.name,"case_status","Case Completed")
-# 				# frappe.db.set_value("Case",c.name,"case_completion_date",c.end_date)
-# 				pass
-# 			else:
-# 				print(c.name)
-# 				# list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-# 				# for i in list:
-# 				# 	doc=frappe.get_all(i,{"case_id":c.name},["name","workflow_state"])
-# 				# 	for j in doc:
-# 				# 		if j.workflow_state != "Report Completed":
-# 				# 			frappe.db.set_value(i,j.name,"workflow_state","Report Completed")
-# 				# frappe.db.set_value("Case",c.name,"case_status","Case Completed")
-# 				# print(ind)
-# 	print(ind)
 
 @frappe.whitelist()
 def update_status_case():
@@ -514,22 +108,6 @@ def update_case_status_report():
         frappe.db.set_value("Case",c.name,"case_completion_date",c.end_date)
     print(i)
 
-# @frappe.whitelist()
-# def update_case_report_drop():
-#     frappe.db.set_value("Education Checks",{"name":"Education Checks-21082"},"check_status","Draft")
-#     frappe.db.set_value("Education Checks",{"name":"Education Checks-21082"},"report_status","YTS")
-    # frappe.db.set_value("Identity Aadhar",{"name":"Identity Aadhar-1488"},"drop",0)
-    # frappe.db.set_value("Education Checks",{"name":"Education Checks-21082"},"workflow_state","Draft")
-    # frappe.db.set_value("Case",{"name":"KBL-190924-14871-00008"},"case_status","Generate Report")
-    # frappe.db.sql("""update `tabCase` set case_status = 'Case Report Completed' where name = 'CS-009352'""")
-    # frappe.db.sql("""update `tabCriminal` set check_status = 'Report Completed' where name = 'Criminal-1393'""")
-    # frappe.db.sql("""update `tabCriminal` set workflow_state = 'Report Completed' where name = 'Criminal-1393'""")
-    # frappe.db.sql("""update `tabEducation Checks` set dropped_date = NULL where name = 'Education Checks-7384'""")
-    # frappe.db.sql("""update `tabCase` set check_status = 'Report Completed' where name = 'CS-008628'""")
-    # frappe.db.sql("""update `tabCase` set dropped_date = NULL where name = 'CS-009352'""")
-    # frappe.db.sql("""update `tabCase` set case_report = 'Drop' where name = 'CS-008628'""")
-
-
 @frappe.whitelist()
 def cases_beyond_tat_age_10():
     cases = frappe.get_all("Case", {"batch_age": (">=", 10), "case_status": ("not in", ['Case Report Completed', 'Case Completed', 'Drop','Execution-Insuff','Entry-Insuff','To be Billed','Generate Report','SO Created'])},['*'],order_by='batch_age DESC')
@@ -541,7 +119,7 @@ def cases_beyond_tat_age_10():
         i+=1
     data += '</table>'
     frappe.sendmail(
-        recipients=['dineshbabu.k@groupteampro.com','sangeetha.s@groupteampro.com','sangeetha.a@groupteampro.com','chitra.g@groupteampro.com',"keerthana.b@groupteampro.com"],
+        recipients=['dineshbabu.k@groupteampro.com','sangeetha.s@groupteampro.com','sangeetha.a@groupteampro.com',"keerthana.b@groupteampro.com"],
         cc=[''],
         subject=_("Cases having TAT Age 10 and above"),
         message="""
@@ -625,7 +203,7 @@ def cases_with_insuff():
     frappe.sendmail(
         # recipients=['divya.p@groupteampro.com'],
         # recipients="siva.m@groupteampro.com",
-        recipients=['dineshbabu.k@groupteampro.com','sangeetha.s@groupteampro.com','sangeetha.a@groupteampro.com','chitra.g@groupteampro.com',"keerthana.b@groupteampro.com"],
+        recipients=['dineshbabu.k@groupteampro.com','sangeetha.s@groupteampro.com','sangeetha.a@groupteampro.com',"keerthana.b@groupteampro.com"],
         cc=[''],
         subject=_("Cases with Insuff"),
         message=f"""
@@ -679,31 +257,13 @@ def cases_with_insuff_daily_report():
                 frappe.sendmail(
                     # recipients=[cust_mail],
                     # recipients=["giftyannie6@gmail.com"],
-                    recipients=['sangeetha.s@groupteampro.com','chitra.g@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
+                    recipients=['sangeetha.s@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
                     subject=_("Insufficiency Report - Customer: %s - Date: %s" % (customer, formatted_date)),
                     message="""
                         Dear Sir/Madam,<br>Kindly Find the below List of Cases that are Reported as Insuff on Today for Customer %s %s<br>
                         Thanks & Regards,<br>TEAM ERP<br>"This email has been automatically generated. Please do not reply"
                     """ % (customer, data)
                 )
-
-
-@frappe.whitelist()    
-def batch_creation_mail(name):
-    batch_doc = frappe.get_doc("Batch",name)
-    for i in batch_doc:
-        frappe.sendmail(
-        recipients=['sangeetha.s@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
-        cc = [''],
-        subject=('New Batch Creation'),
-        message="""   
-            Dear Sir/Mam,<br>
-            <p>New batch <b>%s</b> has been created with <b>%s</b> cases for customer : <b>%s</b> on the Date : <b>%s</b> </p><br>
-         
-                Thanks & Regards<br>TEAM ERP<br>"This email has been automatically generated. Please do not reply"
-        """ % (batch_doc.name,batch_doc.no_of_cases,batch_doc.customer,batch_doc.expected_start_date)
-        ) 
-    return True
 
 @frappe.whitelist()
 def dsr_mail():
@@ -745,7 +305,7 @@ def dsr_mail():
         table += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (u.name, total_tasks, completed_today, pending_tasks)
     table += '</table>'
     frappe.sendmail(
-        recipients=['chitra.g@groupteampro.com','sangeetha.s@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+        recipients=['sangeetha.s@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
         subject=_("DSR-%s"%(nowdate()) ),
         message="""
             Dear Sir/Madam,<br>Kindly Find the below attached DSR - %s<br>
@@ -754,38 +314,6 @@ def dsr_mail():
     )
     return "ok"     
 
-
-# @frappe.whitelist()
-# def dpr_mail():
-# 	user = frappe.get_all("User", filters={"role": "BCS User"},  fields=["*"])
-    
-# 	for u in user:
-# 		table = '<table  text-align: center; border="1" width="100%" style="border-collapse: collapse;"><tr><td style="width: 15%; font-weight: bold;">ID</td><td style="width: 15%; font-weight: bold;">Batch</td><td style="width: 15%; font-weight: bold;">Employee Name</td><td style="width: 10%; font-weight: bold;">Employee Code</td><td style="width: 20%; font-weight: bold;">Client</td><td style="width: 10%; font-weight: bold;">Case ID</td><td style="width: 10%; font-weight: bold;">Case/Check Type</td><td style="width: 10%; font-weight: bold;">Case/Check Status</td><td style="width: 10%; font-weight: bold;">Actual Age</td><td style="width: 20%; font-weight: bold;">Allocated To</td></tr> '
-# 		cases=frappe.get_all("Case",{"case_status":"Draft","allocated_to":u.name},['*'],order_by='actual_tat DESC')
-# 		for c in cases:
-# 			table += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>Case</td><td>%s</td><td>%s</td>td>%s</td></tr>' % (c.name, c.batch, c.case_name, c.client_employee_code, c.customer, c.name,c.case_status,c.actual_tat,u.name)
-# 		list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-# 		for i in list:
-# 			doc=frappe.get_all(i,{"allocated_to":u.name},['*'],order_by='actual_tat DESC')
-# 			for j in doc:
-# 				if j.check_status in ["Draft","Entry Completed","Execution Pending"]:
-# 					if i == "Address Check":
-# 						table += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (j.name, j.batch,j.name1,j.client_employee_code,j.client,j.case_id,i,j.check_status,j.actual_tat, u.name)
-# 					else:
-# 						table += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (j.name, j.batch,j.name1,j.client_employee_code,j.customer,j.case_id,i,j.check_status,j.actual_tat, u.name)
-# 		table += '</table>'
-# 		frappe.sendmail(
-# 			# recipients=['giftyannie6@gmail.com'],
-# 			recipients=[u.name],
-# 			cc=['sangeetha.s@groupteampro.com'],
-# 			subject=_("DPR-%s"%(nowdate()) ),
-# 			message="""
-# 				Dear Sir/Madam,<br>Kindly Find the below attached DPR, %s<br>
-# 				Thanks & Regards,<br>TEAM ERP<br>"This email has been automatically generated. Please do not reply"
-# 				"""%(table)
-# 		)
-# 	return "ok"
-    
 
 from datetime import datetime, timedelta
 from frappe.utils import add_days
@@ -817,7 +345,7 @@ def submitted_bg_entry():
     if ind >= 1:   
         frappe.sendmail(
             # recipients=['divya.p@groupteampro.com'],
-            recipients=['sangeetha.s@groupteampro.com','mohana.m@groupteampro.com','chitra.g@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+            recipients=['sangeetha.s@groupteampro.com','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
             subject=_("KBL New Cases"),
             message="""
                 Dear Sir/Madam,<br>
@@ -830,7 +358,7 @@ def submitted_bg_entry():
     else:
         frappe.sendmail(
             # recipients=['divya.p@groupteampro.com'],
-            recipients=['sangeetha.s@groupteampro.com','mohana.m@groupteampro.com','chitra.g@groupteampro.com','evasengupta@kblservices.in','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+            recipients=['sangeetha.s@groupteampro.com','hrops@kblservices.in',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
             subject=_("KBL New Cases"),
             message="""
                 Dear Sir/Madam,<br>
@@ -866,7 +394,7 @@ def insuff_consolidated_mail():
         if ind>0:
             frappe.sendmail(
                 # recipients=['giftyannie6@gmail.com'],
-                recipients=['sangeetha.s@groupteampro.com',u.name,'chitra.g@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
+                recipients=['sangeetha.s@groupteampro.com',u.name,"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],
                 subject=_("Insuff Cleared-%s"%(nowdate()) ),
                 message="""
                     Dear Sir/Madam,<br>Kindly Find the below attached List of Insuff Cleared Checks, %s<br>
@@ -900,7 +428,7 @@ def cases_with_gr_daily_report():
     formatted_date = frappe.utils.format_datetime(frappe.utils.nowdate(), "dd-MMM-yyyy")
     frappe.sendmail(
         # recipients=["giftyannie6@gmail.com"],
-        recipients=['sangeetha.s@groupteampro.com','chitra.g@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
+        recipients=['sangeetha.s@groupteampro.com',"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
         subject=_("Customer-Wise Generate Report Count - %s" % (formatted_date)),
         message="""
             Dear Sir/Madam,<br>Kindly Find the below attached Customer-Wise Generate Report Count %s<br>
@@ -1028,34 +556,7 @@ def make_xlsx_file(filename, user_name, sheet_name=None, wb=None, column_widths=
     wb.save(xlsx_file)
     return xlsx_file
 
-# def make_xlsx_file(filename, user_name, sheet_name=None, wb=None, column_widths=None):
-#     column_widths = column_widths or []
-#     if wb is None:
-#         wb = openpyxl.Workbook()
-#     ws = wb.create_sheet(sheet_name, 0)
 
-#     ws.append(["ID", "Batch", "Employee Name", "Employee Code", 'Client', 'Case ID', 'Case/Check Type',
-#                'Case/Check Status', 'Actual Age', 'Allocated To','Entry Allocated Date','Execution Allocated Date'])
-
-#     cases = frappe.get_all("Case", {"case_status": "Draft", "allocated_to": user_name},
-#                            ['*'], order_by='actual_tat DESC')
-
-#     for c in cases:
-#         ws.append([c.name, c.batch, c.case_name, c.client_employee_code, c.customer, c.name, "Case",
-#                    c.case_status, c.actual_tat, user_name,c.custom_allocation_date if c.custom_allocation_date else '',''])
-#     list = ["Education Checks","Family","Reference Check","Court","Social Media","Criminal","Employment","Identity Aadhar","Address Check"]
-#     for i in list:
-#         doc=frappe.get_all(i,{"allocated_to":user_name},['*'],order_by='actual_tat DESC')
-#         for j in doc:
-#             if j.check_status in ["Draft","Entry QC Completed","Execution Pending","Execution Initiated"]:
-#                 if i in ["Address Check","Court","Employment","Criminal","Social Media","Family"]:
-#                     ws.append([j.name, j.batch,j.name1,j.client_employee_code,j.client,j.case_id,i,j.check_status,j.actual_tat, user_name,j.custom_allocation_date if j.custom_allocation_date else '',j.custom_date_of_execution_initiated if j.custom_date_of_execution_initiated else ''])	
-#                 else:
-#                     ws.append([j.name, j.batch,j.name1,j.client_employee_code,j.customer,j.case_id,i,j.check_status,j.actual_tat, user_name,j.custom_allocation_date if j.custom_allocation_date else '',j.custom_date_of_execution_initiated if j.custom_date_of_execution_initiated else ''])
-
-#     xlsx_file = BytesIO()
-#     wb.save(xlsx_file)
-#     return xlsx_file
 
 
 @frappe.whitelist()
@@ -1077,7 +578,7 @@ def cases_with_generate_report_status():
             frappe.sendmail(
                 # recipients=[cust_mail],
                 # recipients=["giftyannie6@gmail.com"],
-                recipients=['sangeetha.s@groupteampro.com','chitra.g@groupteampro.com',c.allocated_to_batch_manager,"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
+                recipients=['sangeetha.s@groupteampro.com',c.allocated_to_batch_manager,"sangeetha.a@groupteampro.com","keerthana.b@groupteampro.com"],  
                 subject=_("Cases in Generate Report- Date: %s" % ( formatted_date)),
                 message="""
                     Dear Sir/Madam,<br>Kindly Find the below List of Cases that are in "Generate Report" Status %s<br>
@@ -1104,7 +605,7 @@ def cases_with_to_be_billed_status():
             frappe.sendmail(
                 # recipients=[cust_mail],
                 # recipients=["giftyannie6@gmail.com"],
-                recipients=['sangeetha.s@groupteampro.com','chitra.g@groupteampro.com',c.allocated_to_batch_manager,"sangeetha.a@groupteampro.com"],  
+                recipients=['sangeetha.s@groupteampro.com',c.allocated_to_batch_manager,"sangeetha.a@groupteampro.com"],  
                 subject=_("Cases in To be Billed- Date: %s" % ( formatted_date)),
                 message="""
                     Dear Sir/Madam,<br>Kindly Find the below List of Cases that are in "To be Billed" Status %s<br>
@@ -1139,241 +640,6 @@ def delete_batch_projects():
         frappe.db.sql("""delete from `tabProject` where project_type = 'BCS'""", as_dict=True)
         print(p.project_type)
 
-# Project-Task-Candidate Automated Feedback Report
-# @frappe.whitelist()
-# def task_mail_notification():
-#     data = ""
-
-#     projects = frappe.db.get_list("Project", filters={'status': 'Open', 'service': ('in', ('REC-I', 'REC-D'))}, fields=['name'])
-    
-#     customer_data = {}
-
-#     for project in projects:
-#         tasks = frappe.db.get_all('Task', filters={'project': project.name, 'status': ('in', ('Open', 'Working', 'Pending Review', 'Overdue'))}, fields=['name', 'account_manager', 'spoc'])
-        
-#         for task in tasks:
-#             candidate_task = frappe.get_doc('Task', task.name)
-#             for candidate in candidate_task.task_candidate:
-#                 if candidate.candidate_status not in ['IDB','Sourced','Proposed PSL']:
-#                     if candidate.customer not in customer_data:
-#                         customer_data[candidate.customer] = {
-#                             'account_manager': task.account_manager or "-",
-#                             'spoc': task.spoc or "-",
-#                             'candidates': []
-#                         }
-
-#                     customer_data[candidate.customer]['candidates'].append({
-#                         'candidate_id': candidate.candidate_id,
-#                         'candidate_status': candidate.candidate_status,
-#                         'given_name': candidate.given_name,
-#                         'position': candidate.position,
-#                         'passport_number': candidate.passport_number or "-",
-#                         'project': candidate.project,
-#                     })
-    
-#     for customer, info in customer_data.items():
-#         candidates = info['candidates']
-#         data += f'''
-#         <table class="table table-bordered">
-            
-#             <tr><td style="padding:1px;border: 1px solid black" colspan="2">Customer Name:</td><td style="padding:1px;border: 1px solid black" colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;{customer or '-'}</td></tr>
-#             <tr><td style="padding:1px;border: 1px solid black" colspan="2">SPOC:</td><td style="padding:1px;border: 1px solid black" colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;{info['spoc']}</td></tr>
-#             <tr><td style="padding:1px;border: 1px solid black" colspan="2">Account Manager:</td><td style="padding:1px;border: 1px solid black" colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;{info['account_manager']}</td></tr>
-#             <tr>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>ID</b></td>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>Status</b></td>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>Given Name</b></td>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>Position</b></td>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>Passport NO</b></td>
-#                 <td style="padding:1px;border: 1px white;background-color:#0f1568"><b>Project</b></td>
-#             </tr>'''
-
-#         for candidate in candidates:
-#             data += f'''
-#             <tr>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['candidate_id']}</td>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['candidate_status']}</td>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['given_name']}</td>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['position']}</td>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['passport_number']}</td>
-#                 <td style="padding:1px;border: 1px solid black">{candidate['project']}</td>
-#             </tr>'''
-
-#         data += '</table><br><br>'
-    
-    
-#     frappe.sendmail(
-#         # recipients=['sangeetha.a@groupteampro.com','lokeshkumar.a@groupteampro.com','ponkamaleshwari.i@groupteampro.com','rama.a@groupteampro.com'],
-#         # cc=['sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
-#         recipients='divya.p@groupteampro.com',
-#         subject='Candidate Feedback Pending Report',
-#         message=f"""
-#         <br>
-#          <p>As per the mail, Profile feedback pending list.</p>
-        
-        
-#           {data}<br><br>
-#         "This email has been automatically generated. PLEASE DONOT REPLY, Initiate further action and intimate your direct manager through email."
-#             <br><br>
-#             "With Best Wishes & Regards "
-#             <br><br>
-#             <span style="color:#203ed5;">
-#             "TEN – Auto Mail "
-#             </span>
-#             <br><br>
-#             <span style="color:#203ed5;">
-#                 "Disclaimers:<br>
-#                 This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error please notify the system manager. Please note that any views or opinions presented in this email are solely those of the author and do not necessarily represent those of the company. Finally, the recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email."
-#             </span>
-#         """
-#     )
-    # return data
-
-# @frappe.whitelist()
-# def task_mail_notification_status ():
-#     job = frappe.db.exists('Scheduled Job Type','task_mail_notification')
-#     if not job:
-#         task = frappe.new_doc("Scheduled Job Type")
-#         task.update({
-#             "method": 'checkpro.custom.task_mail_notification',
-#             "frequency": 'Cron',
-#             "cron_format": '00 10 * * 1'
-#         })
-#         task.save(ignore_permissions=True)
-
-# @frappe.whitelist()
-# def task_mail_notification():
-#     data = ""
-#     data += '<table class="table table-bordered"><tr><th style="padding:1px;border: 1px solid black;color:white;background-color:#0f1568" colspan=9><center>Candidate Details</center></th></tr>'
-#     data += '''
-#     <tr>
-#     <td style="padding:1px;border: 1px solid black"><b>ID</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Candidate Status</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Given Name / Surname</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Position</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Candidate Passport Number</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Project</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Customer</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>Account Manager</b></td>
-#     <td style="padding:1px;border: 1px solid black" colspan=1><b>SPOC</b></td>
-#     </tr>'''
-
-#     projects = frappe.db.get_list("Project", filters={'status': 'Open', 'service': ('in', ('REC-I', 'REC-D'))}, fields=['name'])
-
-#     for project in projects:
-#         tasks = frappe.db.get_all('Task', filters={'project': project.name, 'status': ('in', ('Open', 'Working', 'Pending Review', 'Overdue'))}, fields=['name','account_manager','spoc'])
-        
-#         for task in tasks:
-#             candidate_task = frappe.get_doc('Task', task.name,task.account_manager)
-            
-#             for candidate in candidate_task.task_candidate:
-#                 if candidate.candidate_status not in ['IDB', 'Sourced', 'Proposed PSL']:
-#                     data += '''<tr>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1 nowrap>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1 nowrap>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#                     </tr>'''.format(candidate.candidate_id, candidate.candidate_status, candidate.given_name, candidate.position, candidate.passport_number or "-", candidate.project, candidate.customer,task.account_manager or "-",task.spoc or"-")
-
-#     data += '</table>'
-#     frappe.sendmail(
-#         # recipients=['sangeetha.a@groupteampro.com','lokeshkumar.a@groupteampro.com','ponkamaleshwari.i@groupteampro.com','rama.a@groupteampro.com'],
-#         # cc=['sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
-#         recipients='siva.m@groupteampro.com',
-#         subject=('Automated Candidate Feedback Report'),
-#         message=f"""
-#                 Dear Sir/Mam,<br>
-#                 <p>As per the mail, Profile feedback pending list.</p>
-#                 %s
-#                 """ % (data)
-#         )
-#     return data
-
-# Project-Task-Candidate Automated Feedback Report Internal Report
-# @frappe.whitelist()
-# def task_mail_notification_test():
-#     data = ""
-
-#     projects = frappe.db.get_list("Project", filters={'status': 'Open', 'service': ('in', ('REC-I', 'REC-D'))}, fields=['name'])
-    
-#     customer_data = {}
-
-#     for project in projects:
-#         tasks = frappe.db.get_all('Task', filters={'project': project.name, 'status': ('in', ('Open', 'Working', 'Pending Review', 'Overdue'))}, fields=['name','account_manager','spoc'])
-        
-#         for task in tasks:
-#             candidate_task = frappe.get_doc('Task', task.name, task.account_manager)
-            
-#             for candidate in candidate_task.task_candidate:
-#                 if candidate.candidate_status not in ['IDB', 'Sourced', 'Proposed PSL']:
-#                     if candidate.customer not in customer_data:
-#                         customer_data[candidate.customer] = []
-                    
-#                     customer_data[candidate.customer].append({
-#                         'candidate_id': candidate.candidate_id,
-#                         # 'surname': candidate.surname
-#                         'project': candidate.project,
-#                         'customer':candidate.customer,
-#                         'account_manager': task.account_manager or "-",
-#                         'spoc': task.spoc or "-"
-#                     })
-    
-#     for customer, candidates in customer_data.items():
-#         data += f'<table class="table table-bordered"><tr><th style="padding:1px;border: 1px solid black;color:white;background-color:#0f1568" colspan=5><center>Candidate Details for {customer}</center></th></tr>'
-#         data += '''
-#         <tr>
-#         <td style="padding:1px;border: 1px solid black"><b>ID</b></td>
-#         <td style="padding:1px;border: 1px solid black" colspan=1><b>Project</b></td>
-#         <td style="padding:1px;border: 1px solid black" colspan=1><b>Customer</b></td>
-#         <td style="padding:1px;border: 1px solid black" colspan=1><b>Account Manager</b></td>
-#         <td style="padding:1px;border: 1px solid black" colspan=1><b>SPOC</b></td>
-#         </tr>'''
-
-#         for candidate in candidates:
-#             data += '''<tr>
-#             <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#             <td style="padding:1px;border: 1px solid black" colspan=1 nowrap>{}</td>
-#             <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#             <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#             <td style="padding:1px;border: 1px solid black" colspan=1>{}</td>
-#             </tr>'''.format(
-#                 candidate['candidate_id'],
-#                  candidate['project'], candidate['customer'],
-#                 candidate['account_manager'], candidate['spoc']
-#             )
-
-#         data += '</table><br><br>'
-
-#     frappe.sendmail(
-#         recipients=['sangeetha.a@groupteampro.com','lokeshkumar.a@groupteampro.com','ponkamaleshwari.i@groupteampro.com','rama.a@groupteampro.com'],
-#         cc=['sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
-#         #  recipients='siva.m@groupteampro.com',
-#         subject='Automated Candidate Feedback Report',
-#         message=f"""
-#             Dear Sir/Mam,<br>
-#             <p>As per the mail, Profile feedback pending list.</p>
-#             {data}
-#         """
-#     )
-#     return data
-# @frappe.whitelist()
-# def task_mail_notification_status_test():
-#     job = frappe.db.exists('Scheduled Job Type','task_mail_notification_test')
-#     if not job:
-#         all = frappe.new_doc("Scheduled Job Type")
-#         all.update({
-#             "method": 'checkpro.custom.task_mail_notification_test',
-#             "frequency": 'Cron',
-#             "cron_format": '00 10 * * 1'
-#         })
-#         all.save(ignore_permissions=True)
-
-
 @frappe.whitelist()
 def gl_report(entry_report):
     data= ""
@@ -1405,100 +671,6 @@ def gl_report(entry_report):
     data += '</table>'
     return data
 
-from datetime import timedelta
-import frappe
-# Daily Transaction Report
-# @frappe.whitelist()
-# def statement_of_account():
-#     data = ''
-    
-#     company=frappe.db.get_all('Company',{'name':('Not in',['TEAMPRO Saudi Arabia'])},['*'])
-#     for j in company:
-#         account=[]
-        
-#         if j.name=='TEAMPRO HR & IT Services Pvt. Ltd.':
-#             account=['50200054611436 - HDFC - THIS','777705160983 - ICICI Bank - THIS','Cash - THIS']
-#         elif j.name=='TEAMPRO General Trading':
-#             account=['50200050787897 - HDFC Account - TGT','Cash - TGT']
-#         elif j.name=='TEAMPRO Food Products':
-#             account=['50200059117831 - HDFC Bank - TFP','Cash - TFP']	
-
-        
-#         data += "<br><table border=1 width='100%' style='margin-left:2px;margin-right:2px;'><tr style='font-size:10px;background-color:#D3D3D3'><td width=10%><b>Posting Date</b></td><td width=10%><b style='text-align:center;'>Voucher Type</b></td><td width=10%><b style='text-align:center'>Voucher No</b></td><td width=30%><b style='text-align:center'>Account</b></td><td width=10%><b style='text-align:center'>Debit(INR)</b></td><td width=10%><b style='text-align:center'>Credit(INR)</b></td><td width=10%><b style='text-align:center'>Balance(INR)</b></td><td width=10%><b style='text-align:center'>Company</b></td></tr>"
-        
-#         for a in account:
-
-#             if a:
-#                 data += f'<tr style="font-size:10px"><td colspan =2 style="text-align:right" width=20%><b>Account</b></td></td><td colspan=6 style="text-align:right" width=80%><b>{a}</b></td></tr>'
-
-#                 today_date = frappe.utils.now_datetime().date()
-#                 yesterday_date = today_date - timedelta(days=1)
-#                 gl_entry = frappe.db.sql("""
-#                     select voucher_type, voucher_no, posting_date, sum(debit) as debit, sum(credit) as credit,account
-#                     from `tabGL Entry` 
-#                     where account=%s and posting_date between %s and %s and is_cancelled = 0 and Company=%s 
-#                     order by posting_date
-#                 """, (a, today_date, today_date,j.name), as_dict=True)
-
-#                 gle = frappe.db.sql("""
-#                     select sum(debit) as opening_debit, sum(credit) as opening_credit 
-#                     from `tabGL Entry` 
-#                     where account=%s and (posting_date < %s or (ifnull(is_opening, 'No') = 'Yes' and posting_date >= %s)) 
-#                     and is_cancelled = 0  and Company=%s
-#                 """, (a, today_date, today_date,j.name), as_dict=True)
-
-#                 opening_balance = 0
-#                 t_p_debit = 0
-#                 t_p_credit = 0
-                
-#                 for g in gle:
-#                     opening_balance = (g.opening_debit or 0) - (g.opening_credit or 0)
-#                     if not g.opening_debit:
-#                         g.opening_debit = 0
-#                     if not g.opening_credit:
-#                         g.opening_credit = 0
-#                     t_p_debit += g.opening_debit
-#                     t_p_credit += g.opening_credit
-#                     opening_balance = t_p_debit - t_p_credit
-                
-#                 data += f'<tr style="font-size:10px"><td colspan =6 style="text-align:right" width=90%><b>Opening Balance</b></td></td><td style="text-align:right" width=10%><b>{round(opening_balance,2)}</b></td></tr>'
-                
-#                 balance = opening_balance
-                
-#                 for i in gl_entry:
-#                     posting_date = i.posting_date.strftime("%d-%m-%Y") if i.posting_date else "-"
-#                     balance += (i.debit or 0) - (i.credit or 0)
-#                     data += f'<tr style="font-size:10px"><td width=10% nowrap>{posting_date}</td><td width=10%>{i.voucher_type or " "}</td><td width=10%>{i.voucher_no or "-"}</td><td width=30%>{i.against or " "}</td><td width=10% style="text-align:right">{round(i.debit,2) or "-"}</td><td width=10% style="text-align:right">{round(i.credit,2) or "-"}</td><td style="text-align:right" width=10%>{round(balance,2)}</td><td style="text-align:left" width=10%>{j.name}</td></tr>'
-                
-#                 total_debit = sum(i.get('debit', 0) or 0 for i in gl_entry)
-#                 total_credit = sum(i.get('credit', 0) or 0 for i in gl_entry)
-#                 total_balance = balance
-                
-#                 data += f'<tr style="font-size:10px"><td colspan=4 style="text-align:right"><b>Total</b></td><td style="text-align:right"><b>{round(total_debit,2)}</b></td><td style="text-align:right"><b>{round(total_credit,2)}</b></td><td style="text-align:right"><b></b></td></tr>'
-#                 data += f'<tr style="font-size:10px"><td colspan =6 style="text-align:right" width=90%><b>Closing Balance</b></td></td><td style="text-align:right" width=10%><b>{round(total_balance,2)}</b></td></tr>'
-            
-#         data += '</table><br><br>'
-#     frappe.sendmail(
-#         recipients=['dineshbabu.k@groupteampro.com'],
-#         cc=['sangeetha.a@groupteampro.com','sangeetha.s@groupteampro.com','accounts@groupteampro.com'],
-#         subject=('Daily Transaction Report'),
-#         message=f"""
-#                 Dear Sir/Mam,<br>
-#                 <p>Please find the enclosed details for your reference. Kindly check the Daily Transaction Report</p>
-#                 %s
-#                 """ % (data)
-#         )
-#     return data
-# def daily_transaction_mail_trigger():
-#     job = frappe.db.exists('Scheduled Job Type', 'statement_of_account')
-#     if not job:
-#         var = frappe.new_doc("Scheduled Job Type")
-#         var.update({
-#             "method": 'checkpro.custom.statement_of_account',
-#             "frequency": 'Cron',
-#             "cron_format": '30 18 * * *'
-#         })
-#         var.save(ignore_permissions=True)
 
 # Daily Transaction Report For New Correction
 @frappe.whitelist()
@@ -1650,67 +822,6 @@ def statement_of_account_test_1():
     )
 
 
-# from datetime import timedelta
-# import frappe
-
-# @frappe.whitelist()
-# def statement_of_account_1(entry_report):
-#     data = ''
-    
-#     data += "<table border='1px solid black' width='100%' style='margin-left:2px;margin-right:2px;'><tr style='font-size:10px;background-color:#D3D3D3'><td width=10%><b>Posting Date</b></td><td width=10%><b style='text-align:center;'>Voucher Type</b></td><td width=10%><b style='text-align:center'>Voucher No</b></td><td width=30%><b style='text-align:center'>Account</b></td><td width=10%><b style='text-align:center'>Debit(INR)</b></td><td width=10%><b style='text-align:center'>Credit(INR)</b></td><td width=10%><b style='text-align:center'>Balance(INR)</b></td><td width=10%><b style='text-align:center'>Company</b></td></tr>"
-#     if entry_report:
-#         today_date = frappe.utils.now_datetime().date()
-#         yesterday_date = today_date - timedelta(days=1)
-#         gl_entry = frappe.db.sql("""
-#             select voucher_type, voucher_no, posting_date, sum(debit) as debit, sum(credit) as credit, account, company 
-#             from `tabGL Entry` 
-#             where account=%s and posting_date between %s and %s and is_cancelled = 0
-#             order by posting_date
-#         """, (entry_report, today_date, today_date), as_dict=True)
-
-#         gle = frappe.db.sql("""
-#             select sum(debit) as opening_debit, sum(credit) as opening_credit 
-#             from `tabGL Entry` 
-#             where account=%s and (posting_date < %s or (ifnull(is_opening, 'No') = 'Yes' and posting_date >= %s)) 
-#             and is_cancelled = 0
-#         """, (entry_report, today_date, today_date), as_dict=True)
-
-#         opening_balance = 0
-#         t_p_debit = 0
-#         t_p_credit = 0
-        
-#         for g in gle:
-#             opening_balance = (g.opening_debit or 0) - (g.opening_credit or 0)
-#             if not g.opening_debit:
-#                 g.opening_debit = 0
-#             if not g.opening_credit:
-#                 g.opening_credit = 0
-#             t_p_debit += g.opening_debit
-#             t_p_credit += g.opening_credit
-#             opening_balance = t_p_debit - t_p_credit
-        
-#         data += f'<tr style="font-size:10px"><td colspan =6 style="text-align:right" width=90%><b>Opening Balance</b></td></td><td style="text-align:right" width=10%><b>{opening_balance}</b></td></tr>'
-        
-#         balance = opening_balance
-        
-#         for i in gl_entry:
-#             posting_date = i.posting_date.strftime("%d-%m-%Y") if i.posting_date else "-"
-#             balance += (i.debit or 0) - (i.credit or 0)
-#             data += f'<tr style="font-size:10px"><td width=10% nowrap>{posting_date}</td><td width=10%>{i.voucher_type}</td><td width=10%>{i.voucher_no}</td><td width=30%>{i.account}</td><td width=10% style="text-align:right">{i.debit or "-"}</td><td width=10% style="text-align:right">{i.credit or "-"}</td><td style="text-align:right" width=10%>{balance}</td><td style="text-align:right" width=10%>{i.company}</td></tr>'
-        
-#         total_debit = sum(i.get('debit', 0) or 0 for i in gl_entry)
-#         total_credit = sum(i.get('credit', 0) or 0 for i in gl_entry)
-#         total_balance = balance
-        
-#         data += f'<tr style="font-size:10px"><td colspan=4 style="text-align:right"><b>Total</b></td><td style="text-align:right"><b>{total_debit}</b></td><td style="text-align:right"><b>{total_credit}</b></td><td style="text-align:right"><b></b></td></tr>'
-#         data += f'<tr style="font-size:10px"><td colspan =6 style="text-align:right" width=90%><b>Closing Balance</b></td></td><td style="text-align:right" width=10%><b>{total_balance}</b></td></tr>'
-        
-#     data += '</table>'
-#     return data
-
-
-
-
 # #Sales Order Follow Up New Correction
 
 from frappe.utils import date_diff
@@ -1801,7 +912,7 @@ def sales_order_follow_up():
 
     frappe.sendmail(
         # recipients=["siva.m@groupteampro.com","accounts@groupteampro.com"],
-        recipients=['chitra.g@groupteampro.com', 'sangeetha.a@groupteampro.com'],
+        recipients=['sangeetha.a@groupteampro.com'],
         cc=['dineshbabu.k@groupteampro.com', 'accounts@groupteampro.com', 'sangeetha.s@groupteampro.com'],
         subject='Sales Invoice Follow Up-Sales Order Outstanding',
         message="""
@@ -1903,7 +1014,7 @@ def sales_order_follow_up():
     frappe.sendmail(
         # recipients=["siva.m@groupteampro.com","accounts@groupteampro.com"],
         recipients=['dineshbabu.k@groupteampro.com'],
-        cc=['anil.p@groupteampro.com', 'sangeetha.s@groupteampro.com', 'accounts@groupteampro.com'],
+        cc=[ 'sangeetha.s@groupteampro.com', 'accounts@groupteampro.com'],
         subject='Sales Invoice Follow Up-Sales Order Outstanding',
         message="""
         Dear Sir,<br>
@@ -1977,71 +1088,6 @@ def sales_order_follow_up():
             </span>
         """.format(additional_table, tgt)
     )
-
-
-
-# @frappe.whitelist()
-# def sales_order_follow_up():
-#     sales_orders = frappe.get_list(
-#         "Sales Order",
-#         filters={"status": ["not in", ["Hold", "To Deliver", "Closed", "Cancelled", "Completed"]]},
-#         fields=["name", "account_manager", "service", "status", "customer", "company", "transaction_date", "grand_total", "per_billed", "advance_paid"]
-#     )
-
-#     # Generate table for Thai Summit
-#     thai_summit = ''
-#     thai_summit += '<table border=1><tr style="text-align: center"><td style="background-color:#063970;color:white">ID</td><td style="background-color:#063970;color:white">Account Manager</td><td style="background-color:#063970;color:white">Service</td><td style="background-color:#063970;color:white">Status</td><td style="background-color:#063970;color:white">Customer Name</td><td style="background-color:#063970;color:white">Company</td><td style="background-color:#063970;color:white">Date</td><td style="background-color:#063970;color:white">Grand Total</td><td style="background-color:#063970;color:white">% Amount Billed</td><td style="background-color:#063970;color:white">Advance Paid</td><td style="background-color:#063970;color:white">To Be Billed</td></tr>'
-
-#     total_amount_thai_summit = 0
-#     for order in sales_orders:
-#         if order.service == 'TFP' and order.customer == 'THAI SUMMIT AUTOPARTS INDIA PRIVATE LIMITED':
-#             to_be_billed = order.grand_total - (order.advance_paid + ((order.per_billed / 100) * order.grand_total))
-#             total_amount_thai_summit += to_be_billed
-#             thai_summit += '<tr style="font-size:14px"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td style="text-align:left;">{}</td><td style="text-align:right;">{}</td><td>{}</td><td style="text-align:right;">{}</td><td>{}</td><td style="text-align:right;">{}</td></tr>'.format(
-#                 order.name, order.account_manager, order.service, order.status, order.customer, order.company, order.transaction_date, order.grand_total, order.per_billed, order.advance_paid, to_be_billed)
-
-#     thai_summit += '<tr><td></td><td></td><td style="text-align:center;" colspan=3>Total</td><td></td><td style="text-align:right;">{}</td><td></td><td></td><td></td></tr>'.format(total_amount_thai_summit)
-#     thai_summit += '</table>'
-
-#     frappe.sendmail(
-#         recipients='siva.m@groupteampro.com',
-#         subject='Sales Order Follow Up - Thai Summit',
-#         message="""
-#         Dear Sir/Mam,<br>
-#         {}
-#         <br>
-#         Thanks & Regards<br>TEAMPRO<br>
-#         """.format(thai_summit)
-#     )
-
-#     # Generate table for other customers
-#     tfp = ''
-#     tfp += '<table border=1><tr style="text-align: center"><td style="background-color:#063970;color:white">ID</td><td style="background-color:#063970;color:white">Account Manager</td><td style="background-color:#063970;color:white">Service</td><td style="background-color:#063970;color:white">Status</td><td style="background-color:#063970;color:white">Customer Name</td><td style="background-color:#063970;color:white">Company</td><td style="background-color:#063970;color:white">Date</td><td style="background-color:#063970;color:white">Grand Total</td><td style="background-color:#063970;color:white">% Amount Billed</td><td style="background-color:#063970;color:white">Advance Paid</td><td style="background-color:#063970;color:white">To Be Billed</td></tr>'
-
-#     total_amount_others = 0
-#     for order in sales_orders:
-#         if order.service == 'TFP' and order.customer != 'THAI SUMMIT AUTOPARTS INDIA PRIVATE LIMITED':
-#             to_be_billed = order.grand_total - (order.advance_paid + ((order.per_billed / 100) * order.grand_total))
-#             total_amount_others += to_be_billed
-#             tfp += '<tr style="font-size:14px"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td style="text-align:left;">{}</td><td style="text-align:right;">{}</td><td>{}</td><td style="text-align:right;">{}</td><td>{}</td><td style="text-align:right;">{}</td></tr>'.format(
-#                 order.name, order.account_manager, order.service, order.status, order.customer, order.company, order.transaction_date, order.grand_total, order.per_billed, order.advance_paid, to_be_billed)
-
-#     tfp += '<tr><td></td><td></td><td style="text-align:center;" colspan=3>Total</td><td></td><td style="text-align:right;">{}</td><td></td><td></td><td></td></tr>'.format(total_amount_others)
-#     tfp += '</table>'
-
-#     frappe.sendmail(
-#         recipients='siva.m@groupteampro.com',
-#         subject='Sales Order Follow Up - Other Customers',
-#         message="""
-#         Dear Sir/Mam,<br>
-#         {}
-#         <br>
-#         Thanks & Regards<br>TEAMPRO<br>
-#         """.format(tfp)
-#     )
-
-
-
 
 # Overall Service Report With Excel Sheet Attachment
 
@@ -2156,7 +1202,7 @@ def sales_order_follow_up_test():
         frappe.sendmail(
             # recipients='siva.m@groupteampro.com',
            recipients='dineshbabu.k@groupteampro.com',
-            cc=["accounts@groupteampro.com","sangeetha.s@groupteampro.com","sangeetha.a@groupteampro.com","annie.m@groupteampro.com","amirtham.g@groupteampro.com","anil.p@groupteampro.com"],
+            cc=["accounts@groupteampro.com","sangeetha.s@groupteampro.com","sangeetha.a@groupteampro.com","annie.m@groupteampro.com","amirtham.g@groupteampro.com"],
             subject='Sales Invoice Follow Up-Sales Order Outstanding',
             message="""
             <br>
@@ -2294,7 +1340,7 @@ def sales_invoice_follow_up_test():
         attachments = [{"fname": filename, "fcontent": file_content}]
         frappe.sendmail(
             recipients='dineshbabu.k@groupteampro.com',
-            cc=["accounts@groupteampro.com","sangeetha.s@groupteampro.com","sangeetha.a@groupteampro.com","annie.m@groupteampro.com","amirtham.g@groupteampro.com","anil.p@groupteampro.com"],
+            cc=["accounts@groupteampro.com","sangeetha.s@groupteampro.com","sangeetha.a@groupteampro.com","annie.m@groupteampro.com","amirtham.g@groupteampro.com"],
             subject='Collection Follow Up-Sales Invoice Report',
             message="""
             <br>
@@ -2316,201 +1362,12 @@ def sales_invoice_follow_up_test():
 
 
 
-# def test_case_del():
-#     filename='120ab20e63d47ab9ec4dcaseidlist.csv'
-#     from frappe.utils.file_manager import get_file
-#     filepath = get_file(filename)
-#     pps = read_csv_content(filepath[1])
-#     ind=0
-#     for pp in pps:
-#         ind+=1
-#         # print(pp[0])
-#         # case_ids = frappe.get_all("Case",{"name":"pp.name"},["name"])
-#         # print(case_ids)
-#         # for case in case_ids:
-#         #     print("helo")
-#         list = ["Education Checks", "Family", "Reference Check", "Court","Social Media", "Criminal", "Employment", "Identity Aadhar", "Address Check"]
-#         for i in list:
-#             if i == "Education Checks" and pp and pp[0]:
-#                 # frappe.db.sql("""DELETE FROM `tabCase` WHERE name= '%s' """%(pp[0]))
-#                 frappe.db.sql("""DELETE FROM `tabEducation Checks` WHERE case_id= '%s' """%(pp[0]))
-#             if i == "Family" and pp and pp[0]:
-#                 # print(i)
-#                 # print(pp[0])
-#                 frappe.db.sql("""DELETE FROM `tabFamily` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Reference Check" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabReference Check` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Court" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabCourt` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Social Media" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabSocial Media` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Criminal" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabCriminal` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Employment" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabEmployment` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Identity Aadhar" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabIdentity Aadhar` WHERE case_id= '%s' """%(pp[0]))
-#             elif i == "Address Check" and pp and pp[0]:
-#                 frappe.db.sql("""DELETE FROM `tabAddress Check` WHERE case_id= '%s' """%(pp[0]))
-
-        
-
 import frappe
 from frappe.utils import nowdate, today
 import openpyxl
 from io import BytesIO
 from frappe.utils.pdf import get_pdf
-# candidate automated mail trigger
-# @frappe.whitelist()
-# def candidate_excel_format():
-#     next_date=today()
-#     next_dates=datetime.strptime(next_date, '%Y-%m-%d')
-#     formatted_next_date=next_dates.strftime('%Y-%m-%d')
-#     filename = "Candidate_Details_" + today() + ".xlsx"
-#     pdffilename = "Candidate_Details_" + today() + ".pdf"
-#     candidates = frappe.get_all(
-#         "Candidate",
-#         filters={'submitted_date': formatted_next_date},
-#         fields=["candidate_created_by"],
-#         group_by='candidate_created_by'
-#     )
 
-#     for user in candidates:
-#         user_id = user.candidate_created_by
-#         xlsx_file = make_xlsx(filename, user_id)
-#         pdf_content = make_pdf(pdffilename, user_id)
-#         candidate_status_mail(filename, xlsx_file.getvalue(), pdffilename, pdf_content, user_id)
-
-# def candidate_status_mail(filename, file_content, pdffilename, pdf_content, user_id):
-#     next_date=today()
-#     next_dates=datetime.strptime(next_date, '%Y-%m-%d')
-#     formatted_next_date=next_dates.strftime('%Y-%m-%d')
-#     data = """<table class='table table-bordered' style='border-collapse: collapse; width: 100%;'>
-#     <tr style='border: 1px solid black; background-color: #0f1568; color: white;'>
-#     <th>S No</th><th>Candidate ID</th><th>Passport Number</th><th>Name</th><th>Project</th><th>Task</th><th>Status</th></tr>"""
-
-#     s_no = 0
-#     candidates = frappe.get_all(
-#         "Candidate",
-#         filters={'submitted_date': formatted_next_date, 'candidate_created_by': user_id,'pending_for':'Submitted(Internal)'},
-#         fields=["name", "passport_number", "given_name", "project_name", "task", "pending_for"]
-#     )
-
-#     for candidate in candidates:
-#         s_no += 1
-#         data += f"""<tr style='border: 1px solid black;'>
-#         <td>{s_no}</td><td>{candidate.name or '-'}</td><td>{candidate.passport_number or '-'}</td>
-#         <td>{candidate.given_name or '-'}</td><td>{candidate.project_name or '-'}</td>
-#         <td>{candidate.task or '-'}</td><td>{candidate.pending_for or '-'}</td></tr>"""
-
-#     data += "</table>"
-#     subject = f"Candidates Submitted - {nowdate()}"
-#     message = f"""
-#     Dear Sir/Madam,<br><br>
-#     Kindly find the below list of candidates you submitted today:<br><br>{data if data else ''}<br><br>
-#     Thanks & Regards,<br>TEAM ERP<br>
-#     <i>This email has been automatically generated. Please do not reply</i>
-#     """
-
-#     frappe.sendmail(
-#         # recipients=[user_id],
-#         recipients=["divya.p@groupteampro.com"],
-#         subject=subject,
-#         message=message,
-#         attachments=[
-#             {"fname": filename, "fcontent": file_content},
-#             {"fname": pdffilename, "fcontent": pdf_content}
-#         ]
-#     )
-
-# def make_xlsx(filename, user_id):
-#     wb = openpyxl.Workbook()
-#     ws = wb.active
-#     ws.title = 'Candidates'
-#     next_date=today()
-#     next_dates=datetime.strptime(next_date, '%Y-%m-%d')
-#     formatted_next_date=next_dates.strftime('%Y-%m-%d')
-#     # Add headers to the sheet
-#     headers = ["S No", "Candidate ID", "Passport Number", "Name", "Project", "Task", "Status"]
-#     ws.append(headers)
-
-#     s_no = 0
-#     candidates = frappe.get_all(
-#         "Candidate",
-#         filters={'submitted_date': formatted_next_date, 'candidate_created_by': user_id,'pending_for':'Submitted(Internal)'},
-#         fields=["name", "passport_number", "given_name", "project_name", "task", "pending_for"]
-#     )
-
-#     for candidate in candidates:
-#         s_no += 1
-#         ws.append([
-#             s_no, candidate.name or '-', candidate.passport_number or '-',
-#             candidate.given_name or '-', candidate.project_name or '-',
-#             candidate.task or '-', candidate.status or '-'
-#         ])
-
-#     # Save the workbook to a BytesIO object and return it
-#     xlsx_file = BytesIO()
-#     wb.save(xlsx_file)
-#     xlsx_file.seek(0)
-#     return xlsx_file
-
-# def make_pdf(pdffilename, user_id):
-#     html = """
-#     <html>
-#     <head>
-#     <style>
-#     table { width: 100%; border-collapse: collapse; }
-#     table, th, td { border: 1px solid black; }
-#     th, td { padding: 5px; text-align: left; }
-#     th { background-color: #0f1568; color: white; }
-#     </style>
-#     </head>
-#     <body>
-#     <h2>Candidate Details</h2>
-#     <table>
-#     <tr>
-#         <th>S No</th>
-#         <th>Candidate ID</th>
-#         <th>Passport Number</th>
-#         <th>Name</th>
-#         <th>Project</th>
-#         <th>Task</th>
-#         <th>Status</th>
-#     </tr>
-#     """
-#     next_date=today()
-#     next_dates=datetime.strptime(next_date, '%Y-%m-%d')
-#     formatted_next_date=next_dates.strftime('%Y-%m-%d')
-#     candidates = frappe.get_all(
-#         "Candidate",
-#         filters={'submitted_date': formatted_next_date, 'candidate_created_by': user_id,'pending_for':'Submitted(Internal)'},
-#         fields=["name", "passport_number", "given_name", "project_name", "task", "pending_for"]
-#     )
-
-#     s_no = 0
-#     for candidate in candidates:
-#         s_no += 1
-#         html += f"""
-#         <tr>
-#             <td>{s_no}</td>
-#             <td>{candidate.name or '-'}</td>
-#             <td>{candidate.passport_number or '-'}</td>
-#             <td>{candidate.given_name or '-'}</td>
-#             <td>{candidate.project_name or '-'}</td>
-#             <td>{candidate.task or '-'}</td>
-#             <td>{candidate.pending_for or '-'}</td>
-#         </tr>
-#         """
-
-#     html += """
-#     </table>
-#     </body>
-#     </html>
-#     """
-
-#     pdf_content = get_pdf(html)
-#     return pdf_content
 @frappe.whitelist()
 def candidate_excel_format():
     next_date=today()
@@ -2549,7 +1406,7 @@ def candidate_status_mail_test(filename, file_content, pdffilename, pdf_content,
         AND cs.status = %s
         AND DATE(cs.sourced_date) = %s
         """,
-        (user_id, "Submitted(Internal)", formatted_next_date),
+        (user_id, "Pending QC", formatted_next_date),
         as_dict=True
     )
 
@@ -2728,7 +1585,7 @@ def make_pdf_candidate(pdffilename, user_id):
         AND cs.status = %s
         AND DATE(cs.sourced_date) = %s
         """,
-        (user_id, "Submitted(Internal)", formatted_next_date),
+        (user_id, "Pending QC", formatted_next_date),
         as_dict=True
     )
 
@@ -2820,7 +1677,7 @@ def get_data_grouped_by_position_candidate(user_id):
         AND cs.status = %s
         AND DATE(cs.sourced_date) = %s
         """,
-        (user_id, "Submitted(Internal)", formatted_next_date),
+        (user_id, "Pending QC", formatted_next_date),
         as_dict=True
     )
 
@@ -2849,96 +1706,6 @@ def get_data_grouped_by_position_candidate(user_id):
 import frappe
 from datetime import datetime
 from collections import defaultdict
-
-# @frappe.whitelist()
-# def dpr_mail():
-#     current_date = datetime.now().strftime("%d-%m-%Y")
-    
-    
-#     table_style = 'style="width: 100%; border-collapse: collapse;"'
-#     th_style = 'style="background-color:#063970; color:white; text-align:center; padding: 5px;"'
-#     td_style = 'style="text-align:center; padding: 5px;"'
-    
-    
-#     dpr_data_template = '''
-#     <table {0} border="1">
-#         <thead>
-#             <tr>
-#                 <th {1} colspan="12">DPR - {2}</th>
-#             </tr>
-#             <tr>
-#                 <th {1}>S.NO</th>
-#                 <th {1}>Task ID</th>
-#                 <th {1}>Project Name</th>
-#                 <th {1}>Subject</th>
-#                 <th {1}>CB</th>
-#                 <th {1}>Priority</th>
-#                 <th {1}>Status</th>
-#                 <th {1}>Revisions</th>
-#                 <th {1}>AT</th>
-#                 <th {1}>ET</th>
-#                 <th {1}>RT</th>
-#                 <th {1}>Allocated On</th>
-#             </tr>
-#         </thead>
-#         <tbody>
-#     '''.format(table_style, th_style, current_date)
-
-#     employees = frappe.db.get_all("Employee", filters={'status': 'Active', 'department': 'ITS - THIS'}, fields=['*'])
-#     for emp in employees:
-#         dpr_data = dpr_data_template
-#         tasks = frappe.db.get_all("Task", filters={'status': 'Working', 'service': 'IT-SW'}, 
-#                                   fields=["name", "project_name", "subject", "cb", "priority", "status", "revisions", "actual_time", "expected_time", "rt", "custom_allocated_on"])
-        
-#         tasks_sorted = sorted(tasks, key=lambda x: (x.get('cb', ''), x.get('project_name', ''), x.get('priority', '')))
-        
-#         for idx, task in enumerate(tasks_sorted, start=1):
-#             actual_time = task.get('actual_time', 0)
-#             rounded_actual_time = round(actual_time, 2) if actual_time else 0
-#             custom_allocated_on = task.get('custom_allocated_on')
-#             formatted_allocated_on = datetime.strftime(custom_allocated_on, '%d-%m-%Y') if custom_allocated_on else '-'
-#             dpr_data += '''
-#                 <tr>
-#                     <td {0}>{1}</td>
-#                     <td {0}>{2}</td>
-#                     <td {0}>{3}</td>
-#                     <td {0}>{4}</td>
-#                     <td {0}>{5}</td>
-#                     <td {0}>{6}</td>
-#                     <td {0}>{7}</td>
-#                     <td {0}>{8}</td>
-#                     <td {0}>{9}</td>
-#                     <td {0}>{10}</td>
-#                     <td {0}>{11}</td>
-#                     <td {0}>{12}</td>
-#                 </tr>
-#             '''.format(td_style, idx, task.get('name', ''), task.get('project_name', ''), task.get('subject', ''), task.get('cb', ''), 
-#                        task.get('priority', ''), task.get('status', ''), task.get('revisions', ''), rounded_actual_time, 
-#                        task.get('expected_time', ''), task.get('rt', ''), formatted_allocated_on)
-        
-#         dpr_data += '''
-#                 </tbody>
-#             </table>
-#             <br><br>
-#         '''
-
-#         frappe.sendmail(
-#             recipients=[emp.user_id],
-#             subject='DPR Report - {}'.format(current_date),
-#             message=dpr_data
-#         )
-
-# @frappe.whitelist()
-# def create_mail_for_dpr():
-#     job = frappe.db.exists('Scheduled Job Type', 'dpr_mail')
-#     if not job:
-#         sjt = frappe.new_doc("Scheduled Job Type")
-#         sjt.update({
-#             "method": 'checkpro.custom.dpr_mail',
-#             "frequency": 'Cron',
-#             "cron_format": "0 1 * * * "
-#         })
-#         sjt.save(ignore_permissions=True) 
 
 @frappe.whitelist()
 def task_mail():
@@ -3117,7 +1884,7 @@ def task_mail():
     '''
     
     frappe.sendmail(
-            recipients=['siva.m@groupteampro.com','abdulla.pi@groupteampro.com','dineshbabu.k@groupteampro.com','anil.p@groupteampro.com'],
+            recipients=['siva.m@groupteampro.com','abdulla.pi@groupteampro.com','dineshbabu.k@groupteampro.com'],
             subject='Task-Issue-Meeting - {}'.format(current_date),
             message=combined_data
         )
@@ -3152,26 +1919,7 @@ def rename_case(doc, method):
     frappe.rename_doc("Case", doc.name, case_id, force=1)
 
 
-@frappe.whitelist()
-def total_wh_appointment(in_time, name):
-    current_datetime_str = frappe.utils.now_datetime().strftime('%Y-%m-%d %H:%M:%S')
-    wh = total_appointment(current_datetime_str, in_time)
-    
-    data_list = [{'wh': wh, 'current_datetime_str': current_datetime_str}]
-    
-    return data_list
 
-def total_appointment(out_time_str, in_time_str):
-    out_time = datetime.strptime(out_time_str, '%Y-%m-%d %H:%M:%S')
-    in_time = datetime.strptime(in_time_str, '%Y-%m-%d %H:%M:%S')
-    time_difference = out_time - in_time
-    
-    hours = int(time_difference.total_seconds() // 3600)
-    minutes = int((time_difference.total_seconds() % 3600) // 60)
-    seconds = int(time_difference.total_seconds() % 60)
-    formatted_time = f"{hours:02}:{minutes:02}:{seconds:02}"
-    
-    return formatted_time
 
 @frappe.whitelist()
 def total_wh_hrs(in_time, out_time):
@@ -3187,48 +1935,6 @@ def time_diff_in_hours(out_time_str, in_time_str):
     hours = time_difference.total_seconds() / 3600
     return round(hours, 2)
 
-
-@frappe.whitelist()
-def closure_mail_issue(subject,id,live,created_by,priority,assigned=None,project=None,action_taken=None,proof=None,domain=None):
-    project_spoc=''
-    reports_to=''
-    report=''
-    if project:
-        project_spoc=frappe.db.get_value("Project",{'name':project},['spoc'])
-        reports_to_mail=frappe.db.get_value("Employee",{'user_id':project_spoc},['reports_to'])
-        reports_to=frappe.db.get_value("Employee",{'name':reports_to_mail},['user_id'])
-    if assigned:
-        report_mail=frappe.db.get_value("Employee",{'user_id':assigned},['reports_to'])
-        report=frappe.db.get_value("Employee",{'name':report_mail},['user_id'])
-    data = ''
-    data += f"<table width='100%' style='border-collapse: collapse; border: 1px solid black; text-align: center;'>\
-    <tr><td colspan='2' style='text-align: center; background-color: #0f1568;color: white; font-size: 17px; border: 1px solid black;'><b>Issue Closure Review</b></td></tr>\
-    <tr style='text-align: left;'><td width='25%'style='border: 1px solid black;'><b>Issue ID</b></td><td style='border: 1px solid black;'>{id}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Issue Statement</b></td><td style='border: 1px solid black;'>{subject}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Issue Raised By</b></td><td style='border: 1px solid black;'>{created_by}</td></tr>\
-    <tr style='text-align: left;'><td width='25%'style='border: 1px solid black;'><b>Project</b></td><td style='border: 1px solid black;'>{project}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Priority</b></td><td style='border: 1px solid black;'>{priority}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Action Taken</b></td><td style='border: 1px solid black;'>{action_taken}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Live At</b></td><td style='border: 1px solid black;'>{live}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Domain</b></td><td style='border: 1px solid black;'>{domain}</td></tr>\
-    <tr style='text-align: left;'><td style='border: 1px solid black;'><b>Proof</b></td><td style='border: 1px solid black;'><a href='https://erp.teamproit.com/{proof}' target='_blank'>Link to Proof</a></td></tr></table>"
-
-
-    frappe.sendmail(
-        sender=assigned,
-        # recipients='divya.p@groupteampro.com',  
-        recipients=project_spoc,
-        cc=[reports_to,report,assigned],
-        subject='Issue : %s Closure Review Document' % id,
-        message = """
-        <b>Dear Patron,<br><br>Greeting !!!</b><br><br>
-           The attached Issue has been completed by Development and forwarded for your kind review, please confirm if it satisfies all your requirement and Mark the Issue Status as Client Review / Completed or if you feel it is still pending for some action please change the status as “OPEN”<br><br>
-        {}<br><br>
-        Thanks & Regards,<br>TEAM ERP<br>
-        
-        <i>This email has been automatically generated. Please do not reply</i>
-        """.format(data)
-    )
     
 
 @frappe.whitelist()
@@ -3277,102 +1983,6 @@ def task_mail_notification():
             </span>
         """
     )
-
-# @frappe.whitelist()
-# def update_case_st():
-    # frappe.db.sql("""update `tabEmployment` set check_status = 'Draft' where name = 'Employment-3741'""")
-    # frappe.db.sql("""update `tabEmployment` set workflow_state = 'Draft' where name = 'Employment-3741'""")
-    # frappe.db.sql("""update `tabEmployment` set report_status = 'YTS' where name = 'Employment-3741'""")
-    # frappe.db.sql("""update `tabEmployment` set na = 1 where name = 'Employment-3741'""")
-    # frappe.db.sql("""update `tabCase` set case_status = 'Case Completed' where name = 'KBL-180724-14306-00002'""")
-    # frappe.db.sql("""update `tabCase` set dropped = 0 where name = 'CS-013494'""")
-    # frappe.db.sql("""update `tabCase` set reason_of_drop = '' where name = 'CS-013494'""")
-    # frappe.db.set_value("Case",{"name":"CYM-020924-14756-00001"},"case_status","SO Created")
-
-
-@frappe.whitelist()
-def update_case_so_sta():
-    cases=frappe.get_all("Case",{'case_status':'SO Created','check_package':('in',['CP_TMPL_3659'])},['*'])
-    i=0
-    for c in cases:
-        i+=1
-        # print(c.name)
-        frappe.db.sql("""update `tabCase` set case_status = 'To be Billed' where name = %s""",c.name)
-    print(i)
-
-@frappe.whitelist()
-def create_appointment_from_sfu_lead(lead):
-    data = frappe.db.get_value("Lead", {"name":lead}, ["email_id", "mobile_no"])
-    return data
-@frappe.whitelist()
-def create_appointment_from_sfu_customer(customer):
-    contact_name = frappe.db.get_value("Dynamic Link", {
-        "link_doctype": "Customer",
-        "link_name": customer,
-        "parenttype": "Contact"
-    }, "parent")
-    if contact_name:
-        email, mobile_no = frappe.db.get_value("Contact", contact_name, ["email_id", "mobile_no"])
-        return {
-            "email": email,
-            "mobile_no": mobile_no
-        }
-    else:
-        return {
-            "email": None,
-            "mobile_no": None
-        }
-        
-@frappe.whitelist()
-def update_appointment_in_sfu(name, customer_name):
-    app = frappe.get_doc("Appointment", name)
-    sfu = frappe.get_doc("Sales Follow Up", {"organization_name":customer_name})
-    sfu.appointment = name
-    sfu.appointment_status = app.status
-    sfu.sheduled_time = app.scheduled_time
-    sfu.appointment_with = app.appointment_with
-    sfu.name1 = app.customer_name
-    sfu.party = app.party
-    sfu.phone_no = app.customer_phone_number
-    sfu.details = app.customer_details
-    sfu.skype_id = app.customer_skype
-    sfu.email = app.customer_email
-    sfu.calendar_event = app.calendar_event
-    sfu.appointment_remarks = app.custom_remarks
-    sfu.save()
-    
-
-
-
-@frappe.whitelist()
-def create_exp_claim(doc, name):
-    employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, ['name'])
-    approval_status = 'Draft'
-    return employee, approval_status
-
-@frappe.whitelist()
-def retrieve_expenses(app):
-    km = frappe.get_value("Appointment", {'name': app}, ['custom_distance'])
-    km = int(km)
-    a = 0
-    return km, a
-
-
-@frappe.whitelist()
-def validate_expense(app):
-    frappe.set_value("Appointment", app, "custom_expense_claimed", 1)
-
-# @frappe.whitelist()
-# def update_st_test():
-    # frappe.db.set_value("Social Media",{"name":"Social Media-240"},"check_status","Draft")
-    # frappe.db.set_value("Education Checks",{"name":"Education Checks-20662"},"dropped_date","")
-    # frappe.db.set_value("Criminal",{"name":"Criminal-2092"},"check_status","Report Completed")
-    # frappe.db.set_value("Criminal",{"name":"Criminal-2092"},"workflow_state","Report Completed")
-    # frappe.db.set_value("Education Checks",{"name":"Education Checks-20988"},"report_status","Not Applicable")
-    # frappe.db.set_value("Case",{"name":"PMM-211124-15169-00010"},"case_status","SO Created")
-   
-
-
 
 @frappe.whitelist()
 def update_doc_in_sfu(doc, method):
@@ -3429,48 +2039,6 @@ def update_doc_in_sfu(doc, method):
 #         print(pp[1])
 #     print(ind)
 
-#For downloading Timesheet status as excel
-@frappe.whitelist()
-def make_time_sheet():
-    args = frappe.local.form_dict
-    filename = args.name
-    test = build_xlsx_response(filename)
-
-def make_xlsx_timesheet(data, sheet_name=None, wb=None, column_widths=None):
-    args = frappe.local.form_dict
-    column_widths = column_widths or []
-    if wb is None:
-        wb = openpyxl.Workbook()
-    ws = wb.create_sheet(sheet_name, 0)
-    doc = frappe.get_doc("Timesheet",args.name)
-    
-    if doc:
-        ws.append(["Document Name","Document ID","Subject","Project Name","CB","Status","ET","AT"])
-        cb=''
-        for i in doc.timesheet_summary:
-            if i.document=="Task":
-                cb = frappe.db.get_value("Task",{"name":i.id},["cb"])
-                status =frappe.db.get_value("Task",{"name":i.id},["status"])
-                type =frappe.db.get_value("Employee",{"name":doc.employee},["custom_dept_type"])
-                if type == "OPS":
-                    et = frappe.db.get_value("Task",{"name":i.id},["expected_time"])
-                elif type == "CS":
-                    et = frappe.db.get_value("Task",{"name":i.id},["pr_expected_time"])
-                else:
-                    et = 0
-            else:
-                status = frappe.db.get_value("Issue",{"name":i.id},["custom_issue_status"])
-                et = 0
-            ws.append([i.document,i.id,i.subject,i.project,cb,status,round(et,2),round(i.tu,2)])
-    xlsx_file = BytesIO()
-    wb.save(xlsx_file)
-    return xlsx_file
-
-def build_xlsx_response(filename):
-    xlsx_file =make_xlsx_timesheet(filename)
-    frappe.response['filename'] = filename + '.xlsx'
-    frappe.response['filecontent'] = xlsx_file.getvalue()
-    frappe.response['type'] = 'binary' 
 
 
 @frappe.whitelist()
@@ -3522,125 +2090,6 @@ def update_sfp_type():
 #         # print(pp[1])
 #     print(ind)
 
-@frappe.whitelist()
-def batch_status_update_in_batch(doc,method):
-    cases=frappe.db.get_all("Case",{"batch":doc.batch},["*"])
-    case_sts=[]
-    tat_status=[]
-    batch_status=''
-    for i in cases:
-        case_sts.append(i.case_status)
-        tat_status.append(i.tat_monitor)
-        if any(status == "Draft" for status in case_sts):
-            if any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open"
-            elif any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue"
-            else:
-                batch_status="Open"
-        elif  any(status == "Entry-Insuff" for status in case_sts):
-            if any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue with Insuff"
-            elif any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open with Insuff"
-        elif any(status == "Execution-Insuff" for status in case_sts):
-            if any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open with Insuff"
-            elif any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue with Insuff"
-        elif any(status == "Entry-QC" for status in case_sts):
-            if any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open"
-            elif any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue"
-        elif any(status == "Entry Completed" for status in case_sts):
-            if any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue"
-            elif any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open"
-        elif any(status == "Execution" for status in case_sts):
-            if any(tat=="Out TAT" for tat in tat_status):
-                batch_status="Overdue"
-            elif any(tat=="In TAT" for tat in tat_status):
-                batch_status="Open"
-        elif any(status == "Case Report Completed" or status == "Case Completed" or status == "To be Billed" or status == "SO Created" or status == "Drop" or status=="Generate Report" for status in case_sts):
-            batch_status="Completed"
-    frappe.db.set_value("Batch",doc.batch,"batch_status",batch_status)
-
-# @frappe.whitelist()
-# def update_case_status_today():
-#     frappe.db.set_value("Case",{"name":"SHF-100924-14784-00035"},"case_status","SO Created")
-
-@frappe.whitelist()
-def send_mail_for_nc(cause, id, allocated, subject, project, revision, service, spoc, domain, live,dev_spoc=None):
-    if service == 'IT-SW':
-        reports = frappe.db.get_value("Employee", {'user_id': allocated}, ['reports_to'])
-        reports_to = frappe.db.get_value("Employee", {'name': reports}, ['user_id'])
-        tl=frappe.db.get_value("Employee",{'user_id':allocated},["custom_tl"])
-        if tl:
-            tl_mail=frappe.db.get_value("Employee",{'name':tl},['user_id'])
-        data = f"""
-        <table width='100%' style='border-collapse: collapse; border: 1px solid black; text-align: center;'>
-            <tr>
-                <td colspan='2' style='text-align: center; background-color: #0f1568; color: white; font-size: 17px; border: 1px solid black;'>
-                    <b>Task Re-Open Note</b>
-                </td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td width='25%'style='border: 1px solid black;'><b>Task ID</b></td>
-                <td style='border: 1px solid black;'><a href='https://erp.teamproit.com/app/task/{id}' target='_blank'>{id}</a></td>
-            </tr>
-
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Task Statement</b></td>
-                <td style='border: 1px solid black;'>{subject}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Project</b></td>
-                <td style='border: 1px solid black;'>{project}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Task Raised By</b></td>
-                <td style='border: 1px solid black;'>{reports_to}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Task Developed By</b></td>
-                <td style='border: 1px solid black;'>{allocated}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Live At</b></td>
-                <td style='border: 1px solid black;'>{live}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Domain</b></td>
-                <td style='border: 1px solid black;'>{domain}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Re-Open Count</b></td>
-                <td style='border: 1px solid black;'>{revision}</td>
-            </tr>
-            <tr style='text-align: left;'>
-                <td style='border: 1px solid black;'><b>Re-Open Remarks</b></td>
-                <td style='border: 1px solid black;'>{cause}</td>
-            </tr>
-        </table>
-        """
-        
-        frappe.sendmail(
-            sender=frappe.session.user,
-            # recipients='divya.p@groupteampro.com',
-            recipients=spoc,
-            cc=[reports_to,allocated,'anil.p@groupteampro.com',dev_spoc,"dineshbabu.k@groupteampro.com",tl_mail],
-            subject=f'Task : {id} Re-open: Forward for Re-Open',
-            message=f"""
-                <b>Dear Patron,<br><br>Greeting !!!</b><br><br>
-                The attached Task has been re-opened and forwarded for your kind reference<br><br>
-                {data}<br><br>
-                Thanks & Regards,<br>TEAM ERP<br>
-                <i>This email has been automatically generated. Please do not reply</i>
-            """
-        )
-
 
 import frappe
 
@@ -3658,7 +2107,7 @@ def update_case_status_in_batch(doc, method):
             "case_id": case["name"],
             "case_status": case["case_status"]
         })
-        if case["case_status"] in ["Case Completed","To be Billed","SO Created","Case Report Completed","Generate Report"]:
+        if case["case_status"] in ["Case Completed","To be Billed","SO Created","Case Report Completed","Generate Report","Billed"]:
             completed += 1
         elif case["case_status"] in ["Entry-Insuff","Execution-Insuff"]:
             insuff += 1
@@ -3773,261 +2222,261 @@ def update_case_status_existing_batch():
 #         frappe.db.set_value("Batch",j.name,"batch_status",batch_status)
 
 
-@frappe.whitelist()
-def download_excel():
-    filename = "Candidate Details"
-    build_xlsx_response_new(filename)
+# @frappe.whitelist()
+# def download_excel():
+#     filename = "Candidate Details"
+#     build_xlsx_response_new(filename)
 
-def build_xlsx_response_new(filename):
-    xlsx_file = make_xlsx_new(filename)
-    frappe.response['filename'] = filename + '.xlsx'
-    frappe.response['filecontent'] = xlsx_file.getvalue()
-    frappe.response['type'] = 'binary'
+# def build_xlsx_response_new(filename):
+#     xlsx_file = make_xlsx_new(filename)
+#     frappe.response['filename'] = filename + '.xlsx'
+#     frappe.response['filecontent'] = xlsx_file.getvalue()
+#     frappe.response['type'] = 'binary'
 
-def make_xlsx_new(data, sheet_name="Candidates", wb=None, column_widths=None):
-    args = frappe.local.form_dict
-    column_widths = column_widths or []
+# def make_xlsx_new(data, sheet_name="Candidates", wb=None, column_widths=None):
+#     args = frappe.local.form_dict
+#     column_widths = column_widths or []
     
-    if wb is None:
-        wb = Workbook()
-    ws = wb.create_sheet(sheet_name, 0)
+#     if wb is None:
+#         wb = Workbook()
+#     ws = wb.create_sheet(sheet_name, 0)
 
-    # Set column widths
-    for col in range(ord('A'), ord('M')):  # Columns A to L
-        ws.column_dimensions[chr(col)].width = 20
+#     # Set column widths
+#     for col in range(ord('A'), ord('M')):  # Columns A to L
+#         ws.column_dimensions[chr(col)].width = 20
 
-    # Define headers
-    headers = ["Candidate ID", "PP Number", "Candidate Name", "Qualification", 
-               "Total Yrs of Exp", "Overseas Exp", "Current Employer", 
-               "Current Salary", "Exp. Salary", "Current Location", 
-               "Notice Period", "Remarks"]
+#     # Define headers
+#     headers = ["Candidate ID", "PP Number", "Candidate Name", "Qualification", 
+#                "Total Yrs of Exp", "Overseas Exp", "Current Employer", 
+#                "Current Salary", "Exp. Salary", "Current Location", 
+#                "Notice Period", "Remarks"]
 
-    # Define styles
-    position_fill = PatternFill(start_color="0F1568", end_color="0F1568", fill_type="solid")
-    position_font = Font(color="FFFFFF", bold=True)
-    header_fill = PatternFill(start_color="98D7F5", end_color="98D7F5", fill_type="solid")
-    header_font = Font(bold=True)
-    black_border = Border(
-        left=Side(border_style="thin", color="000000"),
-        right=Side(border_style="thin", color="000000"),
-        top=Side(border_style="thin", color="000000"),
-        bottom=Side(border_style="thin", color="000000")
-    )
-    # Fetch candidate data grouped by positions
-    position_candidates = get_data_new(args)
+#     # Define styles
+#     position_fill = PatternFill(start_color="0F1568", end_color="0F1568", fill_type="solid")
+#     position_font = Font(color="FFFFFF", bold=True)
+#     header_fill = PatternFill(start_color="98D7F5", end_color="98D7F5", fill_type="solid")
+#     header_font = Font(bold=True)
+#     black_border = Border(
+#         left=Side(border_style="thin", color="000000"),
+#         right=Side(border_style="thin", color="000000"),
+#         top=Side(border_style="thin", color="000000"),
+#         bottom=Side(border_style="thin", color="000000")
+#     )
+#     # Fetch candidate data grouped by positions
+#     position_candidates = get_data_new(args)
 
-    for position, candidates in position_candidates.items():
-        # Add position row
-        position_row = ws.max_row + 1
-        ws.merge_cells(start_row=position_row, start_column=1, end_row=position_row, end_column=12)
-        cell = ws.cell(row=position_row, column=1)
-        cell.value = f"{position}"
-        cell.fill = position_fill
-        cell.font = position_font
-        cell.alignment = Alignment(horizontal="center", vertical="center")
-        cell.border = black_border
+#     for position, candidates in position_candidates.items():
+#         # Add position row
+#         position_row = ws.max_row + 1
+#         ws.merge_cells(start_row=position_row, start_column=1, end_row=position_row, end_column=12)
+#         cell = ws.cell(row=position_row, column=1)
+#         cell.value = f"{position}"
+#         cell.fill = position_fill
+#         cell.font = position_font
+#         cell.alignment = Alignment(horizontal="center", vertical="center")
+#         cell.border = black_border
 
-        # Add headers
-        header_row = ws.max_row + 1
-        for col_num, header in enumerate(headers, start=1):
-            cell = ws.cell(row=header_row, column=col_num)
-            cell.value = header
-            cell.fill = header_fill
-            cell.font = header_font
-            cell.alignment = Alignment(horizontal="center", vertical="center")
-            cell.border = black_border
+#         # Add headers
+#         header_row = ws.max_row + 1
+#         for col_num, header in enumerate(headers, start=1):
+#             cell = ws.cell(row=header_row, column=col_num)
+#             cell.value = header
+#             cell.fill = header_fill
+#             cell.font = header_font
+#             cell.alignment = Alignment(horizontal="center", vertical="center")
+#             cell.border = black_border
 
-        # Add details for the position
-        for candidate in candidates:
-            # ws.append(candidate)
-            row_num = ws.max_row + 1
-            for col_num, value in enumerate(candidate, start=1):
-                cell = ws.cell(row=row_num, column=col_num)
-                cell.value = value
-                cell.border = black_border  # Apply border to each cell
+#         # Add details for the position
+#         for candidate in candidates:
+#             # ws.append(candidate)
+#             row_num = ws.max_row + 1
+#             for col_num, value in enumerate(candidate, start=1):
+#                 cell = ws.cell(row=row_num, column=col_num)
+#                 cell.value = value
+#                 cell.border = black_border  # Apply border to each cell
 
-        # Add an empty row for separation
-        ws.append([])
+#         # Add an empty row for separation
+#         ws.append([])
 
-    xlsx_file = BytesIO()
-    wb.save(xlsx_file)
-    xlsx_file.seek(0)
-    return xlsx_file
+#     xlsx_file = BytesIO()
+#     wb.save(xlsx_file)
+#     xlsx_file.seek(0)
+#     return xlsx_file
 
-import json
-import frappe
+# import json
+# import frappe
 
-def get_data_new(args):
-    if args is None:
-        args = {}
+# def get_data_new(args):
+#     if args is None:
+#         args = {}
 
-    if isinstance(args.get('args'), str):
-        try:
-            args['filters'] = json.loads(args['args'])
-        except json.JSONDecodeError as e:
-            frappe.log_error(title='JSON Decode Error', message=str(e))
-            return []
+#     if isinstance(args.get('args'), str):
+#         try:
+#             args['filters'] = json.loads(args['args'])
+#         except json.JSONDecodeError as e:
+#             frappe.log_error(title='JSON Decode Error', message=str(e))
+#             return []
     
-    args['filters'] = args.get('filters', {})
+#     args['filters'] = args.get('filters', {})
 
-    data = []
-    date_filter = args['filters'].get('custom_date_filter')
-    candidate_created_by_filter = args['filters'].get('custom_candidate_status_filter')
-    candidate_status = args['filters'].get('custom_status_filter')
-    # print(candidate_created_by_filter)
-    # print(date_filter)
-    if not date_filter or not candidate_created_by_filter:
-        frappe.log_error(title='Missing filters', message='Date filter or candidate_created_by filter is missing.')
-        return data
+#     data = []
+#     date_filter = args['filters'].get('custom_date_filter')
+#     candidate_created_by_filter = args['filters'].get('custom_candidate_status_filter')
+#     candidate_status = args['filters'].get('custom_status_filter')
+#     # print(candidate_created_by_filter)
+#     # print(date_filter)
+#     if not date_filter or not candidate_created_by_filter:
+#         frappe.log_error(title='Missing filters', message='Date filter or candidate_created_by filter is missing.')
+#         return data
 
-    filters = {}
+#     filters = {}
 
-    candidate_condition = candidate_created_by_filter.get('condition')
-    candidate_value = candidate_created_by_filter.get('value')
+#     candidate_condition = candidate_created_by_filter.get('condition')
+#     candidate_value = candidate_created_by_filter.get('value')
 
-    if candidate_condition in ('!=', '=',):
-        filters['candidate_created_by'] = [candidate_condition, candidate_value]
-    elif candidate_condition in ('like', 'not like') and isinstance(candidate_value, str):
-        filters['candidate_created_by'] = [candidate_condition, candidate_value]
-    elif candidate_condition == 'is' and candidate_value == 'set':
-        filters['candidate_created_by'] = ["is", "set"]
-    elif candidate_condition == 'is' and candidate_value == 'not set':
-        filters['candidate_created_by'] = ["is", "not set"]
-    elif candidate_condition in ('in', 'not in') and isinstance(candidate_value, list):
-        filters['candidate_created_by'] = [candidate_condition, candidate_value]
-    else:
-        return data
+#     if candidate_condition in ('!=', '=',):
+#         filters['candidate_created_by'] = [candidate_condition, candidate_value]
+#     elif candidate_condition in ('like', 'not like') and isinstance(candidate_value, str):
+#         filters['candidate_created_by'] = [candidate_condition, candidate_value]
+#     elif candidate_condition == 'is' and candidate_value == 'set':
+#         filters['candidate_created_by'] = ["is", "set"]
+#     elif candidate_condition == 'is' and candidate_value == 'not set':
+#         filters['candidate_created_by'] = ["is", "not set"]
+#     elif candidate_condition in ('in', 'not in') and isinstance(candidate_value, list):
+#         filters['candidate_created_by'] = [candidate_condition, candidate_value]
+#     else:
+#         return data
 
-    date_condition = date_filter.get('condition')
-    date_value = date_filter.get('value')
+#     date_condition = date_filter.get('condition')
+#     date_value = date_filter.get('value')
 
-    if date_condition == 'Between' and isinstance(date_value, list) and len(date_value) == 2:
-        filters['submitted_date'] = ['between', [date_value[0], date_value[1]]]
-    elif date_condition == 'in' and isinstance(date_value, list):
-        filters['submitted_date'] = ['in', date_value]
-    elif date_condition == 'not in' and isinstance(date_value, list):
-        filters['submitted_date'] = ['not in', date_value]
-    elif date_condition == 'is' and date_value == 'set':
-        filters['submitted_date'] = ['is', 'set'] 
-    elif date_condition == 'is' and date_value == 'not set':
-        filters['submitted_date'] = ['is', 'not set'] 
-    elif date_condition in ('<', '<=', '>', '>=') and isinstance(date_value, str):
-        filters['submitted_date'] = [date_condition, date_value]
-    elif date_condition in ('=', '!=') and isinstance(date_value, str):
-        filters['submitted_date'] = [date_condition, date_value]  
-    elif date_condition == 'Timespan' and isinstance(date_value, str):
-        # print(date_value)
-        from_date, to_date = get_timespan_custom(date_value)
-        filters['submitted_date'] = ['between', [from_date, to_date]]
-    elif date_condition == 'fiscal year' and isinstance(date_value, str):
-        fiscal_year_start, fiscal_year_end = get_fiscal_year_custom(date_value)
-        filters['submitted_date'] = ['between', [fiscal_year_start, fiscal_year_end]]
-    else:
-        # frappe.log_error(title='Invalid Date Filter', message='Date filter is not set properly.')
-        return data
+#     if date_condition == 'Between' and isinstance(date_value, list) and len(date_value) == 2:
+#         filters['submitted_date'] = ['between', [date_value[0], date_value[1]]]
+#     elif date_condition == 'in' and isinstance(date_value, list):
+#         filters['submitted_date'] = ['in', date_value]
+#     elif date_condition == 'not in' and isinstance(date_value, list):
+#         filters['submitted_date'] = ['not in', date_value]
+#     elif date_condition == 'is' and date_value == 'set':
+#         filters['submitted_date'] = ['is', 'set'] 
+#     elif date_condition == 'is' and date_value == 'not set':
+#         filters['submitted_date'] = ['is', 'not set'] 
+#     elif date_condition in ('<', '<=', '>', '>=') and isinstance(date_value, str):
+#         filters['submitted_date'] = [date_condition, date_value]
+#     elif date_condition in ('=', '!=') and isinstance(date_value, str):
+#         filters['submitted_date'] = [date_condition, date_value]  
+#     elif date_condition == 'Timespan' and isinstance(date_value, str):
+#         # print(date_value)
+#         from_date, to_date = get_timespan_custom(date_value)
+#         filters['submitted_date'] = ['between', [from_date, to_date]]
+#     elif date_condition == 'fiscal year' and isinstance(date_value, str):
+#         fiscal_year_start, fiscal_year_end = get_fiscal_year_custom(date_value)
+#         filters['submitted_date'] = ['between', [fiscal_year_start, fiscal_year_end]]
+#     else:
+#         # frappe.log_error(title='Invalid Date Filter', message='Date filter is not set properly.')
+#         return data
     
-    if candidate_status:
-        status_condition = candidate_status.get('condition')
-        status_value = candidate_status.get('value')
-        if status_condition and status_value:
-            if status_value =="Submit(SPOC)" or status_value == "Submitted(Client)":
-                filters['pending_for'] = [status_condition, status_value]
+#     if candidate_status:
+#         status_condition = candidate_status.get('condition')
+#         status_value = candidate_status.get('value')
+#         if status_condition and status_value:
+#             if status_value =="Submit(SPOC)" or status_value == "Submitted(Client)":
+#                 filters['pending_for'] = [status_condition, status_value]
     
-    data = {}
-    candidates = frappe.get_all(
-        "Candidate",
-        filters=filters,
-        fields=["name", "passport_number", "given_name", "highest_degree",
-                "total_experience", "overseas_experience", "current_employer",
-                "current_ctc", "expected_ctc", "location", "notice_period_months",
-                "remarks_1", "position","currency_ctc"]
-    )
-    for candidate in candidates:
-        position = candidate.get("position", "")
-        currency=candidate.currency_ctc
-        formatted_ctc = f"{currency} {candidate.current_ctc}" if candidate.current_ctc else "0"
-        if position not in data:
-            data[position] = []
-        data[position].append([
-            candidate.name, candidate.passport_number, candidate.given_name,
-            candidate.highest_degree, candidate.total_experience, 
-            candidate.overseas_experience, candidate.current_employer,
-            formatted_ctc, candidate.expected_ctc, candidate.location, 
-            candidate.notice_period_months, candidate.remarks_1
-        ])
+#     data = {}
+#     candidates = frappe.get_all(
+#         "Candidate",
+#         filters=filters,
+#         fields=["name", "passport_number", "given_name", "highest_degree",
+#                 "total_experience", "overseas_experience", "current_employer",
+#                 "current_ctc", "expected_ctc", "location", "notice_period_months",
+#                 "remarks_1", "position","currency_ctc"]
+#     )
+#     for candidate in candidates:
+#         position = candidate.get("position", "")
+#         currency=candidate.currency_ctc
+#         formatted_ctc = f"{currency} {candidate.current_ctc}" if candidate.current_ctc else "0"
+#         if position not in data:
+#             data[position] = []
+#         data[position].append([
+#             candidate.name, candidate.passport_number, candidate.given_name,
+#             candidate.highest_degree, candidate.total_experience, 
+#             candidate.overseas_experience, candidate.current_employer,
+#             formatted_ctc, candidate.expected_ctc, candidate.location, 
+#             candidate.notice_period_months, candidate.remarks_1
+#         ])
 
-    return data
+#     return data
 
 
 
-def get_timespan_custom(timespan):
-    print(nowdate())
-    today = nowdate()
-    if timespan == "last week":
-        start_date = add_days(today, -7)
-        end_date = today
-    elif timespan == "last month":
-        start_date = add_months(today, -1)
-        end_date = today
-    elif timespan == "last quarter":
-        start_date = add_months(today, -3)
-        end_date = today
-    elif timespan == "last year":
-        start_date = add_months(today, -12)
-        end_date = today
-    elif timespan == "last 6 months":
-        start_date = add_months(today, -6)
-        end_date = today
-    elif timespan == "today":
-        start_date = end_date = today
-    elif timespan == "yesterday":
-        start_date = end_date = add_days(today, -1)
-    elif timespan == "tomorrow":
-        start_date = end_date = add_days(today, 1)
-    elif timespan == "next month":
-        start_date = add_months(today, 1)
-        end_date = add_days(add_months(today, 1), -1)
-    elif timespan == "next week":
-        start_date = today
-        end_date = add_days(today, 7)
-    elif timespan == "next quarter":
-        start_date = today
-        end_date = add_months(today, 3)
-    elif timespan == "next year":
-        start_date = today
-        end_date = add_months(today, 12)
-    elif timespan == "next 6 months":
-        start_date = today
-        end_date = add_months(today, 6)
-    elif timespan == "this week":
-        start_date = get_first_day(today, "week")  
-        end_date = add_days(start_date, 6) 
-    elif timespan == "this month":
-        start_date = get_first_day(today, "month")  
-        end_date = get_last_day(today, "month")  
-    elif timespan == "last month":
-        start_date = add_months(today, -1)
-        end_date = today
-    elif timespan == "this quarter":
-        start_date = get_first_day(today, "quarter")  
-        end_date = get_last_day(today, "quarter")  
-    elif timespan == "this year":
-        start_date = get_first_day(today, "year")  
-        end_date = get_last_day(today, "year")
-    else:
-        raise ValueError(f"Unsupported timespan: {timespan}")
+# def get_timespan_custom(timespan):
+#     print(nowdate())
+#     today = nowdate()
+#     if timespan == "last week":
+#         start_date = add_days(today, -7)
+#         end_date = today
+#     elif timespan == "last month":
+#         start_date = add_months(today, -1)
+#         end_date = today
+#     elif timespan == "last quarter":
+#         start_date = add_months(today, -3)
+#         end_date = today
+#     elif timespan == "last year":
+#         start_date = add_months(today, -12)
+#         end_date = today
+#     elif timespan == "last 6 months":
+#         start_date = add_months(today, -6)
+#         end_date = today
+#     elif timespan == "today":
+#         start_date = end_date = today
+#     elif timespan == "yesterday":
+#         start_date = end_date = add_days(today, -1)
+#     elif timespan == "tomorrow":
+#         start_date = end_date = add_days(today, 1)
+#     elif timespan == "next month":
+#         start_date = add_months(today, 1)
+#         end_date = add_days(add_months(today, 1), -1)
+#     elif timespan == "next week":
+#         start_date = today
+#         end_date = add_days(today, 7)
+#     elif timespan == "next quarter":
+#         start_date = today
+#         end_date = add_months(today, 3)
+#     elif timespan == "next year":
+#         start_date = today
+#         end_date = add_months(today, 12)
+#     elif timespan == "next 6 months":
+#         start_date = today
+#         end_date = add_months(today, 6)
+#     elif timespan == "this week":
+#         start_date = get_first_day(today, "week")  
+#         end_date = add_days(start_date, 6) 
+#     elif timespan == "this month":
+#         start_date = get_first_day(today, "month")  
+#         end_date = get_last_day(today, "month")  
+#     elif timespan == "last month":
+#         start_date = add_months(today, -1)
+#         end_date = today
+#     elif timespan == "this quarter":
+#         start_date = get_first_day(today, "quarter")  
+#         end_date = get_last_day(today, "quarter")  
+#     elif timespan == "this year":
+#         start_date = get_first_day(today, "year")  
+#         end_date = get_last_day(today, "year")
+#     else:
+#         raise ValueError(f"Unsupported timespan: {timespan}")
     
-    return start_date, end_date
+#     return start_date, end_date
 
-def get_fiscal_year_custom(fiscal_year):
-    fiscal_year_split = fiscal_year.split('-')
-    start_year = fiscal_year_split[0]
-    end_year = fiscal_year_split[1]
+# def get_fiscal_year_custom(fiscal_year):
+#     fiscal_year_split = fiscal_year.split('-')
+#     start_year = fiscal_year_split[0]
+#     end_year = fiscal_year_split[1]
 
-    start_date = date(int(start_year), 1, 1) 
-    end_date = date(int(end_year), 12, 31)    
+#     start_date = date(int(start_year), 1, 1) 
+#     end_date = date(int(end_year), 12, 31)    
 
-    return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
+#     return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
 
 
 # @frappe.whitelist()
@@ -4081,52 +2530,7 @@ def check_holidays(date1, date2,name):
         # return count
         return holiday[-1],count
     
-# @frappe.whitelist()
-# def case_status_report():
-#     data = '<table border="1" style="border-collapse: collapse; width: 100%;">'
-#     data += '<tr style="background-color: #002060; color: white;">' \
-#         '<td style="text-align:center; font-weight:bold; color:white;">Customer</td>' \
-#         '<td style="text-align:center; font-weight:bold; color:white;">Batch</td>' \
-#         '<td style="text-align:center; font-weight:bold; color:white;">Case Name</td>' \
-#         '<td style="text-align:center; font-weight:bold; color:white;">Case Status</td>' \
-#         '<td style="text-align:center; font-weight:bold; color:white;">Age (Days)</td>' \
-#         '</tr>'
 
-#     # Fetch all batches with batch_status not "Completed"
-#     batches = frappe.db.get_all("Batch", {"batch_status": ("!=", "Completed")}, ["name", "customer"])
-
-#     for batch in batches:
-#         # Get cases for the current batch
-#         cases = frappe.db.get_all("Case", {"batch": batch.name}, ["name", "case_status", "actual_tat"])
-#         # Add customer row only once
-#         first_row = True
-#         second_row=True
-#         for case in cases:
-#             data += f'<tr>'
-#             if first_row:
-#                 data += f'<td style="text-align:center;" rowspan="{len(cases)}">{batch.customer}</td>'
-#                 first_row = False
-#             if second_row:
-#                 data+=f'<td style="text-align:center;" rowspan="{len(cases)}">{batch.name}</td>'
-#                 second_row=False
-#             data += f'<td style="text-align:center;">{case.name}</td>' \
-#                     f'<td style="text-align:center;">{case.case_status}</td>' \
-#                     f'<td style="text-align:center;">{case.actual_tat}</td>' \
-#                     '</tr>'
-
-#     data += '</table>'
-
-#     frappe.sendmail(
-#         recipients="divya.p@groupteampro.com",
-#         subject=_("Case Status Report"),
-#         message=f"""
-#             Dear Sir/Madam,<br><br>
-#             Kindly find the below list of Case Status Reports:<br>{data}<br>
-#             Thanks & Regards,<br>
-#             TEAM ERP<br>
-#             <i>This email has been automatically generated. Please do not reply.</i>
-#         """
-#     )
 @frappe.whitelist()
 def case_status_report_excel():
     next_date=today()
@@ -4367,7 +2771,8 @@ def update_tat_case():
 # Daily cron update
 @frappe.whitelist()
 def update_tat_completion_date_daily():
-    cases=frappe.db.get_all("Case",{"case_status":("not in",["Case Completed","To be Billed","SO Created"])},["name"])
+    cases=frappe.db.get_all("Case",{"case_status":("not in",["Case Completed","To be Billed","SO Created","Billed"])},["name"])
+    # cases=frappe.db.get_all("Case",{"name":("in",["KCP-221025-17038-00001","KBL-101025-16829-00014","KBL-101025-16828-00004","EID-110425-15820-00003"])},["name"])
     for i in cases:
         doc=frappe.get_doc("Case",i.name)
         if doc.insufficiency_closed:
@@ -4421,7 +2826,7 @@ def update_holiday_tat_case():
 
 @frappe.whitelist()
 def check_holidays_not_insuff():
-    cases=frappe.db.get_all("Case",{"case_status":("not in",["Case Completed","To be Billed","SO Created"])},["*"])
+    cases=frappe.db.get_all("Case",{"case_status":("not in",["Case Completed","To be Billed","SO Created","Billed"])},["*"])
     for i in cases:
         doc=frappe.get_doc("Case",i.name)
         if doc.date_of_initiating and not doc.insufficiency_closed:
@@ -5009,13 +3414,10 @@ def convert_pdf_to_images(file_url):
     if not file_url:
         frappe.throw("No file URL provided")
 
-    # Construct full PDF URL
     pdf_url = f"https://erp.teamproit.com{file_url}"
     
-    # Debugging: Log the resolved PDF URL
     frappe.logger().error(f"Fetching PDF from: {pdf_url}")
 
-    # Download the PDF file
     output_dir = get_files_path("pdf_images", is_private=False)
     os.makedirs(output_dir, exist_ok=True)
     
@@ -5026,7 +3428,6 @@ def convert_pdf_to_images(file_url):
         response = requests.get(pdf_url, stream=True)
         response.raise_for_status()
 
-        # Save the downloaded PDF file
         with open(pdf_path, "wb") as f:
             for chunk in response.iter_content(1024):
                 f.write(chunk)
@@ -5035,7 +3436,6 @@ def convert_pdf_to_images(file_url):
         frappe.throw(f"Failed to download PDF: {str(e)}")
 
     try:
-        # Convert PDF to images
         images = convert_from_path(pdf_path, dpi=150)
     except Exception as e:
         frappe.throw(f"PDF conversion error: {str(e)}")
@@ -5257,7 +3657,7 @@ def sprint_task():
 
         # Send email to the recipients (example recipient is hardcoded here)
         frappe.sendmail(
-            recipients=["abdulla.pi@groupteampro.com","siva.m@groupteampro.com"],
+            recipients=["abdulla.pi@groupteampro.com"],
             subject=subject,
             message=email_body
         )
@@ -5275,31 +3675,17 @@ def sprint_task():
 #         })
 #         task.save(ignore_permissions=True)
 
-# @frappe.whitelist()
-# def task_sprint_mail_1():
-#     job = frappe.db.exists('Scheduled Job Type','kt_email')
-#     if not job:
-#         task = frappe.new_doc("Scheduled Job Type")
-#         task.update({
-#             "method": 'checkpro.custom.kt_email',
-#             "frequency": 'Cron',
-#             "cron_format": '00 7 * * *'
-#         })
-#         task.save(ignore_permissions=True)
-
-
-
-import frappe
-
 @frappe.whitelist()
-def dev_team(user):
-    emp = frappe.db.get_value(
-        'Employee',
-        {'status': 'Active', 'user_id': user},
-        'custom_dev_team'
-    )
-
-    return emp if emp else None
+def task_sprint_mail_1():
+    job = frappe.db.exists('Scheduled Job Type','dsr_task_mail_for_cmn_service')
+    if not job:
+        task = frappe.new_doc("Scheduled Job Type")
+        task.update({
+            "method": 'teampro.teampro.doctype.daily_monitor.dm_it_dev.dsr_task_mail_for_cmn_service',
+            "frequency": 'Cron',
+            "cron_format": '00 20 * * *'
+        })
+        task.save(ignore_permissions=True)
 
 
 # @frappe.whitelist()
@@ -5444,98 +3830,409 @@ def on_submit_employee_onboarding(doc, method):
         employee.save(ignore_permissions=True)
         frappe.msgprint(f"Employee {doc.employee} has been successfully set as active.")
 
-@frappe.whitelist()
-def update_case_status_billed(doc,method):
-    if doc.services=="BCS" and doc.items:
-        for i in doc.items:
-            if i.item_code:
-                if frappe.db.exists("Case",{"name":i.item_code}):
-                    frappe.db.set_value("Case",i.item_code,"case_status","Billed")
-                    frappe.db.set_value("Case",i.item_code,"billed_date",today())
 
-@frappe.whitelist()
-def update_po_st(doctype,docname):
-    frappe.log_error(title="PO",message=docname)
-    frappe.db.sql("""
-    UPDATE `tabPurchase Order`
-    SET docstatus = 0 , workflow_state = 'Pending for CEO'
-    WHERE name = %s
-""", (docname))
+def send_closure_report_with_table_dpr():
+    next_date = datetime.today().date() + timedelta(days=1)
+    formatted_date = next_date.strftime('%d-%m-%Y')
+    filename1 = "Closure_Direct_" + formatted_date
+    filename2 = "Closure_Indirect_" + formatted_date
+    filename3 = "Closure_bdm_" + formatted_date
+    xlsx_files = create_multiple_xlsx_closure_dpr()
+    
+    html_table, total_count , html_table_2, total_count_2, html_table_3, total_count_3 = closure_next_action_dpr()
+    if total_count > 0 and total_count_2 > 0 and total_count_3 >0  :
+        send_mail_with_attachment_and_html_dpr(html_table, html_table_2,html_table_3 ,filename1,filename2,filename3, xlsx_files)
+    elif total_count > 0 and total_count_2 <= 0 and total_count_3 > 0 :
+        send_mail_with_attachment_and_html_dpr(html_table,"",html_table_3, filename1,"",filename3, xlsx_files)
+    elif total_count_2 > 0 and total_count <= 0 and total_count_3 >0 :
+        send_mail_with_attachment_and_html_dpr("",html_table_2,html_table_3,"", filename2,filename3, xlsx_files)
+    elif total_count_2 > 0 and total_count > 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dpr(html_table,html_table_2,"", filename1,filename2,"", xlsx_files)
+    elif total_count_2 <= 0 and total_count > 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dpr(html_table,"","", filename1,"","", xlsx_files)
+    elif total_count_2 > 0 and total_count <= 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dpr("",html_table_2,"","", filename2,"", xlsx_files)
+    elif total_count_2 <= 0 and total_count <= 0 and total_count_3 > 0 :
+        send_mail_with_attachment_and_html_dpr("","",html_table_3,"","", filename3, xlsx_files)
+            
+            
 
-def send_closure_report_with_table():
-    filename = "Closure_" + today()
-    xlsx_file = build_xlsx_response_closure(filename)
-    html_table, total_count = closure_next_action()
-    if total_count > 0:
-        send_mail_with_attachment_and_html(filename, xlsx_file.getvalue(), html_table)
+def send_mail_with_attachment_and_html_dpr(html_table = None , html_table_2 = None, html_table_3 = None, filename1 =None, filename2 =None, filename3 =None,file_content = None ):
+    next_date_str = add_days(nowdate(), 1)
 
-def send_mail_with_attachment_and_html(filename, file_content, html_table):
-    subject = "DND DPR - %s" % nowdate()
+    
+    next_date_obj = datetime.strptime(next_date_str, '%Y-%m-%d')
+
+    
+    formatted_date = next_date_obj.strftime('%d-%m-%Y')
+
+    
+    subject = "DND DPR - %s" % formatted_date
     message = (
         "Dear Sir/Madam,<br>"
         "Please find attached the attached Report based on Next Action.<br><br>"
-        + html_table +
+        + html_table + "<br>"
+        +html_table_2+"<br>"
+        +html_table_3+
         "<br>Thanks & Regards,<br>TEAM ERP<br>"
         "This email has been automatically generated. Please do not reply"
     )
-    attachments = [{"fname": filename + '.xlsx', "fcontent": file_content}]
+    if file_content:
+        # if filename1 and filename2 and filename3:
+        #     attachments = [
+        #         {"fname": filename1 + '.xlsx', "fcontent": file_content[0].getvalue()},
+        #         {"fname": filename2 + '.xlsx', "fcontent": file_content[1].getvalue()},
+        #         {"fname": filename3 + '.xlsx', "fcontent": file_content[2].getvalue()},
+        #     ]
+        # elif filename1 and filename2 :
+        #     attachments = [
+        #         {"fname": filename1 + '.xlsx', "fcontent": file_content[0].getvalue()},
+        #         {"fname": filename2 + '.xlsx', "fcontent": file_content[1].getvalue()},
+        #     ]
+        # elif filename1 and filename3 :
+        #     attachments = [
+        #         {"fname": filename1 + '.xlsx', "fcontent": file_content[0].getvalue()},
+        #         {"fname": filename3 + '.xlsx', "fcontent": file_content[2].getvalue()},
+        #     ]
+        # elif filename2 and filename3 :
+        #     attachments = [
+        #         {"fname": filename2 + '.xlsx', "fcontent": file_content[1].getvalue()},
+        #         {"fname": filename3 + '.xlsx', "fcontent": file_content[2].getvalue()},
+        #     ]
+        # else:
+        #     attachments=[]
+        
+        attachments = []
+        if filename1:
+            attachments.append({"fname": filename1 + '.xlsx', "fcontent": file_content[0].getvalue()})
+        if filename2:
+            attachments.append({"fname": filename2 + '.xlsx', "fcontent": file_content[1].getvalue()})
+        if filename3:
+            attachments.append({"fname": filename3 + '.xlsx', "fcontent": file_content[2].getvalue()})
+            
+    
+                
+                
+             
     frappe.sendmail(
-        # recipients=['jeniba.a@groupteampro.com'],
-        recipients=['dc@groupteampro.com'],
-        cc=['sangeetha.a@groupteampro.com','sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
+        recipients=['divya.p@groupteampro.com','riyaz.a@groupteampro.com','dc@groupteampro.com','sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
+        cc=['sangeetha.a@groupteampro.com'],
+        # recipients=['dc@groupteampro.com','sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
         sender=None,
         subject=subject,
         message=message,
         attachments=attachments,
     )
 
-def build_xlsx_response_closure(filename):
-    return make_xlsx_closure(filename)
 
-def make_xlsx_closure(filename, sheet_name=None, wb=None, column_widths=None):
+
+# def make_xlsx_closure_dpr(filename, sheet_name=None, wb=None, column_widths=None, custom_conditions=None):
+#     action = add_days(nowdate(), 1)
+#     if wb is None:
+#         wb = openpyxl.Workbook()
+#     ws = wb.create_sheet(sheet_name or filename, 0)  
+#     default_column_widths = [15, 35, 45, 25, 25, 40,25]
+#     align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+#     bold_font = Font(bold=True)
+#     column_widths = column_widths or default_column_widths    
+#     for i, width in enumerate(column_widths, start=1):
+#         ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = width  
+#     header_fill = PatternFill(start_color="87CEFA", end_color="87CEFA", fill_type="solid")
+    
+#     ws.merge_cells("A1:G1")
+    
+#     next_date_str = action  
+#     formatted_date = datetime.strptime(next_date_str, '%Y-%m-%d').strftime('%d-%m-%Y')
+
+    
+    
+#     filename1 = "Closure_Direct_" + formatted_date
+#     filename2 = "Closure_Indirect_" + formatted_date
+#     filename3 = "Closure_bdm_" + formatted_date
+    
+#     if filename == filename1:
+#         ws["A1"]="Direct Follow Up"
+#     elif filename == filename2:
+#         ws["A1"]="In Direct Follow Up"
+#     else:
+#         ws["A1"]="BDM Follow Up"    
+            
+#     ws["A1"].fill = header_fill
+#     ws["A1"].font = bold_font
+#     ws["A1"].alignment = align_center
+#     ws.append(["ID", "Candidate Name", "Customer", "Status", "Next Action", "Remark", "Next Action Date"])
+#     for cell in ws[2]: 
+#         cell.fill = header_fill
+#         cell.font = bold_font
+#         cell.alignment = align_center
+#     # closures = frappe.get_all("Closure", {"custom_next_follow_up_on":action,'status':["Not In", ['Medical','Biometric','Signed offer','Ticket','Pre Medical','PCC','Emigration']]}, ['*'])
+#     closures = frappe.get_all("Closure", custom_conditions, ['*'])
+#     if closures:
+#         for closure in closures:
+            
+#             next_action_date = ""
+#             if closure.custom_next_follow_up_on:
+#                 try:
+#                     next_action_date = closure.custom_next_follow_up_on.strftime("%d-%m-%Y")
+#                 except AttributeError:
+                    
+#                     next_action_date = datetime.strptime(str(closure.custom_next_follow_up_on), "%Y-%m-%d").strftime("%d-%m-%Y")
+            
+            
+#             ws.append([closure.name, closure.given_name, closure.customer, closure.status, closure.std_remarks, closure.remark, next_action_date])
+#     xlsx_file = BytesIO()
+#     wb.save(xlsx_file)
+#     xlsx_file.seek(0)    
+#     return xlsx_file
+
+
+def make_xlsx_closure_dpr(filename, sheet_name=None, wb=None, column_widths=None, custom_conditions=None):
     action = add_days(nowdate(), 1)
+
     if wb is None:
         wb = openpyxl.Workbook()
     ws = wb.create_sheet(sheet_name or filename, 0)  
-    default_column_widths = [15, 25, 25, 15, 25, 20]
+
+    default_column_widths = [15, 35, 45, 25, 25, 40, 25]
     column_widths = column_widths or default_column_widths    
+
+    # === Styles ===
+    align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    bold_font = Font(bold=True)
+    header_fill = PatternFill(start_color="87CEFA", end_color="87CEFA", fill_type="solid")
+
     for i, width in enumerate(column_widths, start=1):
         ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = width  
-    header_fill = PatternFill(start_color="87CEFA", end_color="87CEFA", fill_type="solid")
+
+    ws.merge_cells("A1:G1")
+    
+    # === Title Row ===
+    formatted_date = datetime.strptime(action, '%Y-%m-%d').strftime('%d-%m-%Y')
+    filename1 = "Closure_Direct_" + formatted_date
+    filename2 = "Closure_Indirect_" + formatted_date
+    filename3 = "Closure_bdm_" + formatted_date
+    
+    if filename == filename1:
+        ws["A1"] = "Direct Follow Up"
+    elif filename == filename2:
+        ws["A1"] = "In Direct Follow Up"
+    else:
+        ws["A1"] = "BDM Follow Up"    
+
+    ws["A1"].fill = header_fill
+    ws["A1"].font = bold_font
+    ws["A1"].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+    # === Table Header ===
     ws.append(["ID", "Candidate Name", "Customer", "Status", "Next Action", "Remark", "Next Action Date"])
-    for cell in ws[1]: 
+    for cell in ws[2]:
         cell.fill = header_fill
-    closures = frappe.get_all("Closure", {"custom_next_follow_up_on":action,'status':["Not In", ['Onboarded','Dropped']]}, ['*'])
+        cell.font = bold_font
+        cell.alignment = align_center
+
+    # === Data Rows ===
+    closures = frappe.get_all("Closure", custom_conditions, ['*'])
     if closures:
         for closure in closures:
-            ws.append([closure.name, closure.given_name, closure.customer, closure.status, closure.std_remarks, closure.remark, closure.custom_next_follow_up_on])
+            next_action_date = ""
+            if closure.custom_next_follow_up_on:
+                try:
+                    next_action_date = closure.custom_next_follow_up_on.strftime("%d-%m-%Y")
+                except AttributeError:
+                    next_action_date = datetime.strptime(str(closure.custom_next_follow_up_on), "%Y-%m-%d").strftime("%d-%m-%Y")
+
+            ws.append([
+                closure.name,
+                closure.given_name,
+                closure.customer,
+                closure.status,
+                closure.std_remarks,
+                closure.remark,
+                next_action_date
+            ])
+
+    # === Apply Border, Height & Wrap ===
+    thin_border = Border(
+        left=Side(style='thin', color='000000'),
+        right=Side(style='thin', color='000000'),
+        top=Side(style='thin', color='000000'),
+        bottom=Side(style='thin', color='000000')
+    )
+
+    for row in ws.iter_rows(min_row=1, max_row=2, min_col=1, max_col=7):
+          
+        for cell in row:
+            cell.border = thin_border
+            
+    for row in ws.iter_rows(min_row=3, max_row=ws.max_row, min_col=1, max_col=7):
+         
+        for cell in row:
+            cell.border = thin_border
+            cell.alignment = Alignment(wrap_text=True)
+            ws.row_dimensions[cell.row].height = 30
+
+    
+
+    # === Save Workbook ===
     xlsx_file = BytesIO()
     wb.save(xlsx_file)
     xlsx_file.seek(0)    
     return xlsx_file
 
-def closure_next_action():
+
+
+def create_multiple_xlsx_closure_dpr():
     action_date = add_days(nowdate(), 1)
-    closures = frappe.get_all("Closure", {"custom_next_follow_up_on": action_date,'status':("Not In", ['Onboarded','Dropped'])}, ["customer", "status"])
+    conditions_file1 = {"custom_next_follow_up_on": action_date,'stamping_vendor':("is","not set"),"sa_id": ("is", "not set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}
+    
+    conditions_file2 = {"custom_next_follow_up_on": action_date,'stamping_vendor':("is","set"),"sa_id": ("is", "set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}
+    
+    conditions_file3 = {"custom_next_follow_up_on": action_date,'status':("In", ['Visa','Client Offer Letter','Ticket'])}
+    
+    next_date_str = action_date  
+    formatted_date = datetime.strptime(next_date_str, '%Y-%m-%d').strftime('%d-%m-%Y')
+
+    filename1 = "Closure_Direct_" + formatted_date
+    filename2 = "Closure_Indirect_" + formatted_date
+    filename3 = "Closure_bdm_" + formatted_date 
+    file1 = make_xlsx_closure_dpr(filename1, custom_conditions=conditions_file1)
+    file2 = make_xlsx_closure_dpr(filename2, custom_conditions=conditions_file2)
+    file3 = make_xlsx_closure_dpr(filename3, custom_conditions=conditions_file3)
+    
+    
+    return [file1, file2, file3]
+
+def closure_next_action_dpr():
+    
+    records_to_delete = frappe.get_all("DND DPR Records", ["name"])
+    for record in records_to_delete:
+        frappe.delete_doc("DND DPR Records", record.name, ignore_permissions=True)
+    
+    action_date = add_days(nowdate(), 1)
+    #Direct Follow up
+    closures = frappe.get_all("Closure", {"custom_next_follow_up_on": action_date,'stamping_vendor':("is","not set"),"sa_id": ("is", "not set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}, ["customer", "status","name"])
     customer_status_count = {}
     for closure in closures:
         customer = closure.customer
         status = closure.status
+        name = closure.name
         if customer not in customer_status_count:
             customer_status_count[customer] = {}
         if status not in customer_status_count[customer]:
-            customer_status_count[customer][status] = 0
-        customer_status_count[customer][status] += 1
+            customer_status_count[customer][status] = []
+        customer_status_count[customer][status].append(name)
     table = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table += '<tr style="background-color: #87CEFA"><td colspan="3" style=" font-weight: bold; text-align: center;">Direct Follow Up</td></tr>'
     table += '<tr style="background-color: #87CEFA"><td style="width: 45%; font-weight: bold; text-align: center;">Customer</td><td style="width: 30%; font-weight: bold; text-align: center;">Status</td><td style="width: 25%; font-weight: bold; text-align: center;">Count</td></tr>'
-    for customer, statuses in customer_status_count.items():
-        total_counts = sum(statuses.values())
+    for customer, statuses,  in customer_status_count.items():
+        # total_counts = sum(statuses.values())
+        total_counts = sum(len(ids) for ids in statuses.values()) 
         table += '<tr><td><b>%s</b></td><td></td><td><b>%s</b></td></tr>' % (customer, total_counts)        
-        for status, count in statuses.items():
+        for status, closure_ids  in statuses.items():
+            count = len(closure_ids)
             table += '<tr><td></td><td>%s</td><td>%s</td></tr>' % (status, count)
+            for i in closure_ids:
+                # print(f"[DUPLICATE SKIPPED] Closure ID: {i}")
+                doc_1 = frappe.new_doc("DND DPR Records")
+                doc_1.closure_id = i
+                doc_1.dpr_date = action_date
+                doc_1.customer = customer
+                doc_1.status = status
+                doc_1.count = 1
+                doc_1.follow_up = "Direct Follow Up"
+                doc_1.insert(ignore_permissions=True)
+                frappe.db.commit()
+            
     table += '</table>'
-    total_count = sum(sum(status.values()) for status in customer_status_count.values())
-    return table, total_count
+    # total_count = sum(sum(status.values()) for status in customer_status_count.values())
+    total_count = sum(len(ids) for statuses in customer_status_count.values() for ids in statuses.values())
+
+    
+    #InDirect Follow up
+    closures_indirect = frappe.get_all("Closure", {"custom_next_follow_up_on": action_date,'stamping_vendor':("is","set"),"sa_id": ("is", "set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}, ["customer", "status"])
+    customer_status_count_indirect = {}
+    for closure in closures_indirect:
+        customer = closure.customer
+        status = closure.status
+        if customer not in customer_status_count_indirect:
+            customer_status_count_indirect[customer] = {}
+        if status not in customer_status_count_indirect[customer]:
+            customer_status_count_indirect[customer][status] = []
+        customer_status_count_indirect[customer][status].append(name) 
+    table_2 = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table_2 += '<tr style="background-color: #87CEFA"><td colspan="3" style=" font-weight: bold; text-align: center;">InDirect Follow Up</td></tr>'
+    table_2 += '<tr style="background-color: #87CEFA"><td style="width: 45%; font-weight: bold; text-align: center;">Customer</td><td style="width: 30%; font-weight: bold; text-align: center;">Status</td><td style="width: 25%; font-weight: bold; text-align: center;">Count</td></tr>'
+    for customer, statuses in customer_status_count_indirect.items():
+        # total_counts_indirect = sum(statuses.values())
+        total_counts_indirect = sum(len(ids) for ids in statuses.values()) 
+        table_2 += '<tr><td><b>%s</b></td><td></td><td><b>%s</b></td></tr>' % (customer, total_counts_indirect)        
+        for status, closure_ids  in statuses.items():
+            count = len(closure_ids)
+            table_2 += '<tr><td></td><td>%s</td><td>%s</td></tr>' % (status, count)
+            for i in closure_ids:
+                doc_2 = frappe.new_doc("DND DPR Records")
+                doc_2.closure_id = i
+                doc_2.dpr_date = action_date
+                doc_2.customer = customer
+                doc_2.status = status
+                doc_2.count = count
+                doc_2.follow_up = "InDirect Follow Up"
+                doc_2.insert(ignore_permissions=True)
+            frappe.db.commit()
+    table_2 += '</table>'
+    # total_count_indirect = sum(sum(status.values()) for status in customer_status_count_indirect.values())
+    total_count_indirect = sum(len(ids) for statuses in customer_status_count_indirect.values() for ids in statuses.values())
+    
+    #BDM
+    closures_bdm = frappe.get_all("Closure", {"custom_next_follow_up_on": action_date,'status':("In", ['Visa','Client Offer Letter','Ticket'])}, ["customer", "status"])
+    customer_status_count_bdm = {}
+    for closure in closures_bdm:
+        customer = closure.customer
+        status = closure.status
+        if customer not in customer_status_count_bdm:
+            customer_status_count_bdm[customer] = {}
+        if status not in customer_status_count_bdm[customer]:
+            customer_status_count_bdm[customer][status] = []
+        customer_status_count_bdm[customer][status].append(name)
+    table_3 = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table_3 += '<tr style="background-color: #87CEFA"><td colspan="3" style=" font-weight: bold; text-align: center;">BDM Follow Up</td></tr>'
+    table_3 += '<tr style="background-color: #87CEFA"><td style="width: 45%; font-weight: bold; text-align: center;">Customer</td><td style="width: 30%; font-weight: bold; text-align: center;">Status</td><td style="width: 25%; font-weight: bold; text-align: center;">Count</td></tr>'
+    for customer, statuses in customer_status_count_bdm.items():
+        # total_counts_bdm = sum(statuses.values())
+        total_counts_bdm = sum(len(ids) for ids in statuses.values())
+        table_3 += '<tr><td><b>%s</b></td><td></td><td><b>%s</b></td></tr>' % (customer, total_counts_bdm)        
+        for status, closure_ids in statuses.items():
+            count = len(closure_ids)
+            table_3 += '<tr><td></td><td>%s</td><td>%s</td></tr>' % (status, count)
+            for i in closure_ids:
+                doc_3 = frappe.new_doc("DND DPR Records")
+                doc_3.closure_id = i
+                doc_3.dpr_date = action_date
+                doc_3.customer = customer
+                doc_3.status = status
+                doc_3.count = count
+                doc_3.follow_up = "BDM Follow Up"
+                doc_3.insert(ignore_permissions=True)
+                frappe.db.commit()
+    table_3 += '</table>'
+    # total_count_bdm = sum(sum(status.values()) for status in customer_status_count_indirect.values())
+    total_count_bdm = sum(len(ids) for statuses in customer_status_count_bdm.values() for ids in statuses.values())
+    
+    
+    return table, total_count ,table_2, total_count_indirect , table_3, total_count_bdm
+
+
+@frappe.whitelist()
+def create_schedule_job_dpr():
+    job = frappe.db.exists('Scheduled Job Type', 'send_closure_report_with_table_dpr')
+    if not job:
+        exp = frappe.new_doc("Scheduled Job Type")
+        exp.update({
+            "method": 'checkpro.custom.send_closure_report_with_table_dpr',
+            "frequency": 'Cron',
+            "cron_format": "5 21 * * *"
+        })
+        exp.save(ignore_permissions=True)
 
 
 @frappe.whitelist()
@@ -5574,3 +4271,708 @@ def get_vpi_details(name, ins):
                     })
 
     return result
+
+# @frappe.whitelist()
+# def update_emp_check_sts():
+#     frappe.db.set_value('Employment','Employment-4477','drop',0)
+#     frappe.db.set_value("Employment",'Employment-4477',"workflow_state","Draft")
+#     frappe.db.set_value("Employment",'Employment-4477',"check_status","Draft")
+#     frappe.db.set_value("Employment",'Employment-4477',"report_status","YTS")
+
+# onsubmit Leave
+@frappe.whitelist()
+def update_session_leave(doc,method):
+    if doc.half_day_date and doc.custom_session:
+        attendance=frappe.db.get_value("Attendance",{"employee":doc.employee,"attendance_date":doc.half_day_date},["name"])
+        if attendance:
+            frappe.db.set_value("Attendance",attendance,"custom_session",doc.custom_session)
+
+# oncancel Leave
+@frappe.whitelist()
+def update_session_leave_cancel(doc,method):
+    if doc.half_day_date and doc.custom_session:
+        attendance=frappe.db.get_value("Attendance",{"employee":doc.employee,"attendance_date":doc.half_day_date},["name"])
+        if attendance:
+            frappe.db.set_value("Attendance",attendance,"custom_session",'')
+
+# onsubmit Attendance Request
+@frappe.whitelist()
+def update_session_ar(doc,method):
+    if doc.half_day_date and doc.custom_session:
+        attendance=frappe.db.get_value("Attendance",{"employee":doc.employee,"attendance_date":doc.half_day_date},["name"])
+        if attendance:
+            frappe.db.set_value("Attendance",attendance,"custom_session",doc.custom_session)
+
+# oncancel Attendance Request
+@frappe.whitelist()
+def update_session_ar_cancel(doc,method):
+    if doc.half_day_date and doc.custom_session:
+        attendance=frappe.db.get_value("Attendance",{"employee":doc.employee,"attendance_date":doc.half_day_date},["name"])
+        if attendance:
+            frappe.db.set_value("Attendance",attendance,"custom_session",'')
+
+# @frappe.whitelist()
+# def update_cs_status():
+#     frappe.db.set_value("Employment","Employment-2250","report_status","YTS")
+#     frappe.db.set_value("Employment","Employment-2249","report_status","YTS")
+
+# @frappe.whitelist()
+# def update_candidate_status():
+#     candidates=frappe.db.get_all("Candidate",{"pending_for":"QC Cleared"},["name"])
+#     ind=0
+#     for i in candidates:
+#         frappe.db.set_value("Candidate",i.name,"pending_for","Submit(SPOC)")
+#         ind+=1
+#     print(ind)
+
+
+#######___DSR___#######
+
+def send_closure_report_with_table_dsr():
+    today_date = datetime.today().date()
+    formatted_date = today_date.strftime('%d-%m-%Y')
+    filename1 = "Closure_Direct_" + formatted_date
+    filename2 = "Closure_Indirect_" + formatted_date
+    filename3 = "Closure_bdm_" + formatted_date
+    xlsx_files = create_multiple_xlsx_closure_dsr()
+    
+    html_table, total_count , html_table_2, total_count_2, html_table_3, total_count_3 = closure_next_action_dsr()
+    if total_count > 0 and total_count_2 > 0 and total_count_3 >0  :
+        send_mail_with_attachment_and_html_dsr(html_table, html_table_2,html_table_3 ,filename1,filename2,filename3, xlsx_files)
+    elif total_count > 0 and total_count_2 <= 0 and total_count_3 > 0 :
+        send_mail_with_attachment_and_html_dsr(html_table,"",html_table_3, filename1,"",filename3, xlsx_files)
+    elif total_count_2 > 0 and total_count <= 0 and total_count_3 >0 :
+        send_mail_with_attachment_and_html_dsr("",html_table_2,html_table_3,"", filename2,filename3, xlsx_files)
+    elif total_count_2 > 0 and total_count > 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dsr(html_table,html_table_2,"", filename1,filename2,"", xlsx_files)
+    elif total_count_2 <= 0 and total_count > 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dsr(html_table,"","", filename1,"","", xlsx_files)
+    elif total_count_2 > 0 and total_count <= 0 and total_count_3 <=0 :
+        send_mail_with_attachment_and_html_dsr("",html_table_2,"","", filename2,"", xlsx_files)
+    elif total_count_2 <= 0 and total_count <= 0 and total_count_3 > 0 :
+        send_mail_with_attachment_and_html_dsr("","",html_table_3,"","", filename3, xlsx_files)
+            
+            
+
+def send_mail_with_attachment_and_html_dsr(html_table = None , html_table_2 = None, html_table_3 = None, filename1 =None, filename2 =None, filename3 =None,file_content = None ):
+    date_str = nowdate()  
+
+    
+    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+
+    
+    formatted_date = date_obj.strftime('%d-%m-%Y')
+
+    
+    subject = "DND DSR - %s" % formatted_date
+    
+    
+    message = (
+        "Dear Sir/Madam,<br>"
+        "Please find attached the attached Report based on Next Action.<br><br>"
+        + html_table + "<br>"
+        +html_table_2+"<br>"
+        +html_table_3+
+        "<br>Thanks & Regards,<br>TEAM ERP<br>"
+        "This email has been automatically generated. Please do not reply"
+    )
+    if file_content:
+        
+        
+        attachments = []
+        if filename1:
+            attachments.append({"fname": filename1 + '.xlsx', "fcontent": file_content[0].getvalue()})
+        if filename2:
+            attachments.append({"fname": filename2 + '.xlsx', "fcontent": file_content[1].getvalue()})
+        if filename3:
+            attachments.append({"fname": filename3 + '.xlsx', "fcontent": file_content[2].getvalue()})
+
+            
+    
+                
+                
+             
+    frappe.sendmail(
+        
+        recipients=['divya.p@groupteampro.com','riyaz.a@groupteampro.com','dc@groupteampro.com','sangeetha.s@groupteampro.com','dineshbabu.k@groupteampro.com'],
+        cc=['sangeetha.a@groupteampro.com'],
+        # recipients=['riyaz.a@groupteampro.com'],
+        sender=None,
+        subject=subject,
+        message=message,
+        attachments=attachments,
+    )
+
+
+
+
+# def make_xlsx_closure_dsr(filename, sheet_name=None, wb=None, column_widths=None, custom_conditions=None):
+#     action = nowdate()
+
+#     if wb is None:
+#         wb = openpyxl.Workbook()
+#     ws = wb.create_sheet(sheet_name or filename, 0)
+
+#     default_column_widths = [45, 25, 20, 30, 25,20,20]
+#     column_widths = column_widths or default_column_widths
+
+#     align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+#     bold_font = Font(bold=True)
+#     header_fill = PatternFill(start_color="87CEFA", end_color="87CEFA", fill_type="solid")
+
+#     for i, width in enumerate(column_widths, start=1):
+#         ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = width
+
+#     ws.merge_cells("A1:G1")
+#     ws["A1"] = (
+#         "Direct Follow Up" if "Direct" in filename
+#         else "In Direct Follow Up" if "Indirect" in filename
+#         else "BDM Follow Up"
+#     )
+#     ws["A1"].fill = header_fill
+#     ws["A1"].font = bold_font
+#     ws["A1"].alignment = align_center
+
+#     # Table Header
+#     ws.append([
+#         "Customer",
+#         "Closure Status", "Closure Count", "Closure IDs",
+#         "DPR Status", "DPR Count", "DPR IDs"
+#     ])
+#     for cell in ws[2]:
+#         cell.fill = header_fill
+#         cell.font = bold_font
+#         cell.alignment = align_center
+
+#     # Get Closure Records
+#     closures = frappe.get_all("Closure", custom_conditions, ["name", "customer", "status"])
+
+#     # Organize closure data by customer
+#     closure_by_customer = {}
+#     for c in closures:
+#         closure_by_customer.setdefault(c.customer, {}).setdefault(c.status, []).append(c.name)
+
+#     for customer, closure_statuses in closure_by_customer.items():
+#         # Determine follow_up_type from filename
+#         follow_up_type = (
+#             "Direct Follow Up" if "Direct" in filename
+#             else "InDirect Follow Up" if "Indirect" in filename
+#             else "BDM Follow Up"
+#         )
+
+#         dpr_records = frappe.get_all("DND DPR Records", {
+#             "dpr_date": action,
+#             "customer": customer,
+#             "follow_up": follow_up_type
+#         }, ["name", "status"])
+
+#         # Organize DPR records
+#         dpr_statuses = {}
+#         for d in dpr_records:
+#             dpr_statuses.setdefault(d.status, []).append(d.name)
+
+#         closure_items = list(closure_statuses.items())
+#         dpr_items = list(dpr_statuses.items())
+#         max_rows = max(len(closure_items), len(dpr_items))
+
+#         for i in range(max_rows):
+#             # Closure info
+#             closure_status, closure_ids = closure_items[i] if i < len(closure_items) else ("", [])
+#             closure_count = len(closure_ids)
+#             closure_ids_str = ", ".join(closure_ids)
+
+#             # DPR info
+#             dpr_status, dpr_ids = dpr_items[i] if i < len(dpr_items) else ("", [])
+#             dpr_count = len(dpr_ids)
+#             dpr_ids_str = ", ".join(dpr_ids)
+
+#             row = [
+#                 customer if i == 0 else "",
+#                 closure_status,
+#                 closure_count,
+#                 closure_ids_str,
+#                 dpr_status,
+#                 dpr_count,
+#                 dpr_ids_str
+#             ]
+#             ws.append(row)
+        
+        
+        
+#     thin_border = Border(
+#         left=Side(style='thin', color='000000'),
+#         right=Side(style='thin', color='000000'),
+#         top=Side(style='thin', color='000000'),
+#         bottom=Side(style='thin', color='000000')
+#     )
+#     for row in ws.iter_rows(min_row=1, max_row=ws.max_row, min_col=1, max_col=7):
+#         for cell in row:
+#             cell.border = thin_border    
+
+#     # Save the workbook to a BytesIO object
+#     xlsx_file = BytesIO()
+#     wb.save(xlsx_file)
+#     xlsx_file.seek(0)
+#     return xlsx_file
+
+
+def make_xlsx_closure_dsr(filename, sheet_name=None, wb=None, column_widths=None, custom_conditions=None):
+    action = nowdate()
+
+    if wb is None:
+        wb = openpyxl.Workbook()
+    ws = wb.create_sheet(sheet_name or filename, 0)
+
+    default_column_widths = [45, 25, 20, 30, 25, 20, 20]
+    column_widths = column_widths or default_column_widths
+
+    align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    bold_font = Font(bold=True)
+    header_fill = PatternFill(start_color="87CEFA", end_color="87CEFA", fill_type="solid")
+
+    for i, width in enumerate(column_widths, start=1):
+        ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = width
+
+    ws.merge_cells("A1:G1")
+    ws["A1"] = (
+        "Direct Follow Up" if "Direct" in filename
+        else "In Direct Follow Up" if "Indirect" in filename
+        else "BDM Follow Up"
+    )
+    ws["A1"].fill = header_fill
+    ws["A1"].font = bold_font
+    ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
+    ws.row_dimensions[1].height = 35
+
+    # Table Header
+    ws.append([
+        "Customer",
+        "Closure Status", "Closure Count", "Closure IDs",
+        "DPR Status", "DPR Count", "DPR IDs"
+    ])
+    for cell in ws[2]:
+        cell.fill = header_fill
+        cell.font = bold_font
+        cell.alignment = align_center
+
+    # Get Closure Records
+    closures = frappe.get_all("Closure", custom_conditions, ["name", "customer", "status"])
+
+    # Organize closure data by customer
+    closure_by_customer = {}
+    for c in closures:
+        closure_by_customer.setdefault(c.customer, {}).setdefault(c.status, []).append(c.name)
+
+    # ✅ Collect all customers from both Closure and DPR
+    all_customers = set(closure_by_customer.keys())
+    follow_up_type = (
+        "Direct Follow Up" if "Direct" in filename
+        else "InDirect Follow Up" if "Indirect" in filename
+        else "BDM Follow Up"
+    )
+
+    for d in frappe.get_all("DND DPR Records", {
+        "dpr_date": action,
+        "follow_up": follow_up_type
+    }, ["customer"]):
+        all_customers.add(d.customer)
+
+    # ✅ Now loop through all customers
+    for customer in all_customers:
+        closure_statuses = closure_by_customer.get(customer, {})
+
+        dpr_records = frappe.get_all("DND DPR Records", {
+            "dpr_date": action,
+            "customer": customer,
+            "follow_up": follow_up_type
+        }, ["name", "status"])
+
+        # Organize DPR records
+        dpr_statuses = {}
+        for d in dpr_records:
+            dpr_statuses.setdefault(d.status, []).append(d.name)
+
+        closure_items = list(closure_statuses.items())
+        dpr_items = list(dpr_statuses.items())
+        max_rows = max(len(closure_items), len(dpr_items))
+
+        for i in range(max_rows):
+            # Closure info
+            closure_status, closure_ids = closure_items[i] if i < len(closure_items) else ("", [])
+            closure_count = len(closure_ids)
+            closure_ids_str = ", ".join(closure_ids)
+
+            # DPR info
+            dpr_status, dpr_ids = dpr_items[i] if i < len(dpr_items) else ("", [])
+            dpr_count = len(dpr_ids)
+            dpr_ids_str = ", ".join(dpr_ids)
+
+            ws.append([
+                customer if i == 0 else "",
+                closure_status,
+                closure_count,
+                closure_ids_str,
+                dpr_status,
+                dpr_count,
+                dpr_ids_str
+            ])
+
+    # ✅ Add thin border to all cells
+    thin_border = Border(
+        left=Side(style='thin', color='000000'),
+        right=Side(style='thin', color='000000'),
+        top=Side(style='thin', color='000000'),
+        bottom=Side(style='thin', color='000000')
+    )
+    for row in ws.iter_rows(min_row=1, max_row=2, min_col=1, max_col=7):
+        for cell in row:
+            cell.border = thin_border
+            
+            
+    for row in ws.iter_rows(min_row=3, max_row=ws.max_row, min_col=1, max_col=7):
+        for cell in row:
+            cell.border = thin_border
+            cell.alignment = Alignment(wrap_text=True)
+            ws.row_dimensions[cell.row].height = 30
+
+    # Save workbook
+    xlsx_file = BytesIO()
+    wb.save(xlsx_file)
+    xlsx_file.seek(0)
+    return xlsx_file
+
+
+
+def create_multiple_xlsx_closure_dsr():
+    action_date = nowdate()
+    
+    # action_date = "31-10-2025"
+    
+    conditions_file1 = {"last_updated_on": action_date,'stamping_vendor':("is", "not set"),"sa_id": ("is", "not set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}
+    
+    conditions_file2 = {"last_updated_on": action_date,'stamping_vendor':("is", "set"),"sa_id": ("is", "set"),'status':("In", ['Final Medical','Biometric','Signed Offer Letter','Ticket','Premedical','PCC','Emigration'])}
+    
+    conditions_file3 = {"last_updated_on": action_date,'status':("In", ['Visa','Client Offer Letter','Ticket'])}
+
+    filename1 = "Closure_Direct_" + today()
+    filename2 = "Closure_Indirect_" + today()
+    filename3 = "Closure_bdm_" + today() 
+    file1 = make_xlsx_closure_dsr(filename1, custom_conditions=conditions_file1)
+    file2 = make_xlsx_closure_dsr(filename2, custom_conditions=conditions_file2)
+    file3 = make_xlsx_closure_dsr(filename3, custom_conditions=conditions_file3)
+    
+    
+    return [file1, file2, file3]
+
+
+def closure_next_action_dsr():
+    
+    action_date = nowdate()
+    # action_date = "31-10-2025"
+    
+    #Direct2
+    # Fetch Closure records for Direct Follow Up
+    closures = frappe.get_all(
+        "Closure",
+        {
+            "last_updated_on": action_date,
+            'stamping_vendor': ("is", "not set"),
+            "sa_id": ("is", "not set"),
+            'status': ("in", ['Final Medical', 'Biometric', 'Signed Offer Letter', 'Ticket', 'Premedical', 'PCC', 'Emigration'])
+        },
+        ["customer", "status", "name"]
+    )
+
+    # Fetch DND DPR Records for Direct Follow Up
+    dnd_dpr_records = frappe.get_all(
+        "DND DPR Records",
+        {
+            "dpr_date": action_date,
+            "follow_up": "Direct Follow Up"
+        },
+        ["customer", "status", "name"]
+    )
+
+    # Group closure records by customer
+    closure_data_by_customer = {}
+    for c in closures:
+        closure_data_by_customer.setdefault(c.customer, []).append(c)
+
+    # Group DND DPR records by customer
+    dpr_data_by_customer = {}
+    for d in dnd_dpr_records:
+        dpr_data_by_customer.setdefault(d.customer, []).append(d)
+
+    # Get union of all customers
+    all_customers = set(closure_data_by_customer.keys()).union(dpr_data_by_customer.keys())
+
+    # Start HTML table
+    table = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table += '<tr style="background-color: #87CEFA"><td colspan="5" style=" font-weight: bold; text-align: center;">Direct Follow Up</td></tr>'
+    table += '<tr style="background-color: #87CEFA">'
+    table += '<td style="width: 20%; font-weight: bold; text-align: center;">Customer</td>'
+    table += '<td style="width: 20%; font-weight: bold; text-align: center;">Closure Status</td>'
+    table += '<td style="width: 10%; font-weight: bold; text-align: center;">Closure Count</td>'
+    table += '<td style="width: 20%; font-weight: bold; text-align: center;">DPR Status</td>'
+    table += '<td style="width: 10%; font-weight: bold; text-align: center;">DPR Count</td>'
+    table += '</tr>'
+
+    total_count = 0
+
+    for customer in all_customers:
+        closure_statuses = {}
+        for closure in closure_data_by_customer.get(customer, []):
+            closure_statuses.setdefault(closure.status, []).append(closure.name)
+
+        dpr_statuses = {}
+        for dpr in dpr_data_by_customer.get(customer, []):
+            dpr_statuses.setdefault(dpr.status, []).append(dpr.name)
+
+        closure_items = list(closure_statuses.items())
+        dpr_items = list(dpr_statuses.items())
+        max_rows = max(len(closure_items), len(dpr_items))
+
+        for i in range(max_rows):
+            closure_row = closure_items[i] if i < len(closure_items) else ("", [])
+            dpr_row = dpr_items[i] if i < len(dpr_items) else ("", [])
+
+            closure_status, closure_ids = closure_row
+            dpr_status, dpr_ids = dpr_row
+
+            # Add total closure count
+            if closure_status:
+                total_count += len(closure_ids)
+
+            table += (
+                f"<tr>"
+                f"<td>{customer if i == 0 else ''}</td>"
+                f"<td>{closure_status}</td><td>{len(closure_ids)}</td>"
+                f"<td>{dpr_status}</td><td>{len(dpr_ids)}</td>"
+                f"</tr>"
+            )
+
+    table += '</table>'
+
+    # Log total closure count
+    frappe.log_error(message=str(total_count), title="Total Direct Closure Count")
+
+    
+
+    
+        
+    #InDirect2
+    
+    # Indirect Follow up
+    closures_indirect = frappe.get_all("Closure", {
+        "last_updated_on": action_date,
+        'stamping_vendor': ("is", "set"),
+        "sa_id": ("is", "set"),
+        'status': ("In", ['Final Medical', 'Biometric', 'Signed Offer Letter', 'Ticket', 'Premedical', 'PCC', 'Emigration'])
+    }, ["customer", "status", "name"])
+
+    dnd_dpr_records_indirect = frappe.db.get_all("DND DPR Records", {
+        "dpr_date": action_date,
+        "follow_up": "InDirect Follow Up"
+    }, ["customer", "status", "name"])
+
+    # Organize data
+    closure_data_by_customer_indirect = {}
+    dpr_data_by_customer_indirect = {}
+
+    for c in closures_indirect:
+        closure_data_by_customer_indirect.setdefault(c.customer, []).append(c)
+
+    for d in dnd_dpr_records_indirect:
+        dpr_data_by_customer_indirect.setdefault(d.customer, []).append(d)
+
+    customers_indirect = set(closure_data_by_customer_indirect.keys()).union(dpr_data_by_customer_indirect.keys())
+
+    table_2 = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table_2 += '<tr style="background-color: #87CEFA"><td colspan="5" style=" font-weight: bold; text-align: center;">InDirect Follow Up</td></tr>'
+    table_2 += '<tr style="background-color: #87CEFA"><td style="width: 20%; font-weight: bold;">Customer</td><td style="width: 20%; font-weight: bold;">Closure Status</td><td style="width: 10%; font-weight: bold;">Closure Count</td><td style="width: 20%; font-weight: bold;">DPR Status</td><td style="width: 10%; font-weight: bold;">DPR Count</td></tr>'
+
+    for customer in customers_indirect:
+        closure_statuses = {}
+        dpr_statuses = {}
+
+        for closure in closure_data_by_customer_indirect.get(customer, []):
+            closure_statuses.setdefault(closure.status, []).append(closure.name)
+
+        for dpr in dpr_data_by_customer_indirect.get(customer, []):
+            dpr_statuses.setdefault(dpr.status, []).append(dpr.name)
+
+        closure_items = list(closure_statuses.items())
+        dpr_items = list(dpr_statuses.items())
+        max_rows = max(len(closure_items), len(dpr_items), 1)
+
+        for i in range(max_rows):
+            closure_row = closure_items[i] if i < len(closure_items) else ("", [])
+            dpr_row = dpr_items[i] if i < len(dpr_items) else ("", [])
+
+            closure_status, closure_ids = closure_row
+            dpr_status, dpr_ids = dpr_row
+
+            table_2 += (
+                f"<tr>"
+                f"<td>{customer if i == 0 else ''}</td>"
+                f"<td>{closure_status}</td><td>{len(closure_ids)}</td>"
+                f"<td>{dpr_status}</td><td>{len(dpr_ids)}</td>"
+                f"</tr>"
+            )
+
+    table_2 += '</table>'
+
+    total_count_indirect = sum(len(ids) for statuses in closure_data_by_customer_indirect.values() for ids in statuses)
+
+
+    
+    
+    
+    #BDM2
+    
+    # BDM Follow Up
+    closures_bdm = frappe.get_all("Closure", {
+        "last_updated_on": action_date,
+        "status": ("In", ['Visa', 'Client Offer Letter', 'Ticket'])
+    }, ["customer", "status", "name"])
+
+    dnd_dpr_records_bdm = frappe.db.get_all("DND DPR Records", {
+        "dpr_date": action_date,
+        "follow_up": "BDM Follow Up"
+    }, ["customer", "status", "name"])
+
+    # Organize data
+    closure_data_by_customer_bdm = {}
+    dpr_data_by_customer_bdm = {}
+
+    for c in closures_bdm:
+        closure_data_by_customer_bdm.setdefault(c.customer, []).append(c)
+
+    for d in dnd_dpr_records_bdm:
+        dpr_data_by_customer_bdm.setdefault(d.customer, []).append(d)
+
+    customers_bdm = set(closure_data_by_customer_bdm.keys()).union(dpr_data_by_customer_bdm.keys())
+
+    table_3 = '<table text-align="center" border="1" width="100%" style="border-collapse: collapse;text-align: center;">'
+    table_3 += '<tr style="background-color: #87CEFA"><td colspan="5" style=" font-weight: bold; text-align: center;">BDM Follow Up</td></tr>'
+    table_3 += '<tr style="background-color: #87CEFA"><td style="width: 20%; font-weight: bold;">Customer</td><td style="width: 20%; font-weight: bold;">Closure Status</td><td style="width: 10%; font-weight: bold;">Closure Count</td><td style="width: 20%; font-weight: bold;">DPR Status</td><td style="width: 10%; font-weight: bold;">DPR Count</td></tr>'
+
+    for customer in customers_bdm:
+        closure_statuses = {}
+        dpr_statuses = {}
+
+        for closure in closure_data_by_customer_bdm.get(customer, []):
+            closure_statuses.setdefault(closure.status, []).append(closure.name)
+
+        for dpr in dpr_data_by_customer_bdm.get(customer, []):
+            dpr_statuses.setdefault(dpr.status, []).append(dpr.name)
+
+        closure_items = list(closure_statuses.items())
+        dpr_items = list(dpr_statuses.items())
+        max_rows = max(len(closure_items), len(dpr_items), 1)
+
+        for i in range(max_rows):
+            closure_row = closure_items[i] if i < len(closure_items) else ("", [])
+            dpr_row = dpr_items[i] if i < len(dpr_items) else ("", [])
+
+            closure_status, closure_ids = closure_row
+            dpr_status, dpr_ids = dpr_row
+
+            table_3 += (
+                f"<tr>"
+                f"<td>{customer if i == 0 else ''}</td>"
+                f"<td>{closure_status}</td><td>{len(closure_ids)}</td>"
+                f"<td>{dpr_status}</td><td>{len(dpr_ids)}</td>"
+                f"</tr>"
+            )
+
+    table_3 += '</table>'
+
+    total_count_bdm = sum(len(ids) for statuses in closure_data_by_customer_bdm.values() for ids in statuses)
+    return table, total_count ,table_2, total_count_indirect , table_3, total_count_bdm
+
+@frappe.whitelist()
+def create_schedule_job_dsr():
+    job = frappe.db.exists('Scheduled Job Type', 'send_closure_report_with_table_dsr')
+    if not job:
+        exp = frappe.new_doc("Scheduled Job Type")
+        exp.update({
+            "method": 'checkpro.custom.send_closure_report_with_table_dsr',
+            "frequency": 'Cron',
+            "cron_format": "00 21 * * *"
+        })
+        exp.save(ignore_permissions=True)
+
+@frappe.whitelist()
+def update_check_age():
+    list = ["Education Checks"]
+
+    age=0
+    tat_var=0
+    tat_mon=''
+    tat_sts=''
+    for i in list:
+        doc=frappe.db.get_list(i,{"name":"Education Checks-22528"},["name","check_creation_date","workflow_state",'package_tat','insufficiency_days'])
+        for j in doc:
+            if j.workflow_state not in ('Report Completed', '', 'Drop', 'Dropped', 'Not Applicable'):
+                if j.check_creation_date:
+                    date=(date_diff(nowdate(),j.check_creation_date))+1
+                    sql_query = f"""
+                        SELECT COUNT(*)
+                        FROM `tabHoliday`
+                        WHERE parent = 'TEAMPRO 2023 - Checkpro'
+                        AND holiday_date BETWEEN '{j.check_creation_date}' AND '{nowdate()}'
+                    """
+                    count = frappe.db.sql(sql_query, as_list=True)[0][0]
+                    print(count)
+                    print(date)
+                    if count==0:
+                        age=date-j.insufficiency_days
+                    else:
+                        age = date-(count+j.insufficiency_days)
+                    tat_var=int(j.package_tat)-age
+                    if tat_var>0:
+                        tat_mon='In TAT'
+                    else:
+                        tat_mon='Out TAT'
+                    if age<(0.4*int(j.package_tat)):
+                        tat_sts='Regular'
+                    elif age<(0.65*int(j.package_tat)):
+                        tat_sts='Critical'
+                    else:
+                        tat_sts='Most Critical'
+                    print(j.name)
+                    print(age)
+                    # frappe.db.set_value(i,j.name,"actual_tat",age)
+                    # frappe.db.set_value(i,j.name,"holidays",count)
+                    # frappe.db.set_value(i,j.name,"tat_variation",tat_var)
+                    # frappe.db.set_value(i,j.name,"tat_monitor",tat_mon)
+                    # frappe.db.set_value(i,j.name,"custom_tat_status",tat_sts)
+
+# Daily cron update
+@frappe.whitelist()
+def update_tat_completion_date_during_update(name):
+    
+    doc=frappe.get_doc("Case",name)
+    if doc.insufficiency_closed:
+        from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
+        holiday_list_name = 'TEAMPRO 2023 - Checkpro'
+        start_date = doc.insufficiency_closed
+        working_days = int(frappe.db.get_value("Check Package",{'name':doc.check_package},['package_tat']))
+        current_date = start_date
+        holiday = []
+        while working_days > 0:
+            if not is_holiday(holiday_list_name, current_date):
+                holiday.append(current_date)
+                working_days -= 1
+            current_date = add_days(current_date, 1)
+        sql_query = f"""
+            SELECT COUNT(*) 
+            FROM `tabHoliday` 
+            WHERE parent = 'TEAMPRO 2023 - Checkpro' 
+            AND holiday_date BETWEEN '{doc.insufficiency_closed}' AND '{holiday[-1]}'
+        """
+        count = frappe.db.sql(sql_query, as_list=True)[0][0]
+        frappe.db.set_value("Case",doc.name,"end_date",holiday[-1])
+        frappe.db.set_value("Case",doc.name,"holidays",count)
+

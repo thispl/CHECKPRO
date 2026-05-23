@@ -30,7 +30,7 @@ frappe.listview_settings["Court"] = {
                     });
                     console.log(typeof (doc_name))
                     frappe.call({
-                        method: 'checkpro.custom.update_next_action_court',
+                        method: 'checkpro.checkpro_method.update_next_action_court',
                         args: {
                             'check_id': doc_name,
                             'allocated_to': values.allocated_to

@@ -156,9 +156,9 @@ frappe.ui.form.on('Address Check', {
                 // frm.set_value("workflow_state","Entry Completed")
                 frm.set_value("workflow_state","Entry QC Completed")
                 frm.set_value('custom_allocation_date', frappe.datetime.nowdate());
-                frm.set_value("date__of___entry__completion__",frappe.datetime.nowdate())
+                frm.set_value("date__of___entry__completion__",frappe.datetime.now_datetime())
                 frm.set_value("entry_completed_date",frappe.datetime.nowdate())
-			    frm.set_value("date_of_qc_completion",frappe.datetime.nowdate())
+			    frm.set_value("date_of_qc_completion",frappe.datetime.now_datetime())
                 frm.set_value("custom_date_of_execution_initiated",frappe.datetime.nowdate())
                 frm.set_value("entered_by_qc",frappe.session.user)
                 frm.save();
@@ -223,7 +223,7 @@ frappe.ui.form.on('Address Check', {
 				// frm.set_df_property("given_by_status", "reqd", 1)
 				// frm.set_df_property("given_by_designation", "reqd", 1)
 				// frm.set_df_property("given_by_contact_no", "reqd", 1)
-                frm.set_value("date_of_qc_completion",frappe.datetime.nowdate())
+                frm.set_value("date_of_qc_completion",frappe.datetime.now_datetime())
                 frappe.call({
                     method: "teampro.custom.update_case_status",
                     args: {
@@ -825,7 +825,16 @@ if(frm.doc.workflow_state=="Insufficient Data"){
 						
 					},
 				callback: function (r) {
-					console.log("Hi")
+					frappe.call({
+						method: "checkpro.checkpro.doctype.case.case.update_case_age_in_case",
+						args: {
+								"case": frm.doc.case_id,
+								
+							},
+						callback: function (r) {
+							console.log("Hi")
+						}
+					})
 				}
 			})
 		},

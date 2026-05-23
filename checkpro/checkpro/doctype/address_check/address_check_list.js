@@ -41,7 +41,7 @@ frappe.listview_settings["Address Check"] = {
                     });
                     console.log(typeof (doc_name))
                     frappe.call({
-                        method: 'checkpro.custom.update_next_action_addrs',
+                        method: 'checkpro.checkpro_method.update_next_action_addrs',
                         args: {
                             'check_id': JSON.stringify(doc_name),
                             'allocated_to': values.allocated_to,

@@ -3,6 +3,15 @@
 
 frappe.ui.form.on('Education Checks', {
 	refresh(frm) {
+		// frm.add_custom_button('Test', function() {
+		// 	frappe.db.set_value('Education Checks', 'Education Checks-20824', {
+		// 		'epi_course_start': '',
+		// 		'vpi_course_start': ''
+		// 	}).then(() => {
+		// 		frm.page.clear_custom_buttons();
+		// 	});
+		// });
+
 		if(frappe.session.user=='sangeetha.s@groupteampro.com' || frappe.session.user=='keerthana.b@groupteampro.com'){
 			frm.add_custom_button(__("Reject"), function () {
 				let d = new frappe.ui.Dialog({
@@ -700,7 +709,16 @@ if(frm.doc.workflow_state=="Insufficient Data"){
 						
 					},
 				callback: function (r) {
-					console.log("Hi")
+					frappe.call({
+						method: "checkpro.checkpro.doctype.case.case.update_case_age_in_case",
+						args: {
+								"case": frm.doc.case_id,
+								
+							},
+						callback: function (r) {
+							console.log("Hi")
+						}
+					})
 				}
 			})
 		},

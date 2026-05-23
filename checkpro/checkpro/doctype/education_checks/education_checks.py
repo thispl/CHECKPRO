@@ -47,6 +47,8 @@ class EducationChecks(Document):
 				self.final_qc_name = emp[1]
 				self.final_qc_employee_code = emp[2]
 
+		
+
 @frappe.whitelist()
 def education_checks_mail(id):
     mail_doc = frappe.get_doc("Education Checks",id)
